@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project Performance Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  </head>
+  <body class="loading">
+    <div class="app-shell">
+      <aside class="side-nav">
+        <div class="brand-mark">
+          <span class="brand-icon">RP</span>
+          <div>
+            <strong>Project Dashboard</strong>
+            <small>Rays Power Infra</small>
+          </div>
+        </div>
+        <nav aria-label="Dashboard pages">
+          <button class="nav-item active" data-page="financial"><span>01</span>Financial Progress</button>
+          <button class="nav-item" data-page="progress"><span>02</span>Project Progress</button>
+          <button class="nav-item" data-page="mfc"><span>03</span>MFC Delay</button>
+          <button class="nav-item" data-page="budget"><span>04</span>Project Wise Finance</button>
+          <button class="nav-item" data-page="issues"><span>05</span>Critical Issues</button>
+          <button class="nav-item" data-page="attention"><span>06</span>Delay Activity List</button>
+          <button class="nav-item" data-page="hinderance"><span>07</span>Hinderance Report</button>
+        </nav>
+      </aside>
+
+      <div class="report-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Rays Power Infra report</p>
+            <h1>Project Dashboard Rays Power Infra</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="refresh-meta" id="refreshMeta">Last refresh: loading</div>
+            <div class="toolbar">
+              <label for="projectFilter">Project</label>
+              <select id="projectFilter">
+                <option value="__all__">All projects</option>
+              </select>
+            </div>
+            <div class="action-row">
+              <button class="action-button" id="themeToggle" type="button">Dark mode</button>
+              <button class="action-button" id="exportCsv" type="button">Export CSV</button>
+              <button class="action-button" id="exportExcel" type="button">Export Excel</button>
+              <button class="action-button" id="exportPdf" type="button">Export PDF</button>
+            </div>
+          </div>
+        </header>
+
+        <main>
+          <section class="loading-skeleton" id="loadingSkeleton" aria-label="Loading dashboard">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-grid">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="skeleton-panels">
+              <span></span><span></span><span></span>
+            </div>
+          </section>
+
+          <p class="source-note" id="sourceNote"></p>
+
+          <section class="report-page active" data-page-panel="financial">
+            <section class="financial-hero">
+              <h2>FY 2026-27</h2>
+              <div class="kpi-grid" id="kpiGrid"></div>
+            </section>
+
+            <section class="variance-grid" id="varianceCards"></section>
+
+            <section class="dashboard-grid">
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Project wise Billing Till Date (In Cr)</h2>
+                  <span>Plan vs actual</span>
+                </div>
+                <canvas id="billingTrend"></canvas>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Top Billing Gaps</h2>
+                  <span>Projects furthest below plan</span>
+                </div>
+                <div class="ranking-list" id="billingGapRanking"></div>
+              </article>
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Budget Summary</h2>
+                  <span>Contract value, current budget, and billing</span>
+                </div>
+                <canvas id="budgetChart"></canvas>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Budget Overrun Watch</h2>
+                  <span>Highest current budget overruns</span>
+                </div>
+                <div class="ranking-list" id="budgetOverrunRanking"></div>
+              </article>
+            </section>
+          </section>
+
+          <section class="report-page" data-page-panel="progress">
+            <section class="dashboard-grid">
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Project Progress</h2>
+                  <span>Planned and actual</span>
+                </div>
+                <canvas id="progressBars"></canvas>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Lowest Progress</h2>
+                  <span>Actual progress ranking</span>
+                </div>
+                <div class="ranking-list" id="progressRanking"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Commissioning</h2>
+                  <span>Internal vs contract schedule</span>
+                </div>
+                <div id="commissioningList" class="list"></div>
+              </article>
+            </section>
+          </section>
+
+          <section class="report-page" data-page-panel="mfc">
+            <section class="dashboard-grid">
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>MFC Delay</h2>
+                  <span>Delay mix</span>
+                </div>
+                <canvas id="delayChart"></canvas>
+              </article>
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Top Delayed Projects</h2>
+                  <span>Max age and item count</span>
+                </div>
+                <div class="ranking-list" id="delayRanking"></div>
+              </article>
+            </section>
+            <section class="table-section">
+              <div class="panel-heading">
+                <h2>MFC Detail List</h2>
+                <span>PO/MFC plan vs actual dates and delay days</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Project</th>
+                      <th>Item</th>
+                      <th>PO Plan</th>
+                      <th>PO Actual</th>
+                      <th>MFC Plan</th>
+                      <th>MFC Actual</th>
+                      <th>Delay Days</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="mfcRows"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section class="report-page" data-page-panel="budget">
+            <section class="table-section">
+              <div class="panel-heading">
+                <h2>Budget Summary Data</h2>
+                <span>Contract, current budget, PBT, and variances</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Project</th>
+                      <th>Contract Value</th>
+                      <th>Initial Budget</th>
+                      <th>Current Budget</th>
+                      <th>Final Cost</th>
+                      <th>Budget Variance</th>
+                      <th>Target PBT</th>
+                      <th>Current PBT</th>
+                      <th>PBT Gap</th>
+                    </tr>
+                  </thead>
+                  <tbody id="budgetRows"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section class="report-page" data-page-panel="issues">
+            <section class="dashboard-grid">
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Critical Issues</h2>
+                  <span>By criticality</span>
+                </div>
+                <canvas id="issuesChart"></canvas>
+              </article>
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Issue Register</h2>
+                  <span>Actual issue text, owners, remarks, and status</span>
+                </div>
+                <div class="table-wrap compact">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Project</th>
+                        <th>Criticality</th>
+                        <th>Issue</th>
+                        <th>Responsibility</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="issueRows"></tbody>
+                  </table>
+                </div>
+              </article>
+            </section>
+          </section>
+
+          <section class="report-page" data-page-panel="attention">
+            <section class="table-section">
+              <div class="panel-heading">
+                <h2>Delay Activity List</h2>
+                <span>Priority, owner, age, and action area</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Area</th>
+                      <th>Project</th>
+                      <th>Priority</th>
+                      <th>Item</th>
+                      <th>Owner / Status</th>
+                      <th>Due</th>
+                      <th>Delay Days</th>
+                      <th>Aging</th>
+                    </tr>
+                  </thead>
+                  <tbody id="attentionRows"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section class="report-page" data-page-panel="hinderance">
+            <section class="dashboard-grid">
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Hinderance Mix</h2>
+                  <span>Count by cause</span>
+                </div>
+                <canvas id="hinderanceChart"></canvas>
+              </article>
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Hinderance Records</h2>
+                  <span>Actual site hindrance entries</span>
+                </div>
+                <div class="table-wrap compact">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Project</th>
+                        <th>Block</th>
+                        <th>Hinderance</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Duration</th>
+                        <th>Remarks</th>
+                      </tr>
+                    </thead>
+                    <tbody id="hinderanceRows"></tbody>
+                  </table>
+                </div>
+              </article>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="{% static 'dashboard/dashboard.js' %}"></script>
+  </body>
+</html>

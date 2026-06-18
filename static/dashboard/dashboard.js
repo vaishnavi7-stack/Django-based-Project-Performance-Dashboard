@@ -1,0 +1,531 @@
+const charts = {};
+let dashboardData = null;
+let currentProject = "__all__";
+const palette = {
+  plan: "#2563eb",
+  actual: "#0f766e",
+  warn: "#b45309",
+  bad: "#b91c1c",
+  neutral: "#64748b",
+  soft: "#dbeafe",
+};
+
+const escapeHtml = (value) =>
+  String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+const formatCr = (value) =>
+  `${Number(value || 0).toLocaleString("en-IN", { maximumFractionDigits: 1 })} Cr`;
+
+const formatPct = (value) =>
+  `${(Number(value || 0) * 100).toLocaleString("en-IN", { maximumFractionDigits: 1 })}%`;
+
+const formatDeltaPct = (value) => {
+  const sign = Number(value || 0) > 0 ? "+" : "";
+  return `${sign}${formatPct(value)}`;
+};
+
+const formatByType = (value, type) => {
+  if (type === "currency") return formatCr(value);
+  if (type === "percent") return formatPct(value);
+  if (type === "percent_delta") return formatDeltaPct(value);
+  return Number(value || 0).toLocaleString("en-IN");
+};
+
+const trend = (value, label, goodWhenPositive = true) => {
+  const number = Number(value || 0);
+  const direction = number >= 0 ? "up" : "down";
+  const good = goodWhenPositive ? number >= 0 : number <= 0;
+  const arrow = number >= 0 ? "↑" : "↓";
+  return {
+    text: `${arrow} ${Math.abs(number * 100).toLocaleString("en-IN", { maximumFractionDigits: 1 })}% ${label}`,
+    className: good ? "good" : "bad",
+    direction,
+  };
+};
+
+const ratioTrend = (value, base, label, goodWhenPositive = true) =>
+  trend(base ? Number(value || 0) / Number(base || 1) - 1 : 0, label, goodWhenPositive);
+
+function tableToRows(table) {
+  return [...table.querySelectorAll("tr")].map((row) =>
+    [...row.children].map((cell) => cell.textContent.trim().replace(/\s+/g, " ")),
+  );
+}
+
+function activeExportRows() {
+  const activePanel = document.querySelector(".report-page.active");
+  const table = activePanel?.querySelector("table");
+  if (table) return tableToRows(table);
+  return [
+    ["Metric", "Value", "Note"],
+    ...[...document.querySelectorAll(".kpi")].map((card) => [
+      card.querySelector(".label")?.textContent.trim() || "",
+      card.querySelector(".value")?.textContent.trim() || "",
+      card.querySelector(".note")?.textContent.trim() || "",
+    ]),
+    [],
+    ["Variance", "Value", "Note"],
+    ...[...document.querySelectorAll(".variance-card")].map((card) => [
+      card.querySelector(".label")?.textContent.trim() || "",
+      card.querySelector("strong")?.textContent.trim() || "",
+      card.querySelector(".note")?.textContent.trim() || "",
+    ]),
+  ];
+}
+
+function downloadBlob(filename, mimeType, content) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function currentPageName() {
+  return document.querySelector(".nav-item.active")?.textContent.trim().replace(/\s+/g, "-").toLowerCase() || "dashboard";
+}
+
+function exportCsv() {
+  const csv = activeExportRows()
+    .map((row) => row.map((cell) => `"${String(cell).replaceAll('"', '""')}"`).join(","))
+    .join("\n");
+  downloadBlob(`${currentPageName()}.csv`, "text/csv;charset=utf-8", csv);
+}
+
+function exportExcel() {
+  const rows = activeExportRows()
+    .map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`)
+    .join("");
+  const html = `<html><body><table>${rows}</table></body></html>`;
+  downloadBlob(`${currentPageName()}.xls`, "application/vnd.ms-excel;charset=utf-8", html);
+}
+
+function exportPdf() {
+  window.print();
+}
+
+function applyTheme(theme) {
+  document.body.classList.toggle("dark", theme === "dark");
+  localStorage.setItem("dashboard-theme", theme);
+  document.getElementById("themeToggle").textContent = theme === "dark" ? "Light mode" : "Dark mode";
+  if (dashboardData) renderDashboard(dashboardData, currentProject);
+}
+
+function destroyChart(id) {
+  if (charts[id]) {
+    charts[id].destroy();
+  }
+}
+
+function makeChart(id, config) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  destroyChart(id);
+  charts[id] = new Chart(canvas, config);
+}
+
+function renderKpis(kpis) {
+  const grid = document.getElementById("kpiGrid");
+  const items = [
+    ["Order Book Value", formatCr(kpis.order_book || kpis.contract_value), "source financial year", ratioTrend(kpis.contract_value, kpis.order_book, "contracted")],
+    ["Plan Billing", formatCr(kpis.plan_billing), "FY 26-27", ratioTrend(kpis.plan_billing, kpis.order_book || kpis.contract_value, "of order book")],
+    ["Actual Billing TD", formatCr(kpis.actual_billing), "till date", ratioTrend(kpis.actual_billing, kpis.plan_billing, "vs plan")],
+    ["Plan Billing TD", formatCr(kpis.plan_td), "till date", ratioTrend(kpis.plan_td, kpis.plan_billing, "of FY plan")],
+    ["Billing Projection", formatCr(kpis.billing_projection), "projected", ratioTrend(kpis.billing_projection, kpis.plan_billing, "vs plan")],
+    ["Open Issues", kpis.open_issues, "critical register", { text: `${kpis.open_issues} open`, className: kpis.open_issues ? "bad" : "good" }],
+    ["Avg Progress", formatPct(kpis.avg_actual_progress), "overall actual", trend(kpis.avg_actual_progress - 1, "to 100%")],
+  ];
+
+  grid.innerHTML = items
+    .map(
+      ([label, value, note, itemTrend]) => `
+        <article class="kpi">
+          <div class="kpi-top">
+            <div class="label">${escapeHtml(label)}</div>
+            <span class="trend-badge ${itemTrend.className}">${escapeHtml(itemTrend.text)}</span>
+          </div>
+          <div class="value">${escapeHtml(value)}</div>
+          <div class="note">${escapeHtml(note)}</div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function renderVarianceCards(cards) {
+  const grid = document.getElementById("varianceCards");
+  grid.innerHTML = cards
+    .map(
+      (card) => `
+        <article class="variance-card ${card.status}">
+          <div>
+            <div class="label">${escapeHtml(card.label)}</div>
+            <div class="note">${escapeHtml(card.note)}</div>
+          </div>
+          <strong>${escapeHtml(formatByType(card.value, card.format))}</strong>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function renderBilling(data) {
+  makeChart("billingTrend", {
+    type: "line",
+    data: {
+      labels: data.labels,
+      datasets: [
+        {
+          label: "Plan",
+          data: data.plan,
+          borderColor: palette.plan,
+          backgroundColor: "rgba(37, 99, 235, 0.12)",
+          tension: 0.28,
+          fill: true,
+        },
+        {
+          label: "Actual",
+          data: data.actual,
+          borderColor: palette.actual,
+          backgroundColor: "rgba(15, 118, 110, 0.12)",
+          tension: 0.28,
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      interaction: { intersect: false, mode: "index" },
+      plugins: { legend: { position: "bottom" } },
+      scales: { y: { ticks: { callback: (value) => `${value} Cr` } } },
+    },
+  });
+}
+
+function renderProgress(data) {
+  makeChart("progressBars", {
+    type: "bar",
+    data: {
+      labels: data.labels,
+      datasets: [
+        { label: "Planned", data: data.plan, backgroundColor: palette.plan },
+        { label: "Actual", data: data.actual, backgroundColor: palette.actual },
+      ],
+    },
+    options: {
+      indexAxis: "y",
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom" } },
+      scales: { x: { max: 1, ticks: { callback: (value) => `${value * 100}%` } } },
+    },
+  });
+}
+
+function renderIssues(data) {
+  makeChart("issuesChart", {
+    type: "doughnut",
+    data: {
+      labels: data.labels,
+      datasets: [
+        {
+          data: data.values,
+          backgroundColor: ["#b91c1c", "#b45309", "#2563eb", "#0f766e", "#64748b"],
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom" } },
+    },
+  });
+}
+
+function renderBudget(data) {
+  makeChart("budgetChart", {
+    type: "bar",
+    data: {
+      labels: data.labels,
+      datasets: [
+        { label: "Contract value", data: data.contract_value, backgroundColor: palette.plan },
+        { label: "Current budget", data: data.current_budget, backgroundColor: palette.warn },
+        { label: "Actual billing", data: data.actual_billing, backgroundColor: palette.actual },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom" } },
+      scales: { y: { ticks: { callback: (value) => `${value} Cr` } } },
+    },
+  });
+}
+
+function renderDelays(data) {
+  makeChart("delayChart", {
+    type: "bar",
+    data: {
+      labels: data.labels,
+      datasets: [{ label: "Items", data: data.values, backgroundColor: [palette.bad, palette.warn, palette.plan] }],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+    },
+  });
+}
+
+function renderHinderance(data) {
+  makeChart("hinderanceChart", {
+    type: "bar",
+    data: {
+      labels: data.labels,
+      datasets: [{ label: "Records", data: data.values, backgroundColor: palette.actual }],
+    },
+    options: {
+      indexAxis: "y",
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+    },
+  });
+}
+
+function renderRanking(id, rows, config) {
+  const list = document.getElementById(id);
+  if (!list) return;
+  if (!rows.length) {
+    list.innerHTML = '<div class="empty-state">No items to show for this selection.</div>';
+    return;
+  }
+  list.innerHTML = rows
+    .map((row, index) => {
+      const metric = config.metric(row);
+      const sub = config.sub ? config.sub(row) : "";
+      return `
+        <div class="rank-item">
+          <span class="rank-number">${index + 1}</span>
+          <div>
+            <strong>${escapeHtml(row.project)}</strong>
+            <small>${escapeHtml(sub)}</small>
+          </div>
+          <b class="${Number(config.rawMetric ? config.rawMetric(row) : 0) < 0 ? "bad-text" : ""}">${escapeHtml(metric)}</b>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderRankings(rankings) {
+  renderRanking("billingGapRanking", rankings.billing_gap, {
+    metric: (row) => formatCr(row.gap),
+    rawMetric: (row) => row.gap,
+    sub: (row) => `Plan ${formatCr(row.plan)} / Actual ${formatCr(row.actual)}`,
+  });
+  renderRanking("budgetOverrunRanking", rankings.budget_overrun, {
+    metric: (row) => formatCr(row.overrun),
+    rawMetric: (row) => row.overrun,
+    sub: (row) => `Contract ${formatCr(row.contract)} / Budget ${formatCr(row.budget)}`,
+  });
+  renderRanking("progressRanking", rankings.lowest_progress, {
+    metric: (row) => formatPct(row.actual),
+    rawMetric: (row) => row.gap,
+    sub: (row) => `Gap ${formatDeltaPct(row.gap)}`,
+  });
+  renderRanking("delayRanking", rankings.top_delays, {
+    metric: (row) => `${row.max_days} days`,
+    rawMetric: (row) => row.max_days,
+    sub: (row) => `${row.items} delayed items`,
+  });
+}
+
+function renderCommissioning(items) {
+  const list = document.getElementById("commissioningList");
+  if (!items.length) {
+    list.innerHTML = '<div class="empty-state">No commissioning dates for this selection.</div>';
+    return;
+  }
+  list.innerHTML = items
+    .map((item) => {
+      const cls = item.days_delta <= 0 ? "good" : "bad";
+      const label = item.days_delta <= 0 ? `${Math.abs(item.days_delta)}d early` : `${item.days_delta}d late`;
+      return `
+        <div class="list-item">
+          <div>
+            <div class="list-title">${escapeHtml(item.project)}</div>
+            <div class="list-subtitle">Internal ${escapeHtml(item.internal_date)} / Contract ${escapeHtml(item.contract_date)}</div>
+          </div>
+          <span class="pill ${cls}">${escapeHtml(label)}</span>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderAttention(rows) {
+  const body = document.getElementById("attentionRows");
+  body.innerHTML = rows
+    .map(
+      (row) => `
+        <tr>
+          <td>${escapeHtml(row.area)}</td>
+          <td>${escapeHtml(row.project)}</td>
+          <td>${escapeHtml(row.priority || "")}</td>
+          <td>${escapeHtml(row.item)}</td>
+          <td>${escapeHtml(row.owner || row.status || "")}</td>
+          <td>${escapeHtml(row.due || "")}</td>
+          <td>${escapeHtml(row.delay_days || "")}</td>
+          <td>${escapeHtml(row.aging || "")}</td>
+        </tr>
+      `,
+    )
+    .join("");
+}
+
+function renderMfcRows(rows) {
+  const body = document.getElementById("mfcRows");
+  body.innerHTML = rows
+    .map(
+      (row) => `
+        <tr>
+          <td>${escapeHtml(row.project)}</td>
+          <td>${escapeHtml(row.item)}</td>
+          <td>${escapeHtml(row.po_plan)}</td>
+          <td>${escapeHtml(row.po_actual)}</td>
+          <td>${escapeHtml(row.mfc_plan)}</td>
+          <td>${escapeHtml(row.mfc_actual)}</td>
+          <td class="${row.delay_days > 0 ? "bad-text" : ""}">${escapeHtml(row.delay_days)}</td>
+          <td>${escapeHtml(row.status)}</td>
+        </tr>
+      `,
+    )
+    .join("");
+}
+
+function renderIssueRows(rows) {
+  const body = document.getElementById("issueRows");
+  body.innerHTML = rows
+    .map(
+      (row) => `
+        <tr>
+          <td>${escapeHtml(row.timestamp)}</td>
+          <td>${escapeHtml(row.project)}</td>
+          <td>${escapeHtml(row.criticality)}</td>
+          <td>${escapeHtml(row.issue)}</td>
+          <td>${escapeHtml(row.responsibility)}</td>
+          <td>${escapeHtml(row.status)}</td>
+        </tr>
+      `,
+    )
+    .join("");
+}
+
+function renderBudgetRows(rows) {
+  const body = document.getElementById("budgetRows");
+  body.innerHTML = rows
+    .map(
+      (row) => `
+        <tr>
+          <td>${escapeHtml(row.project)}</td>
+          <td>${escapeHtml(formatCr(row.contract_value))}</td>
+          <td>${escapeHtml(formatCr(row.initial_budget))}</td>
+          <td>${escapeHtml(formatCr(row.current_budget))}</td>
+          <td>${row.final_cost === null ? "" : escapeHtml(formatCr(row.final_cost))}</td>
+          <td class="${row.budget_variance < 0 ? "bad-text" : ""}">${escapeHtml(formatCr(row.budget_variance))}</td>
+          <td>${escapeHtml(formatPct(row.target_pbt))}</td>
+          <td>${escapeHtml(formatPct(row.current_pbt))}</td>
+          <td class="${row.pbt_gap < 0 ? "bad-text" : ""}">${escapeHtml(formatDeltaPct(row.pbt_gap))}</td>
+        </tr>
+      `,
+    )
+    .join("");
+}
+
+function renderHinderanceRows(rows) {
+  const body = document.getElementById("hinderanceRows");
+  body.innerHTML = rows
+    .map(
+      (row) => `
+        <tr>
+          <td>${escapeHtml(row.date)}</td>
+          <td>${escapeHtml(row.project)}</td>
+          <td>${escapeHtml(row.block)}</td>
+          <td>${escapeHtml(row.hinderance)}</td>
+          <td>${escapeHtml(row.start)}</td>
+          <td>${escapeHtml(row.end)}</td>
+          <td>${escapeHtml(row.duration)}</td>
+          <td>${escapeHtml(row.remarks)}</td>
+        </tr>
+      `,
+    )
+    .join("");
+}
+
+function populateProjects(projects) {
+  const select = document.getElementById("projectFilter");
+  select.insertAdjacentHTML(
+    "beforeend",
+    projects.map((project) => `<option value="${escapeHtml(project)}">${escapeHtml(project)}</option>`).join(""),
+  );
+}
+
+function renderDashboard(data, project = "__all__") {
+  dashboardData = data;
+  currentProject = project;
+  const view = project === "__all__" ? data.portfolio : data.projects[project];
+  document.getElementById("refreshMeta").textContent = `Last refresh: ${data.summary.last_updated}`;
+  document.getElementById("sourceNote").textContent =
+    `Source: ${data.summary.source_file} | Generated: ${data.summary.last_updated} | Projects: ${data.summary.project_count}`;
+  renderKpis(view.kpis);
+  renderVarianceCards(view.variance_cards);
+  renderBilling(view.billing_trend);
+  renderProgress(view.progress);
+  renderIssues(view.issues);
+  renderBudget(view.budget);
+  renderDelays(view.delays);
+  renderHinderance(view.hinderance);
+  renderRankings(view.rankings);
+  renderCommissioning(view.commissioning);
+  renderAttention(view.attention);
+  renderMfcRows(view.mfc_details);
+  renderIssueRows(view.critical_issue_details);
+  renderBudgetRows(view.budget_details);
+  renderHinderanceRows(view.hinderance_details);
+  Object.values(charts).forEach((chart) => chart.resize());
+}
+
+function activatePage(page) {
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    item.classList.toggle("active", item.dataset.page === page);
+  });
+  document.querySelectorAll(".report-page").forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.pagePanel === page);
+  });
+  setTimeout(() => Object.values(charts).forEach((chart) => chart.resize()), 60);
+}
+
+fetch("/api/dashboard/")
+  .then((response) => response.json())
+  .then((data) => {
+    document.body.classList.remove("loading");
+    populateProjects(data.project_names);
+    renderDashboard(data);
+    document.getElementById("projectFilter").addEventListener("change", (event) => {
+      renderDashboard(data, event.target.value);
+    });
+    document.querySelectorAll(".nav-item").forEach((button) => {
+      button.addEventListener("click", () => activatePage(button.dataset.page));
+    });
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      applyTheme(document.body.classList.contains("dark") ? "light" : "dark");
+    });
+    document.getElementById("exportCsv").addEventListener("click", exportCsv);
+    document.getElementById("exportExcel").addEventListener("click", exportExcel);
+    document.getElementById("exportPdf").addEventListener("click", exportPdf);
+  });
+
+applyTheme(localStorage.getItem("dashboard-theme") || "light");
