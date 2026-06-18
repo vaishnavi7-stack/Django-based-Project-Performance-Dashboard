@@ -136,14 +136,14 @@
               <article class="panel">
                 <div class="panel-heading">
                   <h2>MFC Delay</h2>
-                  <span>Delay mix</span>
+                  <span>Procurement PO/MFC status mix</span>
                 </div>
                 <canvas id="delayChart"></canvas>
               </article>
               <article class="panel wide">
                 <div class="panel-heading">
-                  <h2>Top Delayed Projects</h2>
-                  <span>Max age and item count</span>
+                  <h2>Top Procurement Delays</h2>
+                  <span>PO/MFC overdue or delayed items</span>
                 </div>
                 <div class="ranking-list" id="delayRanking"></div>
               </article>
@@ -236,8 +236,16 @@
           <section class="report-page" data-page-panel="attention">
             <section class="table-section">
               <div class="panel-heading">
-                <h2>Delay Activity List</h2>
-                <span>Priority, owner, age, and action area</span>
+                <div>
+                  <h2>Delay Activity List</h2>
+                  <div class="segmented-control" id="delayTeamFilter" aria-label="Delay team filter">
+                    <button class="active" data-team="All" type="button">All</button>
+                    <button data-team="Design" type="button">Design</button>
+                    <button data-team="Procurement" type="button">Procurement</button>
+                    <button data-team="Construction" type="button">Construction</button>
+                  </div>
+                </div>
+                <span>Team-wise delayed action items</span>
               </div>
               <div class="table-wrap">
                 <table>

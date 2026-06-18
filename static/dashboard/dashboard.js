@@ -1,6 +1,8 @@
 const charts = {};
 let dashboardData = null;
 let currentProject = "__all__";
+let currentAttentionRows = [];
+let currentDelayTeam = "All";
 const palette = {
   plan: "#2563eb",
   actual: "#0f766e",
@@ -271,7 +273,11 @@ function renderDelays(data) {
     type: "bar",
     data: {
       labels: data.labels,
-      datasets: [{ label: "Items", data: data.values, backgroundColor: [palette.bad, palette.warn, palette.plan] }],
+      datasets: [{ label: "Items", data: data.values, backgroundColor: data.labels.map((label) => {
+        if (label.toLowerCase().includes("delayed") || label.toLowerCase().includes("overdue")) return palette.bad;
+        if (label.toLowerCase().includes("time")) return palette.actual;
+        return palette.plan;
+      }) }],
     },
     options: {
       maintainAspectRatio: false,
@@ -320,7 +326,7 @@ function renderRanking(id, rows, config) {
     .join("");
 }
 
-function renderRankings(rankings) {
+function renderRankings(rankings, mfcTopDelays) {
   renderRanking("billingGapRanking", rankings.billing_gap, {
     metric: (row) => formatCr(row.gap),
     rawMetric: (row) => row.gap,
@@ -336,7 +342,7 @@ function renderRankings(rankings) {
     rawMetric: (row) => row.gap,
     sub: (row) => `Gap ${formatDeltaPct(row.gap)}`,
   });
-  renderRanking("delayRanking", rankings.top_delays, {
+  renderRanking("delayRanking", mfcTopDelays, {
     metric: (row) => `${row.max_days} days`,
     rawMetric: (row) => row.max_days,
     sub: (row) => `${row.items} delayed items`,
@@ -367,8 +373,10 @@ function renderCommissioning(items) {
 }
 
 function renderAttention(rows) {
+  currentAttentionRows = rows;
   const body = document.getElementById("attentionRows");
-  body.innerHTML = rows
+  const visibleRows = currentDelayTeam === "All" ? rows : rows.filter((row) => row.team === currentDelayTeam);
+  body.innerHTML = visibleRows
     .map(
       (row) => `
         <tr>
@@ -384,6 +392,14 @@ function renderAttention(rows) {
       `,
     )
     .join("");
+}
+
+function setDelayTeam(team) {
+  currentDelayTeam = team;
+  document.querySelectorAll("#delayTeamFilter button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.team === team);
+  });
+  renderAttention(currentAttentionRows);
 }
 
 function renderMfcRows(rows) {
@@ -488,7 +504,7 @@ function renderDashboard(data, project = "__all__") {
   renderBudget(view.budget);
   renderDelays(view.delays);
   renderHinderance(view.hinderance);
-  renderRankings(view.rankings);
+  renderRankings(view.rankings, view.mfc_top_delays);
   renderCommissioning(view.commissioning);
   renderAttention(view.attention);
   renderMfcRows(view.mfc_details);
@@ -519,6 +535,9 @@ fetch("/api/dashboard/")
     });
     document.querySelectorAll(".nav-item").forEach((button) => {
       button.addEventListener("click", () => activatePage(button.dataset.page));
+    });
+    document.querySelectorAll("#delayTeamFilter button").forEach((button) => {
+      button.addEventListener("click", () => setDelayTeam(button.dataset.team));
     });
     document.getElementById("themeToggle").addEventListener("click", () => {
       applyTheme(document.body.classList.contains("dark") ? "light" : "dark");

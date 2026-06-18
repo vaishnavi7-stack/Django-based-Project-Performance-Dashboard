@@ -511,6 +511,31 @@ body.dark .kpi .value {
   text-align: right;
 }
 
+.segmented-control {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.segmented-control button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 6px 11px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.segmented-control button.active {
+  border-color: var(--accent);
+  background: var(--nav-active);
+  color: var(--accent-2);
+}
+
 .ranking-list {
   display: grid;
   gap: 8px;

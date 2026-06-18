@@ -140,6 +140,23 @@ def delay_summary(design, procurement, execution, project=None):
     }
 
 
+def mfc_delay_summary(po_mfc, project=None):
+    df = project_filter(po_mfc, "Project Name", project)
+    if df.empty:
+        return {"labels": [], "values": []}
+    counts = (
+        df["Status"]
+        .fillna("Blank")
+        .astype(str)
+        .str.strip()
+        .replace("", "Blank")
+        .value_counts()
+    )
+    order = ["MFC was Delayed", "MFC is Overdue", "PO is Overdue", "MFC on Time", "PO not due yet", "MFC not due yet", "Blank"]
+    labels = [label for label in order if label in counts.index] + [label for label in counts.index if label not in order]
+    return {"labels": labels, "values": [int(counts[label]) for label in labels]}
+
+
 def aging_bucket(days):
     days = as_number(days)
     if days >= 180:
@@ -347,6 +364,32 @@ def mfc_details(po_mfc, project=None):
     ]
 
 
+def mfc_top_delays(po_mfc, project=None):
+    df = project_filter(po_mfc, "Project Name", project).copy()
+    if df.empty:
+        return []
+    df["mfc_delay_days"] = (
+        pd.to_datetime(df["MFC Actual"], errors="coerce") - pd.to_datetime(df["MFC Plan"], errors="coerce")
+    ).dt.days
+    delayed = df[df["Status"].astype(str).str.contains("delay|overdue", case=False, na=False)]
+    if delayed.empty:
+        return []
+    grouped = (
+        delayed.groupby("Project Name", as_index=False)
+        .agg(items=("Item Name", "count"), max_days=("mfc_delay_days", "max"))
+        .sort_values(["max_days", "items"], ascending=False)
+        .head(6)
+    )
+    return [
+        {
+            "project": clean(row["Project Name"]),
+            "items": int(row["items"]),
+            "max_days": int(as_number(row["max_days"])),
+        }
+        for _, row in grouped.iterrows()
+    ]
+
+
 def critical_issue_details(issues, project=None):
     df = project_filter(issues, "Project Name", project).copy()
     if df.empty:
@@ -449,26 +492,8 @@ def commissioning_summary(commissioning, project=None):
     ]
 
 
-def attention_rows(issues, design, procurement, execution, project=None):
+def attention_rows(design, procurement, execution, project=None):
     rows = []
-    issue_df = project_filter(issues, "Project Name", project)
-    if not issue_df.empty:
-        open_mask = issue_df["Status"].astype(str).str.contains("open", case=False, na=False)
-        for _, row in issue_df[open_mask].sort_values("Timestamp", ascending=False).head(6).iterrows():
-            rows.append(
-                {
-                    "area": "Issue",
-                    "project": clean(row.get("Project Name")),
-                    "priority": clean(row.get("Criticality")),
-                    "item": clean(row.get("Issues as on date")),
-                    "owner": clean(row.get("Responsibilities")),
-                    "status": clean(row.get("Status")),
-                    "due": clean(row.get("Timestamp")),
-                    "delay_days": "",
-                    "aging": "",
-                }
-            )
-
     for area, df, fields in [
         (
             "Design",
@@ -481,7 +506,7 @@ def attention_rows(issues, design, procurement, execution, project=None):
             ("Task Description", "Priority", "Responsibility", "Target Dates of Pendency"),
         ),
         (
-            "Execution",
+            "Construction",
             project_filter(execution, "Project Name", project),
             ("Activity", "Reason of Delay", "Project Name", "Plan Finish Date"),
         ),
@@ -489,11 +514,12 @@ def attention_rows(issues, design, procurement, execution, project=None):
         if df.empty:
             continue
         sort_col = "Due Since (Days)" if "Due Since (Days)" in df.columns else fields[3]
-        subset = df.sort_values(sort_col, ascending=False).head(5)
+        subset = df.sort_values(sort_col, ascending=False).head(50)
         for _, row in subset.iterrows():
             rows.append(
                 {
                     "area": area,
+                    "team": area,
                     "project": clean(row.get("Project Name")),
                     "priority": clean(row.get(fields[1])),
                     "item": clean(row.get(fields[0])),
@@ -504,7 +530,7 @@ def attention_rows(issues, design, procurement, execution, project=None):
                     "aging": aging_bucket(row.get("Due Since (Days)", 0)),
                 }
             )
-    return rows[:14]
+    return rows
 
 
 def kpis(projects, budget, billing, issues, progress, project=None):
@@ -554,12 +580,7 @@ def build_view(projects, sheets, project=None):
         "progress": progress_summary(sheets["Project Progress"], project),
         "issues": issues_summary(sheets["Critical Issues"], project),
         "budget": budget_summary(sheets["Budget"], sheets["Project Billing"], project),
-        "delays": delay_summary(
-            sheets["Design Delay and Action Plan"],
-            sheets["Procurement Delay and Action Pl"],
-            sheets["Execution Delay and Action Plan"],
-            project,
-        ),
+        "delays": mfc_delay_summary(sheets["PO MFC"], project),
         "variance_cards": variance_cards(
             sheets["Budget"],
             sheets["Project Billing"],
@@ -581,12 +602,12 @@ def build_view(projects, sheets, project=None):
         ),
         "commissioning": commissioning_summary(sheets["Commissioning"], project),
         "mfc_details": mfc_details(sheets["PO MFC"], project),
+        "mfc_top_delays": mfc_top_delays(sheets["PO MFC"], project),
         "critical_issue_details": critical_issue_details(sheets["Critical Issues"], project),
         "budget_details": budget_details(sheets["Budget"], project),
         "hinderance": hinderance_summary(sheets["Hinderance"], project),
         "hinderance_details": hinderance_details(sheets["Hinderance"], project),
         "attention": attention_rows(
-            sheets["Critical Issues"],
             sheets["Design Delay and Action Plan"],
             sheets["Procurement Delay and Action Pl"],
             sheets["Execution Delay and Action Plan"],
