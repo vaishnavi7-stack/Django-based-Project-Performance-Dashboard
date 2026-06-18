@@ -619,17 +619,17 @@ canvas {
 
 .progress-legend .completed,
 .progress-segment.completed {
-  background: #43a047;
+  background: #9fbe8f;
 }
 
 .progress-legend .overdue,
 .progress-segment.overdue {
-  background: #ff7043;
+  background: #f4a6a3;
 }
 
 .progress-legend .pending,
 .progress-segment.pending {
-  background: #10a9b7;
+  background: #8fd3d0;
 }
 
 .project-progress-stack {
