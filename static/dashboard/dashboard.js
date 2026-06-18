@@ -4,12 +4,12 @@ let currentProject = "__all__";
 let currentAttentionRows = [];
 let currentDelayTeam = "All";
 const palette = {
-  plan: "#2563eb",
-  actual: "#0f766e",
-  warn: "#b45309",
-  bad: "#b91c1c",
-  neutral: "#64748b",
-  soft: "#dbeafe",
+  plan: "#a7b9d6",
+  actual: "#9fbe8f",
+  warn: "#e6bf91",
+  bad: "#f4a6a3",
+  neutral: "#9aa8a3",
+  soft: "#edf5f2",
 };
 
 const escapeHtml = (value) =>
@@ -188,7 +188,7 @@ function renderBilling(data) {
           label: "Plan",
           data: data.plan,
           borderColor: palette.plan,
-          backgroundColor: "rgba(37, 99, 235, 0.12)",
+          backgroundColor: "rgba(167, 185, 214, 0.24)",
           tension: 0.28,
           fill: true,
         },
@@ -196,7 +196,7 @@ function renderBilling(data) {
           label: "Actual",
           data: data.actual,
           borderColor: palette.actual,
-          backgroundColor: "rgba(15, 118, 110, 0.12)",
+          backgroundColor: "rgba(159, 190, 143, 0.24)",
           tension: 0.28,
           fill: true,
         },
@@ -260,7 +260,7 @@ function renderIssues(data) {
       datasets: [
         {
           data: data.values,
-          backgroundColor: ["#b91c1c", "#b45309", "#2563eb", "#0f766e", "#64748b"],
+          backgroundColor: [palette.bad, palette.warn, palette.plan, palette.actual, palette.neutral],
         },
       ],
     },

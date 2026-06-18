@@ -1,41 +1,41 @@
 :root {
   color-scheme: light;
-  --bg: #f1f3f4;
-  --panel: #ffffff;
-  --ink: #202124;
-  --muted: #5f6368;
-  --line: #dadce0;
-  --accent: #1a73e8;
-  --accent-2: #185abc;
-  --warn: #b45309;
-  --bad: #d93025;
-  --good: #188038;
-  --nav: #ffffff;
-  --nav-active: #d2e3fc;
-  --brand-deep: #123c69;
-  --brand-gold: #d9a441;
-  --skeleton: #e5e7eb;
-  --skeleton-hi: #f6f7f9;
+  --bg: #f5f8f6;
+  --panel: #fffefd;
+  --ink: #2f3d3a;
+  --muted: #71807b;
+  --line: #dce8e1;
+  --accent: #7aa99a;
+  --accent-2: #557f74;
+  --warn: #d7a06f;
+  --bad: #cf7f7d;
+  --good: #7ea976;
+  --nav: #fbfdfb;
+  --nav-active: #e7f2ed;
+  --brand-deep: #5d867d;
+  --brand-gold: #d6b56d;
+  --skeleton: #e4ece8;
+  --skeleton-hi: #f7faf8;
 }
 
 body.dark {
   color-scheme: dark;
-  --bg: #111827;
-  --panel: #1f2937;
-  --ink: #f8fafc;
-  --muted: #aab4c2;
-  --line: #374151;
-  --accent: #60a5fa;
-  --accent-2: #93c5fd;
-  --warn: #f59e0b;
-  --bad: #f87171;
-  --good: #34d399;
-  --nav: #0f172a;
-  --nav-active: #1e3a5f;
-  --brand-deep: #93c5fd;
-  --brand-gold: #facc15;
-  --skeleton: #273244;
-  --skeleton-hi: #364153;
+  --bg: #18211f;
+  --panel: #212c29;
+  --ink: #f4f8f5;
+  --muted: #b3c2bb;
+  --line: #33453f;
+  --accent: #9ecdc1;
+  --accent-2: #b7ded5;
+  --warn: #e5bb87;
+  --bad: #efa7a3;
+  --good: #aac99d;
+  --nav: #151d1b;
+  --nav-active: #263d37;
+  --brand-deep: #9ecdc1;
+  --brand-gold: #e4ca86;
+  --skeleton: #273631;
+  --skeleton-hi: #3a4b45;
 }
 
 * {
@@ -162,12 +162,12 @@ body {
   min-height: 88px;
   padding: 18px 28px;
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 254, 253, 0.94);
   backdrop-filter: blur(10px);
 }
 
 body.dark .topbar {
-  background: rgba(31, 41, 55, 0.94);
+  background: rgba(33, 44, 41, 0.94);
 }
 
 .eyebrow {
@@ -253,14 +253,14 @@ select {
   width: min(360px, 52vw);
   border: 1px solid var(--line);
   border-radius: 2px;
-  background: #fff;
+  background: var(--panel);
   color: var(--ink);
   padding: 10px 12px;
   font: inherit;
 }
 
 body.dark select {
-  background: #111827;
+  background: #18211f;
 }
 
 .action-row {
@@ -399,30 +399,30 @@ body.loading .report-page {
 }
 
 .trend-badge.good {
-  background: #dcfce7;
-  color: #166534;
+  background: #e6f3df;
+  color: #4f7d47;
 }
 
 .trend-badge.bad {
-  background: #fee2e2;
-  color: #991b1b;
+  background: #f9e1df;
+  color: #a45b58;
 }
 
 body.dark .trend-badge.good {
-  background: rgba(52, 211, 153, 0.16);
+  background: rgba(170, 201, 157, 0.18);
   color: var(--good);
 }
 
 body.dark .trend-badge.bad {
-  background: rgba(248, 113, 113, 0.16);
+  background: rgba(239, 167, 163, 0.18);
   color: var(--bad);
 }
 
 .kpi .value {
   margin-top: 12px;
-  border: 1px solid #80868b;
+  border: 1px solid #bccbc5;
   padding: 7px 8px;
-  background: #fff;
+  background: #fbfdfa;
   font-size: 22px;
   font-weight: 400;
   line-height: 1.1;
@@ -430,8 +430,8 @@ body.dark .trend-badge.bad {
 }
 
 body.dark .kpi .value {
-  border-color: #4b5563;
-  background: #111827;
+  border-color: #4a625a;
+  background: #18211f;
 }
 
 .kpi .note {
@@ -501,7 +501,7 @@ body.dark .kpi .value {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 14px;
-  border-bottom: 1px solid #c7c9cc;
+  border-bottom: 1px solid var(--line);
   padding-bottom: 10px;
 }
 
@@ -559,14 +559,14 @@ body.dark .kpi .value {
   width: 24px;
   height: 24px;
   place-items: center;
-  background: #e8f0fe;
+  background: #edf5f2;
   color: var(--accent);
   font-size: 11px;
   font-weight: 800;
 }
 
 body.dark .rank-number {
-  background: #172554;
+  background: #263d37;
 }
 
 .rank-item strong,
@@ -737,19 +737,19 @@ canvas {
 .pill {
   border-radius: 2px;
   padding: 5px 9px;
-  background: #eef2ff;
-  color: #3730a3;
+  background: #eef5f1;
+  color: var(--accent-2);
   font-size: 12px;
   font-weight: 800;
 }
 
 .pill.good {
-  background: #dcfce7;
+  background: #e6f3df;
   color: var(--good);
 }
 
 .pill.bad {
-  background: #fee2e2;
+  background: #f9e1df;
   color: var(--bad);
 }
 
@@ -780,14 +780,14 @@ td {
 }
 
 th {
-  background: #e0e0e0;
-  color: #3c4043;
+  background: #eaf2ee;
+  color: #4a5b55;
   font-size: 12px;
   text-transform: uppercase;
 }
 
 body.dark th {
-  background: #334155;
+  background: #2a3a35;
   color: var(--ink);
 }
 
