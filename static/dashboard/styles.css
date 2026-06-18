@@ -595,6 +595,117 @@ canvas {
   height: 300px !important;
 }
 
+.progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: center;
+  margin: 2px 0 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.progress-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-legend i {
+  width: 34px;
+  height: 16px;
+  display: inline-block;
+}
+
+.progress-legend .completed,
+.progress-segment.completed {
+  background: #43a047;
+}
+
+.progress-legend .overdue,
+.progress-segment.overdue {
+  background: #ff7043;
+}
+
+.progress-legend .pending,
+.progress-segment.pending {
+  background: #10a9b7;
+}
+
+.project-progress-stack {
+  display: grid;
+  gap: 18px;
+  max-height: 620px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.project-progress-row {
+  display: grid;
+  grid-template-columns: minmax(190px, 260px) minmax(360px, 1fr);
+  gap: 0;
+  align-items: center;
+}
+
+.project-progress-label {
+  display: grid;
+  gap: 3px;
+  padding-right: 12px;
+  text-align: right;
+  line-height: 1.25;
+}
+
+.project-progress-label strong,
+.project-progress-label span {
+  display: block;
+}
+
+.project-progress-label strong {
+  font-size: 14px;
+}
+
+.project-progress-label span {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.project-progress-track {
+  position: relative;
+  display: flex;
+  height: 72px;
+  min-width: 0;
+  border-left: 1px solid var(--ink);
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc(5% - 1px),
+      var(--line) calc(5% - 1px),
+      var(--line) 5%
+    );
+}
+
+.progress-segment {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+}
+
+.progress-segment + .progress-segment {
+  border-left: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.progress-segment span {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
 .list {
   display: grid;
   gap: 10px;
@@ -784,6 +895,19 @@ td {
   .variance-grid,
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+
+  .project-progress-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .project-progress-label {
+    text-align: left;
+  }
+
+  .project-progress-track {
+    height: 54px;
   }
 
   .panel.wide {

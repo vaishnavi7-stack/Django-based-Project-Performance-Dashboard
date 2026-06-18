@@ -1,7 +1,7 @@
 {
   "summary": {
     "project_count": 57,
-    "last_updated": "2026-06-18 15:29",
+    "last_updated": "2026-06-18 16:05",
     "source_file": "Demo (2).xlsx"
   },
   "project_names": [
@@ -172,6 +172,239 @@
         0.675
       ]
     },
+    "project_progress_bars": [
+      {
+        "project": "SECI III",
+        "revision": "R2",
+        "internal_comm": "2025-12-30",
+        "contract_comm": "2026-02-28",
+        "completed": 0.9986,
+        "overdue": 0.0014,
+        "pending": 0.0,
+        "planned": 1.0,
+        "actual": 0.9986
+      },
+      {
+        "project": "AMPIN - Sindhari, Barmer (50MW/75MWp)",
+        "revision": "R2",
+        "internal_comm": "2025-11-28",
+        "contract_comm": "2025-05-29",
+        "completed": 0.9972,
+        "overdue": 0.0028,
+        "pending": 0.0,
+        "planned": 1.0,
+        "actual": 0.9972
+      },
+      {
+        "project": "Bluepine - Honnathi,Karnataka (50MW)",
+        "revision": "R6",
+        "internal_comm": "2026-03-30",
+        "contract_comm": "2026-03-31",
+        "completed": 0.9844,
+        "overdue": 0.0156,
+        "pending": 0.0,
+        "planned": 1.0,
+        "actual": 0.9844
+      },
+      {
+        "project": "SJVN Assam",
+        "revision": "R5",
+        "internal_comm": "2025-12-19",
+        "contract_comm": "2026-08-23",
+        "completed": 0.9578,
+        "overdue": 0.0422,
+        "pending": 0.0,
+        "planned": 1.0,
+        "actual": 0.9578
+      },
+      {
+        "project": "Jawalgera",
+        "revision": "R0",
+        "internal_comm": "2025-05-30",
+        "contract_comm": "2025-02-24",
+        "completed": 0.9088,
+        "overdue": 0.0912,
+        "pending": 0.0,
+        "planned": 1.0,
+        "actual": 0.9088
+      },
+      {
+        "project": "PSS-1 Fategarh -3 (400 KV / 33 KV)",
+        "revision": "R1",
+        "internal_comm": "2025-04-04",
+        "contract_comm": "2026-03-31",
+        "completed": 0.8672,
+        "overdue": 0.1328,
+        "pending": 0.0,
+        "planned": 1.0,
+        "actual": 0.8672
+      },
+      {
+        "project": "NTPC Bikaner (250MW)",
+        "revision": "R5",
+        "internal_comm": "2026-06-25",
+        "contract_comm": "2026-07-13",
+        "completed": 0.816,
+        "overdue": 0.1266,
+        "pending": 0.0574,
+        "planned": 0.9426,
+        "actual": 0.816
+      },
+      {
+        "project": "Serentica Fatehgarh (300MW)",
+        "revision": "R5",
+        "internal_comm": "2026-03-28",
+        "contract_comm": "2026-03-31",
+        "completed": 0.7684,
+        "overdue": 0.2284,
+        "pending": 0.0032,
+        "planned": 0.9968,
+        "actual": 0.7684
+      },
+      {
+        "project": "PSS-2 Fatehgarh -3 (400 KV / 33 KV)",
+        "revision": "R1",
+        "internal_comm": "2025-04-04",
+        "contract_comm": "2026-05-15",
+        "completed": 0.7228,
+        "overdue": 0.2772,
+        "pending": 0.0,
+        "planned": 1.0,
+        "actual": 0.7228
+      },
+      {
+        "project": "NTPC Barethi 315MW",
+        "revision": "R7",
+        "internal_comm": "2026-12-01",
+        "contract_comm": "2026-12-04",
+        "completed": 0.6809,
+        "overdue": 0.064,
+        "pending": 0.255,
+        "planned": 0.745,
+        "actual": 0.6809
+      },
+      {
+        "project": "SJVN Khavda",
+        "revision": "R3",
+        "internal_comm": "2026-04-26",
+        "contract_comm": "2026-05-31",
+        "completed": 0.6388,
+        "overdue": 0.3533,
+        "pending": 0.008,
+        "planned": 0.992,
+        "actual": 0.6388
+      },
+      {
+        "project": "Rediance Yalburga (50MW)",
+        "revision": "R0",
+        "internal_comm": "2026-10-01",
+        "contract_comm": "2026-03-07",
+        "completed": 0.5998,
+        "overdue": 0.2137,
+        "pending": 0.1866,
+        "planned": 0.8134,
+        "actual": 0.5998
+      },
+      {
+        "project": "MRPL",
+        "revision": "R0",
+        "internal_comm": "2027-03-20",
+        "contract_comm": "2027-03-15",
+        "completed": 0.1084,
+        "overdue": 0.2415,
+        "pending": 0.6501,
+        "planned": 0.3499,
+        "actual": 0.1084
+      },
+      {
+        "project": "IMC Indore",
+        "revision": "R2",
+        "internal_comm": "2025-10-12",
+        "contract_comm": "2025-07-02",
+        "completed": 0,
+        "overdue": 0,
+        "pending": 1,
+        "planned": 0,
+        "actual": 0
+      },
+      {
+        "project": "Serentica Fatehgarh (58.67MW)",
+        "revision": "R0",
+        "internal_comm": "2026-05-15",
+        "contract_comm": "2026-03-31",
+        "completed": 0,
+        "overdue": 0,
+        "pending": 1,
+        "planned": 0,
+        "actual": 0
+      },
+      {
+        "project": "Serentica Fatehgarh (25.6MW)",
+        "revision": "R0",
+        "internal_comm": "2025-05-02",
+        "contract_comm": "2026-03-31",
+        "completed": 0,
+        "overdue": 0,
+        "pending": 1,
+        "planned": 0,
+        "actual": 0
+      },
+      {
+        "project": "Serentica Fatehgarh (15.73MW)",
+        "revision": "R0",
+        "internal_comm": null,
+        "contract_comm": "2026-03-31",
+        "completed": 0,
+        "overdue": 0,
+        "pending": 1,
+        "planned": 0,
+        "actual": 0
+      },
+      {
+        "project": "Solar Cell Mfg.",
+        "revision": "R0",
+        "internal_comm": null,
+        "contract_comm": "2028-11-20",
+        "completed": 0,
+        "overdue": 0,
+        "pending": 1,
+        "planned": 0,
+        "actual": 0
+      },
+      {
+        "project": "Rays Green Substation",
+        "revision": "R0",
+        "internal_comm": null,
+        "contract_comm": null,
+        "completed": 0,
+        "overdue": 0,
+        "pending": 1,
+        "planned": 0,
+        "actual": 0
+      },
+      {
+        "project": "MAHAGENCO - Chandrapur,Maharastra(50MW)",
+        "revision": "R0",
+        "internal_comm": "2027-06-27",
+        "contract_comm": "2027-04-09",
+        "completed": 0.0,
+        "overdue": 0.0617,
+        "pending": 0.9383,
+        "planned": 0.0617,
+        "actual": 0.0
+      },
+      {
+        "project": "MAHAGENCO - Ralegaon,Maharastra(50MW)",
+        "revision": "R0",
+        "internal_comm": "2027-09-12",
+        "contract_comm": "2027-04-09",
+        "completed": 0.0,
+        "overdue": 0.0617,
+        "pending": 0.9383,
+        "planned": 0.0617,
+        "actual": 0.0
+      }
+    ],
     "issues": {
       "labels": [
         "Very High",
@@ -3910,6 +4143,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -4048,6 +4282,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -4160,6 +4395,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -4301,6 +4537,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -4434,6 +4671,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -4584,6 +4822,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -5267,6 +5506,19 @@
           1.0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "AMPIN - Sindhari, Barmer (50MW/75MWp)",
+          "revision": "R2",
+          "internal_comm": "2025-11-28",
+          "contract_comm": "2025-05-29",
+          "completed": 0.9972,
+          "overdue": 0.0028,
+          "pending": 0.0,
+          "planned": 1.0,
+          "actual": 0.9972
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -6169,6 +6421,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -6328,6 +6581,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [
           "High",
@@ -6566,6 +6820,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -6698,6 +6953,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -6830,6 +7086,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -6953,6 +7210,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -7139,6 +7397,19 @@
           1.0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Bluepine - Honnathi,Karnataka (50MW)",
+          "revision": "R6",
+          "internal_comm": "2026-03-30",
+          "contract_comm": "2026-03-31",
+          "completed": 0.9844,
+          "overdue": 0.0156,
+          "pending": 0.0,
+          "planned": 1.0,
+          "actual": 0.9844
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -7983,6 +8254,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -8122,6 +8394,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -8254,6 +8527,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -8413,6 +8687,19 @@
           0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "IMC Indore",
+          "revision": "R2",
+          "internal_comm": "2025-10-12",
+          "contract_comm": "2025-07-02",
+          "completed": 0,
+          "overdue": 0,
+          "pending": 1,
+          "planned": 0,
+          "actual": 0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -9555,6 +9842,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -9872,6 +10160,19 @@
           1.0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Jawalgera",
+          "revision": "R0",
+          "internal_comm": "2025-05-30",
+          "contract_comm": "2025-02-24",
+          "completed": 0.9088,
+          "overdue": 0.0912,
+          "pending": 0.0,
+          "planned": 1.0,
+          "actual": 0.9088
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -11224,6 +11525,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -11356,6 +11658,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [
           "Very High",
@@ -11534,6 +11837,19 @@
           0.0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "MAHAGENCO - Chandrapur,Maharastra(50MW)",
+          "revision": "R0",
+          "internal_comm": "2027-06-27",
+          "contract_comm": "2027-04-09",
+          "completed": 0.0,
+          "overdue": 0.0617,
+          "pending": 0.9383,
+          "planned": 0.0617,
+          "actual": 0.0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -12706,6 +13022,19 @@
           0.0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "MAHAGENCO - Ralegaon,Maharastra(50MW)",
+          "revision": "R0",
+          "internal_comm": "2027-09-12",
+          "contract_comm": "2027-04-09",
+          "completed": 0.0,
+          "overdue": 0.0617,
+          "pending": 0.9383,
+          "planned": 0.0617,
+          "actual": 0.0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -13752,6 +14081,19 @@
           0.234
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "MRPL",
+          "revision": "R0",
+          "internal_comm": "2027-03-20",
+          "contract_comm": "2027-03-15",
+          "completed": 0.1084,
+          "overdue": 0.2415,
+          "pending": 0.6501,
+          "planned": 0.3499,
+          "actual": 0.1084
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -14896,6 +15238,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -15058,6 +15401,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -15217,6 +15561,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -15341,6 +15686,19 @@
           0.926
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "NTPC Barethi 315MW",
+          "revision": "R7",
+          "internal_comm": "2026-12-01",
+          "contract_comm": "2026-12-04",
+          "completed": 0.6809,
+          "overdue": 0.064,
+          "pending": 0.255,
+          "planned": 0.745,
+          "actual": 0.6809
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -16464,6 +16822,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -16581,6 +16940,19 @@
           0.959
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "NTPC Bikaner (250MW)",
+          "revision": "R5",
+          "internal_comm": "2026-06-25",
+          "contract_comm": "2026-07-13",
+          "completed": 0.816,
+          "overdue": 0.1266,
+          "pending": 0.0574,
+          "planned": 0.9426,
+          "actual": 0.816
+        }
+      ],
       "issues": {
         "labels": [
           "Very High"
@@ -17660,6 +18032,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -17783,6 +18156,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -17910,6 +18284,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -18049,6 +18424,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -18202,6 +18578,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -18334,6 +18711,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -18501,6 +18879,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -18633,6 +19012,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -18815,6 +19195,19 @@
           0.952
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "PSS-1 Fategarh -3 (400 KV / 33 KV)",
+          "revision": "R1",
+          "internal_comm": "2025-04-04",
+          "contract_comm": "2026-03-31",
+          "completed": 0.8672,
+          "overdue": 0.1328,
+          "pending": 0.0,
+          "planned": 1.0,
+          "actual": 0.8672
+        }
+      ],
       "issues": {
         "labels": [
           "Very High"
@@ -20299,6 +20692,19 @@
           0.827
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "PSS-2 Fatehgarh -3 (400 KV / 33 KV)",
+          "revision": "R1",
+          "internal_comm": "2025-04-04",
+          "contract_comm": "2026-05-15",
+          "completed": 0.7228,
+          "overdue": 0.2772,
+          "pending": 0.0,
+          "planned": 1.0,
+          "actual": 0.7228
+        }
+      ],
       "issues": {
         "labels": [
           "Very High"
@@ -21955,6 +22361,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -22099,6 +22506,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -22413,6 +22821,19 @@
           0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Rays Green Substation",
+          "revision": "R0",
+          "internal_comm": null,
+          "contract_comm": null,
+          "completed": 0,
+          "overdue": 0,
+          "pending": 1,
+          "planned": 0,
+          "actual": 0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -23604,6 +24025,19 @@
           0.936
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Rediance Yalburga (50MW)",
+          "revision": "R0",
+          "internal_comm": "2026-10-01",
+          "contract_comm": "2026-03-07",
+          "completed": 0.5998,
+          "overdue": 0.2137,
+          "pending": 0.1866,
+          "planned": 0.8134,
+          "actual": 0.5998
+        }
+      ],
       "issues": {
         "labels": [
           "Very High"
@@ -24554,6 +24988,19 @@
           1.0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "SECI III",
+          "revision": "R2",
+          "internal_comm": "2025-12-30",
+          "contract_comm": "2026-02-28",
+          "completed": 0.9986,
+          "overdue": 0.0014,
+          "pending": 0.0,
+          "planned": 1.0,
+          "actual": 0.9986
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -25231,6 +25678,19 @@
           1.0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "SJVN Assam",
+          "revision": "R5",
+          "internal_comm": "2025-12-19",
+          "contract_comm": "2026-08-23",
+          "completed": 0.9578,
+          "overdue": 0.0422,
+          "pending": 0.0,
+          "planned": 1.0,
+          "actual": 0.9578
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -26380,6 +26840,19 @@
           0.897
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "SJVN Khavda",
+          "revision": "R3",
+          "internal_comm": "2026-04-26",
+          "contract_comm": "2026-05-31",
+          "completed": 0.6388,
+          "overdue": 0.3533,
+          "pending": 0.008,
+          "planned": 0.992,
+          "actual": 0.6388
+        }
+      ],
       "issues": {
         "labels": [
           "High",
@@ -27594,6 +28067,19 @@
           0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Serentica Fatehgarh (15.73MW)",
+          "revision": "R0",
+          "internal_comm": null,
+          "contract_comm": "2026-03-31",
+          "completed": 0,
+          "overdue": 0,
+          "pending": 1,
+          "planned": 0,
+          "actual": 0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -28497,6 +28983,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -28661,6 +29148,19 @@
           0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Serentica Fatehgarh (25.6MW)",
+          "revision": "R0",
+          "internal_comm": "2025-05-02",
+          "contract_comm": "2026-03-31",
+          "completed": 0,
+          "overdue": 0,
+          "pending": 1,
+          "planned": 0,
+          "actual": 0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -29384,6 +29884,19 @@
           0.902
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Serentica Fatehgarh (300MW)",
+          "revision": "R5",
+          "internal_comm": "2026-03-28",
+          "contract_comm": "2026-03-31",
+          "completed": 0.7684,
+          "overdue": 0.2284,
+          "pending": 0.0032,
+          "planned": 0.9968,
+          "actual": 0.7684
+        }
+      ],
       "issues": {
         "labels": [
           "Medium",
@@ -30534,6 +31047,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -30698,6 +31212,19 @@
           0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Serentica Fatehgarh (58.67MW)",
+          "revision": "R0",
+          "internal_comm": "2026-05-15",
+          "contract_comm": "2026-03-31",
+          "completed": 0,
+          "overdue": 0,
+          "pending": 1,
+          "planned": 0,
+          "actual": 0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -31565,6 +32092,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []
@@ -31689,6 +32217,19 @@
           0
         ]
       },
+      "project_progress_bars": [
+        {
+          "project": "Solar Cell Mfg.",
+          "revision": "R0",
+          "internal_comm": null,
+          "contract_comm": "2028-11-20",
+          "completed": 0,
+          "overdue": 0,
+          "pending": 1,
+          "planned": 0,
+          "actual": 0
+        }
+      ],
       "issues": {
         "labels": [],
         "values": []
@@ -32779,6 +33320,7 @@
         "plan": [],
         "actual": []
       },
+      "project_progress_bars": [],
       "issues": {
         "labels": [],
         "values": []

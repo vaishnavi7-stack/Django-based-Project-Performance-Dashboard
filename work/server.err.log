@@ -68,3 +68,4 @@ Traceback (most recent call last):
   File "C:\Users\Vaishnavi Nautiyal\Documents\Codex\2026-06-18\files-mentioned-by-the-user-demo\work\.venv\Lib\site-packages\django\core\servers\basehttp.py", line 50, in get_internal_wsgi_application
     raise ImproperlyConfigured(
 django.core.exceptions.ImproperlyConfigured: WSGI application 'solar_dashboard.wsgi.application' could not be loaded; Error importing module.
+Watching for file changes with StatReloader

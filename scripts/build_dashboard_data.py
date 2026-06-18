@@ -95,6 +95,43 @@ def progress_summary(progress, project=None):
     }
 
 
+def project_progress_bars(progress, project=None):
+    df = project_filter(progress, "Project Name", project).copy()
+    if df.empty:
+        return []
+    overall = df["Type of work"].astype(str).str.contains(r"over\s*all", case=False, na=False, regex=True)
+    df = df[overall].copy()
+    if df.empty:
+        return []
+    rows = []
+    for _, row in df.iterrows():
+        planned = min(max(as_number(row.get("Cumulative Planned Till Date (%)")), 0), 1)
+        actual = min(max(as_number(row.get("Cumulative Actual Till Date (%)")), 0), 1)
+        completed = actual
+        overdue = max(planned - actual, 0)
+        pending = max(1 - max(planned, actual), 0)
+        total = completed + overdue + pending
+        if total and abs(total - 1) > 0.001:
+            completed = completed / total
+            overdue = overdue / total
+            pending = pending / total
+        rows.append(
+            {
+                "project": clean(row.get("Project Name")),
+                "revision": clean(row.get("Revision Count")),
+                "internal_comm": clean(row.get("Commissioning (Internal Schedule)")),
+                "contract_comm": clean(row.get("Commissioning (Contract)")),
+                "completed": round(completed, 4),
+                "overdue": round(overdue, 4),
+                "pending": round(pending, 4),
+                "planned": round(planned, 4),
+                "actual": round(actual, 4),
+            }
+        )
+    rows.sort(key=lambda item: (item["completed"], -item["overdue"]), reverse=True)
+    return rows[:24] if project is None else rows
+
+
 def issues_summary(issues, project=None):
     df = project_filter(issues, "Project Name", project)
     if df.empty or "Criticality" not in df.columns:
@@ -578,6 +615,7 @@ def build_view(projects, sheets, project=None):
         ),
         "billing_trend": billing_trend(sheets["Month-wise Billing"], project),
         "progress": progress_summary(sheets["Project Progress"], project),
+        "project_progress_bars": project_progress_bars(sheets["Project Progress"], project),
         "issues": issues_summary(sheets["Critical Issues"], project),
         "budget": budget_summary(sheets["Budget"], sheets["Project Billing"], project),
         "delays": mfc_delay_summary(sheets["PO MFC"], project),

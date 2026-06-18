@@ -110,9 +110,14 @@
               <article class="panel wide">
                 <div class="panel-heading">
                   <h2>Project Progress</h2>
-                  <span>Planned and actual</span>
+                  <span>Completed, overdue, and pending by project</span>
                 </div>
-                <canvas id="progressBars"></canvas>
+                <div class="progress-legend" aria-label="Project progress legend">
+                  <span><i class="completed"></i>Completed</span>
+                  <span><i class="overdue"></i>Overdue</span>
+                  <span><i class="pending"></i>Pending</span>
+                </div>
+                <div class="project-progress-stack" id="projectProgressBars"></div>
               </article>
               <article class="panel">
                 <div class="panel-heading">

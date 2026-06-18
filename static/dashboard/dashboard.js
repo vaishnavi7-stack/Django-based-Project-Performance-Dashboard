@@ -212,22 +212,44 @@ function renderBilling(data) {
 }
 
 function renderProgress(data) {
-  makeChart("progressBars", {
-    type: "bar",
-    data: {
-      labels: data.labels,
-      datasets: [
-        { label: "Planned", data: data.plan, backgroundColor: palette.plan },
-        { label: "Actual", data: data.actual, backgroundColor: palette.actual },
-      ],
-    },
-    options: {
-      indexAxis: "y",
-      maintainAspectRatio: false,
-      plugins: { legend: { position: "bottom" } },
-      scales: { x: { max: 1, ticks: { callback: (value) => `${value * 100}%` } } },
-    },
-  });
+  destroyChart("progressBars");
+  const stack = document.getElementById("projectProgressBars");
+  if (!stack) return;
+  if (!data.length) {
+    stack.innerHTML = '<div class="empty-state">No project progress rows for this selection.</div>';
+    return;
+  }
+  stack.innerHTML = data
+    .map((row) => {
+      const parts = [
+        ["completed", row.completed, "Completed"],
+        ["overdue", row.overdue, "Overdue"],
+        ["pending", row.pending, "Pending"],
+      ].filter(([, value]) => Number(value || 0) > 0.0005);
+      return `
+        <div class="project-progress-row">
+          <div class="project-progress-label">
+            <strong>${escapeHtml(row.project)}${row.revision ? ` — ${escapeHtml(row.revision)}` : ""}</strong>
+            <span>Internal Comm: ${escapeHtml(row.internal_comm || "NA")}</span>
+            <span>Contract Comm: ${escapeHtml(row.contract_comm || "NA")}</span>
+          </div>
+          <div class="project-progress-track" aria-label="${escapeHtml(row.project)} progress">
+            ${parts
+              .map(([className, value, label]) => {
+                const pct = Math.round(Number(value || 0) * 100);
+                const stylePct = Math.max(Number(value || 0) * 100, pct > 0 && pct < 2 ? 2 : 0);
+                return `
+                  <div class="progress-segment ${className}" style="width:${stylePct}%;" title="${escapeHtml(label)} ${pct}%">
+                    ${pct >= 7 ? `<span>${pct}%</span>` : ""}
+                  </div>
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+      `;
+    })
+    .join("");
 }
 
 function renderIssues(data) {
@@ -499,7 +521,7 @@ function renderDashboard(data, project = "__all__") {
   renderKpis(view.kpis);
   renderVarianceCards(view.variance_cards);
   renderBilling(view.billing_trend);
-  renderProgress(view.progress);
+  renderProgress(view.project_progress_bars);
   renderIssues(view.issues);
   renderBudget(view.budget);
   renderDelays(view.delays);
