@@ -1,9 +1,13 @@
 import argparse
 import json
+from collections import Counter
 from datetime import date, datetime, time, timedelta
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
+from sklearn.ensemble import IsolationForest
+from sklearn.preprocessing import StandardScaler
 
 
 def clean(value):
@@ -239,53 +243,53 @@ def variance_cards(budget, billing, progress, commissioning, design, procurement
     )
     cards = [
         {
-            "label": "Billing Achievement",
+            "label": "FY Billing Achievement",
             "value": pct(actual_billing / plan_billing) if plan_billing else 0,
             "format": "percent",
             "status": "good" if actual_billing >= plan_billing else "bad",
-            "note": "Actual billing / planned billing",
+            "note": "Actual billing as a percentage of FY planned billing",
         },
         {
-            "label": "Billing Variance",
+            "label": "Billing Variance vs Plan",
             "value": round(actual_billing - plan_billing, 2),
-            "format": "currency",
+            "format": "currency_delta",
             "status": "good" if actual_billing >= plan_billing else "bad",
-            "note": "Actual minus plan",
+            "note": "Actual billing minus FY planned billing",
         },
         {
-            "label": "Progress Gap",
+            "label": "Project Progress Gap",
             "value": round(actual_progress - plan_progress, 4),
-            "format": "percent_delta",
+            "format": "percentage_point",
             "status": "good" if actual_progress >= plan_progress else "bad",
-            "note": "Actual progress minus planned",
+            "note": "Actual progress minus planned progress, in percentage points",
         },
         {
             "label": "Budget Headroom",
             "value": round(contract_value - current_budget, 2),
             "format": "currency",
             "status": "good" if contract_value >= current_budget else "bad",
-            "note": "Contract value minus current budget",
+            "note": "Contract value minus current budget; positive means room remains",
         },
         {
             "label": "PBT Gap",
             "value": round(current_pbt - target_pbt, 4),
-            "format": "percent_delta",
+            "format": "percentage_point",
             "status": "good" if current_pbt >= target_pbt else "bad",
-            "note": "Current PBT minus target PBT",
+            "note": "Current PBT minus target PBT, in percentage points",
         },
         {
-            "label": "Delayed Items",
+            "label": "Delayed Action Items",
             "value": int(delayed_items),
             "format": "number",
             "status": "bad" if delayed_items else "good",
-            "note": "Design, procurement, execution",
+            "note": "Open design, procurement, and construction action items",
         },
         {
-            "label": "Late Commissioning",
+            "label": "Late Commissioning Projects",
             "value": late_commissioning,
             "format": "number",
             "status": "bad" if late_commissioning else "good",
-            "note": "Internal date after contract",
+            "note": "Projects where internal commissioning is after contract date",
         },
     ]
     return cards
@@ -603,6 +607,351 @@ def kpis(projects, budget, billing, issues, progress, project=None):
     }
 
 
+def numeric_series(df, column, default=0):
+    if column not in df.columns:
+        return pd.Series(default, index=df.index, dtype=float)
+    return pd.to_numeric(df[column], errors="coerce").fillna(default)
+
+
+def merge_project_features(base, features):
+    if features.empty:
+        return base
+    return base.merge(features, on="Project Name", how="left")
+
+
+def delay_features(df, prefix):
+    if df.empty or "Project Name" not in df.columns:
+        return pd.DataFrame(columns=["Project Name", f"{prefix}_Delay_Count", f"Avg_{prefix}_Delay", f"Max_{prefix}_Delay"])
+    work = df.copy()
+    work["delay_days"] = numeric_series(work, "Due Since (Days)")
+    return (
+        work.groupby("Project Name", as_index=False)
+        .agg(
+            **{
+                f"{prefix}_Delay_Count": ("Project Name", "size"),
+                f"Avg_{prefix}_Delay": ("delay_days", "mean"),
+                f"Max_{prefix}_Delay": ("delay_days", "max"),
+            }
+        )
+    )
+
+
+def risk_reasons(row):
+    reasons = []
+    drivers = []
+
+    def add(reason, driver):
+        if reason not in reasons:
+            reasons.append(reason)
+        if driver not in drivers:
+            drivers.append(driver)
+
+    if row["Avg_Procurement_Delay"] >= 60 or row["Max_Procurement_Delay"] >= 180:
+        add("Severe procurement delay", "Procurement Delay")
+    elif row["Avg_Procurement_Delay"] >= 20 or row["Procurement_Delay_Count"] >= 5:
+        add("Procurement delay", "Procurement Delay")
+
+    if row["Avg_Design_Delay"] >= 60 or row["Max_Design_Delay"] >= 180:
+        add("Severe design delay", "Design Delay")
+    elif row["Avg_Design_Delay"] >= 20 or row["Design_Delay_Count"] >= 5:
+        add("Design delay", "Design Delay")
+
+    if row["Execution_Gap"] <= -10 or row["Execution_Delay_Count"] >= 5:
+        add("Execution lag", "Execution Lag")
+    elif row["Execution_Gap"] <= -5:
+        add("Execution behind plan", "Execution Lag")
+
+    if row["Progress_Difference"] <= -10:
+        add("Progress lag", "Progress Lag")
+    elif row["Progress_Difference"] <= -5:
+        add("Progress behind plan", "Progress Lag")
+
+    if row["Issue_Count"] >= 5 or row["High_Issue_Count"] >= 1:
+        add("Critical issue load", "Critical Issues")
+
+    if row["Billing_Has_Plan"] and row["Billing_Achievement"] < 0.7:
+        add("Low billing achievement", "Billing Gap")
+    elif row["Billing_Has_Plan"] and row["Billing_Achievement"] < 0.9:
+        add("Billing behind plan", "Billing Gap")
+
+    if row["PBT_Gap"] <= -0.05:
+        add("PBT below target", "PBT Gap")
+    elif row["Current_PBT"] < 0:
+        add("Negative current PBT", "PBT Gap")
+
+    if row["Hinderance_Count"] >= 10:
+        add("High site hindrance count", "Site Hindrance")
+
+    return reasons, drivers
+
+
+def ai_project_intelligence(projects, sheets):
+    features = pd.DataFrame({"Project Name": projects})
+
+    progress = sheets["Project Progress"].copy()
+    if not progress.empty and "Type of work" in progress.columns:
+        overall = progress["Type of work"].astype(str).str.contains(r"over\s*all", case=False, na=False, regex=True)
+        progress = progress[overall].copy()
+        progress["Progress_Difference"] = (
+            numeric_series(progress, "Cumulative Actual Till Date (%)")
+            - numeric_series(progress, "Cumulative Planned Till Date (%)")
+        ) * 100
+        progress["Balance_Percent"] = numeric_series(progress, "Balance (%)") * 100
+        progress_features = progress.groupby("Project Name", as_index=False).agg(
+            Progress_Difference=("Progress_Difference", "mean"),
+            Balance_Percent=("Balance_Percent", "mean"),
+        )
+        features = merge_project_features(features, progress_features)
+
+    issues = sheets["Critical Issues"].copy()
+    if not issues.empty and "Project Name" in issues.columns:
+        issues["high_issue"] = issues["Criticality"].astype(str).str.contains(
+            "high|critical|severe", case=False, na=False
+        )
+        issue_features = issues.groupby("Project Name", as_index=False).agg(
+            Issue_Count=("Project Name", "size"),
+            High_Issue_Count=("high_issue", "sum"),
+        )
+        features = merge_project_features(features, issue_features)
+
+    for prefix, sheet_name in [
+        ("Design", "Design Delay and Action Plan"),
+        ("Procurement", "Procurement Delay and Action Pl"),
+    ]:
+        features = merge_project_features(features, delay_features(sheets[sheet_name], prefix))
+
+    execution_delay = sheets["Execution Delay and Action Plan"].copy()
+    if not execution_delay.empty and "Project Name" in execution_delay.columns:
+        execution_delay["execution_delay_gap"] = (
+            numeric_series(execution_delay, "Cumulative Actual(%) Till Date")
+            - numeric_series(execution_delay, "Cumulative Planned(%) Till Date")
+        ) * 100
+        execution_delay_features = execution_delay.groupby("Project Name", as_index=False).agg(
+            Execution_Delay_Count=("Project Name", "size"),
+            Execution_Delay_Gap=("execution_delay_gap", "mean"),
+        )
+        features = merge_project_features(features, execution_delay_features)
+
+    execution_comparison = sheets["Execution Comparison"].copy()
+    if not execution_comparison.empty and "Project Name" in execution_comparison.columns:
+        execution_comparison["Execution_Gap"] = (
+            numeric_series(execution_comparison, "Cumulative Actual(%) Till Date")
+            - numeric_series(execution_comparison, "Cumulative Planned(%) Till Date")
+        ) * 100
+        execution_features = execution_comparison.groupby("Project Name", as_index=False).agg(
+            Execution_Gap=("Execution_Gap", "mean")
+        )
+        features = merge_project_features(features, execution_features)
+
+    billing = sheets["Project Billing"].copy()
+    if not billing.empty and "Project Name" in billing.columns:
+        billing_features = billing.groupby("Project Name", as_index=False).agg(
+            Plan_Billing=("Plan Billing", "sum"),
+            Actual_Billing=("Actual Billing", "sum"),
+            Billing_Projection=("Billing Projection", "sum"),
+        )
+        billing_features["Billing_Achievement"] = np.where(
+            billing_features["Plan_Billing"] > 0,
+            billing_features["Actual_Billing"] / billing_features["Plan_Billing"],
+            0,
+        )
+        billing_features["Billing_Has_Plan"] = billing_features["Plan_Billing"] > 0
+        billing_features["Billing_Projection_Gap"] = np.where(
+            billing_features["Plan_Billing"] > 0,
+            (billing_features["Billing_Projection"] - billing_features["Plan_Billing"])
+            / billing_features["Plan_Billing"],
+            0,
+        )
+        features = merge_project_features(features, billing_features)
+
+    budget = sheets["Budget"].copy()
+    if not budget.empty and "Project Name" in budget.columns:
+        budget_features = budget.groupby("Project Name", as_index=False).agg(
+            Contract_Value=("Contract value", "sum"),
+            Current_Budget=("Current Budget", "sum"),
+            Target_PBT=("Target PBT", "mean"),
+            Current_PBT=("Current PBT", "mean"),
+        )
+        budget_features["Budget_Headroom"] = budget_features["Contract_Value"] - budget_features["Current_Budget"]
+        budget_features["PBT_Gap"] = budget_features["Current_PBT"] - budget_features["Target_PBT"]
+        features = merge_project_features(features, budget_features)
+
+    hinderance = sheets["Hinderance"].copy()
+    if not hinderance.empty and "Project name" in hinderance.columns:
+        hinderance_features = (
+            hinderance.groupby("Project name", as_index=False)
+            .size()
+            .rename(columns={"Project name": "Project Name", "size": "Hinderance_Count"})
+        )
+        features = merge_project_features(features, hinderance_features)
+
+    feature_defaults = {
+        "Progress_Difference": 0,
+        "Balance_Percent": 0,
+        "Issue_Count": 0,
+        "High_Issue_Count": 0,
+        "Design_Delay_Count": 0,
+        "Avg_Design_Delay": 0,
+        "Max_Design_Delay": 0,
+        "Procurement_Delay_Count": 0,
+        "Avg_Procurement_Delay": 0,
+        "Max_Procurement_Delay": 0,
+        "Execution_Delay_Count": 0,
+        "Execution_Delay_Gap": 0,
+        "Execution_Gap": 0,
+        "Plan_Billing": 0,
+        "Actual_Billing": 0,
+        "Billing_Projection": 0,
+        "Billing_Achievement": 0,
+        "Billing_Has_Plan": False,
+        "Billing_Projection_Gap": 0,
+        "Contract_Value": 0,
+        "Current_Budget": 0,
+        "Target_PBT": 0,
+        "Current_PBT": 0,
+        "Budget_Headroom": 0,
+        "PBT_Gap": 0,
+        "Hinderance_Count": 0,
+    }
+    for column, default in feature_defaults.items():
+        if column not in features.columns:
+            features[column] = default
+    features = features.fillna(feature_defaults)
+
+    features["Progress_Lag_Risk"] = (-features["Progress_Difference"]).clip(lower=0)
+    features["Execution_Lag_Risk"] = (-features["Execution_Gap"]).clip(lower=0)
+    features["Billing_Shortfall_Risk"] = np.where(
+        features["Billing_Has_Plan"],
+        (1 - features["Billing_Achievement"]).clip(lower=0),
+        0,
+    )
+    features["PBT_Shortfall_Risk"] = (-features["PBT_Gap"]).clip(lower=0)
+    model_columns = [
+        "Progress_Lag_Risk",
+        "Issue_Count",
+        "Avg_Design_Delay",
+        "Avg_Procurement_Delay",
+        "Execution_Lag_Risk",
+        "Billing_Shortfall_Risk",
+        "PBT_Shortfall_Risk",
+        "Hinderance_Count",
+    ]
+
+    matrix = features[model_columns].to_numpy(dtype=float)
+    if len(features) >= 3:
+        scaled = StandardScaler().fit_transform(matrix)
+        contamination = min(0.25, max(0.08, 4 / len(features)))
+        model = IsolationForest(n_estimators=300, contamination=contamination, random_state=42)
+        predictions = model.fit_predict(scaled)
+        raw_risk = -model.decision_function(scaled)
+    else:
+        predictions = np.ones(len(features))
+        raw_risk = np.zeros(len(features))
+
+    spread = float(np.max(raw_risk) - np.min(raw_risk)) if len(raw_risk) else 0
+    if spread > 0:
+        risk_index = ((raw_risk - np.min(raw_risk)) / spread) * 100
+    else:
+        risk_index = np.zeros(len(features))
+
+    high_threshold = max(70.0, float(np.quantile(risk_index, 0.85))) if len(features) else 70.0
+    medium_threshold = max(45.0, float(np.quantile(risk_index, 0.60))) if len(features) else 45.0
+
+    rows = []
+    for index, row in features.iterrows():
+        score = round(float(risk_index[index]), 1)
+        if predictions[index] == -1 or score >= high_threshold:
+            status = "High Risk"
+            priority = "Immediate Review"
+        elif score >= medium_threshold:
+            status = "Medium Risk"
+            priority = "Watchlist"
+        else:
+            status = "Normal"
+            priority = "Stable"
+
+        reasons, drivers = risk_reasons(row)
+        if not reasons and status != "Normal":
+            reasons = ["Abnormal combined project pattern"]
+            drivers = ["Portfolio Anomaly"]
+        reason_text = ", ".join(reasons) if reasons else "No dominant abnormal driver"
+        rows.append(
+            {
+                "project": clean(row["Project Name"]),
+                "risk_status": status,
+                "priority": priority,
+                "risk_score": score,
+                "anomaly_score": round(float(raw_risk[index]), 4),
+                "risk_reason": reason_text,
+                "drivers": drivers,
+                "progress_difference": round(float(row["Progress_Difference"]), 1),
+                "issue_count": int(row["Issue_Count"]),
+                "design_delay_count": int(row["Design_Delay_Count"]),
+                "avg_design_delay": round(float(row["Avg_Design_Delay"]), 1),
+                "procurement_delay_count": int(row["Procurement_Delay_Count"]),
+                "avg_procurement_delay": round(float(row["Avg_Procurement_Delay"]), 1),
+                "execution_gap": round(float(row["Execution_Gap"]), 1),
+                "execution_delay_count": int(row["Execution_Delay_Count"]),
+                "billing_achievement": round(float(row["Billing_Achievement"]), 4)
+                if row["Billing_Has_Plan"]
+                else None,
+                "current_pbt": round(float(row["Current_PBT"]), 4),
+                "pbt_gap": round(float(row["PBT_Gap"]), 4),
+                "hinderance_count": int(row["Hinderance_Count"]),
+            }
+        )
+
+    rows.sort(key=lambda item: item["risk_score"], reverse=True)
+    for rank, row in enumerate(rows, start=1):
+        row["rank"] = rank
+
+    high = sum(1 for row in rows if row["risk_status"] == "High Risk")
+    medium = sum(1 for row in rows if row["risk_status"] == "Medium Risk")
+    normal = sum(1 for row in rows if row["risk_status"] == "Normal")
+    flagged = [row for row in rows if row["risk_status"] != "Normal"]
+    driver_counter = Counter(driver for row in flagged for driver in row["drivers"])
+    driver_counts = [
+        {"driver": driver, "projects": count}
+        for driver, count in driver_counter.most_common()
+    ]
+    top_project = rows[0] if rows else None
+    dominant_driver = driver_counts[0]["driver"] if driver_counts else "No single dominant driver"
+    insight = (
+        f"{len(flagged)} projects show elevated AI risk. "
+        f"{dominant_driver} is the most common driver across flagged projects. "
+        f"The highest-risk project is {top_project['project']} due to {top_project['risk_reason']}."
+        if top_project
+        else "No project risk records were generated."
+    )
+
+    return {
+        "model": "Isolation Forest",
+        "features_used": model_columns,
+        "summary": {
+            "projects_analysed": len(rows),
+            "high_risk": high,
+            "medium_risk": medium,
+            "normal": normal,
+            "average_risk_score": round(float(np.mean(risk_index)), 1) if len(risk_index) else 0,
+        },
+        "cards": [
+            {"label": "Projects Analysed", "value": len(rows), "note": "Project-level rows used by the AI model"},
+            {"label": "High Risk Projects", "value": high, "note": "Projects needing immediate management review"},
+            {"label": "Medium Risk Projects", "value": medium, "note": "Projects on the watchlist"},
+            {"label": "Normal Projects", "value": normal, "note": "Projects without abnormal risk signals"},
+            {
+                "label": "Average Risk Index",
+                "value": round(float(np.mean(risk_index)), 1) if len(risk_index) else 0,
+                "note": "0 to 100 score, higher means more abnormal risk",
+            },
+        ],
+        "driver_counts": driver_counts,
+        "top_projects": rows[:8],
+        "risks": rows,
+        "insight": insight,
+    }
+
+
 def build_view(projects, sheets, project=None):
     return {
         "kpis": kpis(
@@ -673,6 +1022,8 @@ def main():
         }
     )
 
+    ai_results = ai_project_intelligence(project_names, sheets)
+
     data = {
         "summary": {
             "project_count": len(project_names),
@@ -680,6 +1031,7 @@ def main():
             "source_file": Path(args.input).name,
         },
         "project_names": project_names,
+        "ai": ai_results,
         "portfolio": build_view(project_names, sheets),
         "projects": {project: build_view(project_names, sheets, project) for project in project_names},
     }
@@ -687,6 +1039,10 @@ def main():
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    output_path.with_name("risk_results.json").write_text(
+        json.dumps(ai_results, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
 
 if __name__ == "__main__":

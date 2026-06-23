@@ -20,12 +20,13 @@
         </div>
         <nav aria-label="Dashboard pages">
           <button class="nav-item active" data-page="financial"><span>01</span>Financial Progress</button>
-          <button class="nav-item" data-page="progress"><span>02</span>Project Progress</button>
-          <button class="nav-item" data-page="mfc"><span>03</span>MFC Delay</button>
-          <button class="nav-item" data-page="budget"><span>04</span>Project Wise Finance</button>
-          <button class="nav-item" data-page="issues"><span>05</span>Critical Issues</button>
-          <button class="nav-item" data-page="attention"><span>06</span>Delay Activity List</button>
-          <button class="nav-item" data-page="hinderance"><span>07</span>Hinderance Report</button>
+          <button class="nav-item" data-page="ai"><span>02</span>AI Project Intelligence</button>
+          <button class="nav-item" data-page="progress"><span>03</span>Project Progress</button>
+          <button class="nav-item" data-page="mfc"><span>04</span>MFC Delay</button>
+          <button class="nav-item" data-page="budget"><span>05</span>Project Wise Finance</button>
+          <button class="nav-item" data-page="issues"><span>06</span>Critical Issues</button>
+          <button class="nav-item" data-page="attention"><span>07</span>Delay Activity List</button>
+          <button class="nav-item" data-page="hinderance"><span>08</span>Hinderance Report</button>
         </nav>
       </aside>
 
@@ -67,11 +68,18 @@
 
           <section class="report-page active" data-page-panel="financial">
             <section class="financial-hero">
-              <h2>FY 2026-27</h2>
-              <div class="kpi-grid" id="kpiGrid"></div>
+              <h2>FY 2026-27 Executive Snapshot</h2>
+              <p class="section-intro">A quick management view of billing, progress, budget, profitability, and schedule risk.</p>
+              <div class="variance-grid" id="varianceCards"></div>
             </section>
 
-            <section class="variance-grid" id="varianceCards"></section>
+            <section class="supporting-metrics">
+              <div class="section-heading">
+                <h2>Supporting Financial Context</h2>
+                <span>Base figures used to interpret the executive snapshot</span>
+              </div>
+              <div class="kpi-grid" id="kpiGrid"></div>
+            </section>
 
             <section class="dashboard-grid">
               <article class="panel wide">
@@ -102,6 +110,70 @@
                 </div>
                 <div class="ranking-list" id="budgetOverrunRanking"></div>
               </article>
+            </section>
+          </section>
+
+          <section class="report-page" data-page-panel="ai">
+            <section class="ai-hero">
+              <div>
+                <p class="eyebrow">AI risk detection</p>
+                <h2>AI Project Intelligence</h2>
+                <p class="section-intro">Isolation Forest flags projects with unusual progress, billing, delay, issue, PBT, and hindrance patterns.</p>
+              </div>
+              <div class="ai-model-pill" id="aiModelPill">Model loading</div>
+            </section>
+
+            <section class="ai-kpi-grid" id="aiKpiGrid"></section>
+
+            <section class="dashboard-grid ai-grid">
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Top At-Risk Projects</h2>
+                  <span>Ranked by AI risk index</span>
+                </div>
+                <div class="ranking-list ai-risk-list" id="aiTopRiskList"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Portfolio Risk Drivers</h2>
+                  <span>Most common reasons among flagged projects</span>
+                </div>
+                <div class="driver-list" id="aiDriverList"></div>
+              </article>
+              <article class="panel wide ai-insight-panel">
+                <div class="panel-heading">
+                  <h2>AI Insight</h2>
+                  <span>Management summary</span>
+                </div>
+                <p class="ai-insight" id="aiInsightBox"></p>
+              </article>
+            </section>
+
+            <section class="table-section">
+              <div class="panel-heading">
+                <h2>Full AI Risk Table</h2>
+                <span>Project-level model output with explainable drivers</span>
+              </div>
+              <div class="table-wrap">
+                <table class="ai-risk-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Project</th>
+                      <th>Risk Status</th>
+                      <th>Priority</th>
+                      <th>Risk Index</th>
+                      <th>Risk Reason</th>
+                      <th>Progress Gap</th>
+                      <th>Issues</th>
+                      <th>Procurement Delay</th>
+                      <th>Billing Achievement</th>
+                      <th>Current PBT</th>
+                    </tr>
+                  </thead>
+                  <tbody id="aiRiskRows"></tbody>
+                </table>
+              </div>
             </section>
           </section>
 

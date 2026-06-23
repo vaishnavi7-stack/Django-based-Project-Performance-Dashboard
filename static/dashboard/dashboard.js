@@ -31,10 +31,31 @@ const formatDeltaPct = (value) => {
   return `${sign}${formatPct(value)}`;
 };
 
+const formatPp = (value) => {
+  const number = Number(value || 0);
+  const sign = number > 0 ? "+" : "";
+  return `${sign}${number.toLocaleString("en-IN", { maximumFractionDigits: 1 })} pp`;
+};
+
+const formatDays = (value) =>
+  `${Number(value || 0).toLocaleString("en-IN", { maximumFractionDigits: 1 })} days`;
+
+const formatRiskScore = (value) =>
+  Number(value || 0).toLocaleString("en-IN", { maximumFractionDigits: 1 });
+
 const formatByType = (value, type) => {
+  if (type === "currency_delta") {
+    const sign = Number(value || 0) > 0 ? "+" : "";
+    return `${sign}${formatCr(value)}`;
+  }
   if (type === "currency") return formatCr(value);
   if (type === "percent") return formatPct(value);
   if (type === "percent_delta") return formatDeltaPct(value);
+  if (type === "percentage_point") {
+    const number = Number(value || 0) * 100;
+    const sign = number > 0 ? "+" : "";
+    return `${sign}${number.toLocaleString("en-IN", { maximumFractionDigits: 1 })} pp`;
+  }
   return Number(value || 0).toLocaleString("en-IN");
 };
 
@@ -136,23 +157,20 @@ function makeChart(id, config) {
 function renderKpis(kpis) {
   const grid = document.getElementById("kpiGrid");
   const items = [
-    ["Order Book Value", formatCr(kpis.order_book || kpis.contract_value), "source financial year", ratioTrend(kpis.contract_value, kpis.order_book, "contracted")],
-    ["Plan Billing", formatCr(kpis.plan_billing), "FY 26-27", ratioTrend(kpis.plan_billing, kpis.order_book || kpis.contract_value, "of order book")],
-    ["Actual Billing TD", formatCr(kpis.actual_billing), "till date", ratioTrend(kpis.actual_billing, kpis.plan_billing, "vs plan")],
-    ["Plan Billing TD", formatCr(kpis.plan_td), "till date", ratioTrend(kpis.plan_td, kpis.plan_billing, "of FY plan")],
-    ["Billing Projection", formatCr(kpis.billing_projection), "projected", ratioTrend(kpis.billing_projection, kpis.plan_billing, "vs plan")],
-    ["Open Issues", kpis.open_issues, "critical register", { text: `${kpis.open_issues} open`, className: kpis.open_issues ? "bad" : "good" }],
-    ["Avg Progress", formatPct(kpis.avg_actual_progress), "overall actual", trend(kpis.avg_actual_progress - 1, "to 100%")],
+    ["Order Book Value", formatCr(kpis.order_book || kpis.contract_value), "Total order book value in the source workbook"],
+    ["FY Planned Billing", formatCr(kpis.plan_billing), "Planned billing for FY 2026-27"],
+    ["Actual Billing Till Date", formatCr(kpis.actual_billing), "Billing recorded till date"],
+    ["Planned Billing Till Date", formatCr(kpis.plan_td), "Planned billing expected till date"],
+    ["Billing Projection", formatCr(kpis.billing_projection), "Projected billing from the workbook"],
+    ["Open Critical Issues", kpis.open_issues, "Open items in the critical issue register"],
+    ["Average Actual Progress", formatPct(kpis.avg_actual_progress), "Average actual progress across overall project rows"],
   ];
 
   grid.innerHTML = items
     .map(
-      ([label, value, note, itemTrend]) => `
-        <article class="kpi">
-          <div class="kpi-top">
-            <div class="label">${escapeHtml(label)}</div>
-            <span class="trend-badge ${itemTrend.className}">${escapeHtml(itemTrend.text)}</span>
-          </div>
+      ([label, value, note]) => `
+        <article class="kpi context-card">
+          <div class="label">${escapeHtml(label)}</div>
           <div class="value">${escapeHtml(value)}</div>
           <div class="note">${escapeHtml(note)}</div>
         </article>
@@ -166,11 +184,12 @@ function renderVarianceCards(cards) {
   grid.innerHTML = cards
     .map(
       (card) => `
-        <article class="variance-card ${card.status}">
+        <article class="variance-card executive-card ${card.status}">
           <div>
             <div class="label">${escapeHtml(card.label)}</div>
             <div class="note">${escapeHtml(card.note)}</div>
           </div>
+          <span class="status-chip ${card.status}">${card.status === "good" ? "Favorable" : "Needs attention"}</span>
           <strong>${escapeHtml(formatByType(card.value, card.format))}</strong>
         </article>
       `,
@@ -503,6 +522,158 @@ function renderHinderanceRows(rows) {
     .join("");
 }
 
+function riskStatusClass(status) {
+  if (status === "High Risk") return "high";
+  if (status === "Medium Risk") return "medium";
+  return "normal";
+}
+
+function filteredAiRows(ai, project) {
+  const rows = ai?.risks || [];
+  if (project === "__all__") return rows;
+  return rows.filter((row) => row.project === project);
+}
+
+function renderAiCards(rows) {
+  const grid = document.getElementById("aiKpiGrid");
+  if (!grid) return;
+  const high = rows.filter((row) => row.risk_status === "High Risk").length;
+  const medium = rows.filter((row) => row.risk_status === "Medium Risk").length;
+  const normal = rows.filter((row) => row.risk_status === "Normal").length;
+  const average = rows.length
+    ? rows.reduce((sum, row) => sum + Number(row.risk_score || 0), 0) / rows.length
+    : 0;
+  const cards = [
+    ["Projects Analysed", rows.length, "Project rows in current selection"],
+    ["High Risk Projects", high, "Immediate review candidates"],
+    ["Medium Risk Projects", medium, "Watchlist projects"],
+    ["Normal Projects", normal, "No abnormal risk signal"],
+    ["Average Risk Index", formatRiskScore(average), "0 to 100, higher means riskier"],
+  ];
+  grid.innerHTML = cards
+    .map(
+      ([label, value, note]) => `
+        <article class="ai-kpi">
+          <span>${escapeHtml(label)}</span>
+          <strong>${escapeHtml(value)}</strong>
+          <small>${escapeHtml(note)}</small>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function renderAiTopRisk(rows) {
+  const list = document.getElementById("aiTopRiskList");
+  if (!list) return;
+  const topRows = [...rows].sort((a, b) => Number(b.risk_score || 0) - Number(a.risk_score || 0)).slice(0, 8);
+  if (!topRows.length) {
+    list.innerHTML = '<div class="empty-state">No AI risk rows for this selection.</div>';
+    return;
+  }
+  list.innerHTML = topRows
+    .map(
+      (row) => `
+        <div class="rank-item ai-rank-item">
+          <span class="rank-number">${escapeHtml(row.rank)}</span>
+          <div>
+            <strong>${escapeHtml(row.project)}</strong>
+            <small>${escapeHtml(row.risk_reason)}</small>
+          </div>
+          <div class="ai-rank-metric">
+            <span class="risk-status ${riskStatusClass(row.risk_status)}">${escapeHtml(row.risk_status)}</span>
+            <b>${escapeHtml(formatRiskScore(row.risk_score))}</b>
+          </div>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderAiDrivers(ai, rows, project) {
+  const list = document.getElementById("aiDriverList");
+  if (!list) return;
+  let drivers = ai?.driver_counts || [];
+  if (project !== "__all__") {
+    const counts = rows.flatMap((row) => row.drivers || []).reduce((acc, driver) => {
+      acc[driver] = (acc[driver] || 0) + 1;
+      return acc;
+    }, {});
+    drivers = Object.entries(counts).map(([driver, projects]) => ({ driver, projects }));
+  }
+  if (!drivers.length) {
+    list.innerHTML = '<div class="empty-state">No dominant risk drivers for this selection.</div>';
+    return;
+  }
+  list.innerHTML = drivers
+    .slice(0, 8)
+    .map(
+      (driver) => `
+        <div class="driver-item">
+          <span>${escapeHtml(driver.driver)}</span>
+          <strong>${escapeHtml(driver.projects)} project${Number(driver.projects) === 1 ? "" : "s"}</strong>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderAiInsight(ai, rows, project) {
+  const box = document.getElementById("aiInsightBox");
+  if (!box) return;
+  if (project !== "__all__") {
+    if (!rows.length) {
+      box.textContent = "No AI risk record is available for this project.";
+      return;
+    }
+    const row = rows[0];
+    box.textContent = `${row.project} is ${row.risk_status.toLowerCase()} with a ${row.priority.toLowerCase()} priority. Main reason: ${row.risk_reason}.`;
+    return;
+  }
+  box.textContent = ai?.insight || "AI risk insight is not available.";
+}
+
+function renderAiRiskRows(rows) {
+  const body = document.getElementById("aiRiskRows");
+  if (!body) return;
+  if (!rows.length) {
+    body.innerHTML = '<tr><td colspan="11">No AI risk rows for this selection.</td></tr>';
+    return;
+  }
+  body.innerHTML = rows
+    .map(
+      (row) => `
+        <tr>
+          <td>${escapeHtml(row.rank)}</td>
+          <td>${escapeHtml(row.project)}</td>
+          <td><span class="risk-status ${riskStatusClass(row.risk_status)}">${escapeHtml(row.risk_status)}</span></td>
+          <td>${escapeHtml(row.priority)}</td>
+          <td><strong>${escapeHtml(formatRiskScore(row.risk_score))}</strong></td>
+          <td>${escapeHtml(row.risk_reason)}</td>
+          <td class="${row.progress_difference < 0 ? "bad-text" : ""}">${escapeHtml(formatPp(row.progress_difference))}</td>
+          <td>${escapeHtml(row.issue_count)}</td>
+          <td>${escapeHtml(formatDays(row.avg_procurement_delay))}</td>
+          <td>${row.billing_achievement === null ? "NA" : escapeHtml(formatPct(row.billing_achievement))}</td>
+          <td class="${row.current_pbt < 0 ? "bad-text" : ""}">${escapeHtml(formatPct(row.current_pbt))}</td>
+        </tr>
+      `,
+    )
+    .join("");
+}
+
+function renderAI(ai, project) {
+  const rows = filteredAiRows(ai, project);
+  const modelPill = document.getElementById("aiModelPill");
+  if (modelPill) {
+    modelPill.textContent = `${ai?.model || "AI model"} | ${(ai?.features_used || []).length} risk signals`;
+  }
+  renderAiCards(rows);
+  renderAiTopRisk(rows);
+  renderAiDrivers(ai, rows, project);
+  renderAiInsight(ai, rows, project);
+  renderAiRiskRows(rows);
+}
+
 function populateProjects(projects) {
   const select = document.getElementById("projectFilter");
   select.insertAdjacentHTML(
@@ -520,6 +691,7 @@ function renderDashboard(data, project = "__all__") {
     `Source: ${data.summary.source_file} | Generated: ${data.summary.last_updated} | Projects: ${data.summary.project_count}`;
   renderKpis(view.kpis);
   renderVarianceCards(view.variance_cards);
+  renderAI(data.ai, project);
   renderBilling(view.billing_trend);
   renderProgress(view.project_progress_bars);
   renderIssues(view.issues);

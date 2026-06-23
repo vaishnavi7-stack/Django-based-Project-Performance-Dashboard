@@ -1,7 +1,7 @@
 {
   "summary": {
     "project_count": 57,
-    "last_updated": "2026-06-18 16:05",
+    "last_updated": "2026-06-23 13:09",
     "source_file": "Demo (2).xlsx"
   },
   "project_names": [
@@ -63,6 +63,1694 @@
     "Solar Cell Mfg.",
     "Yanara | Sheo | 201 MW DC"
   ],
+  "ai": {
+    "model": "Isolation Forest",
+    "features_used": [
+      "Progress_Lag_Risk",
+      "Issue_Count",
+      "Avg_Design_Delay",
+      "Avg_Procurement_Delay",
+      "Execution_Lag_Risk",
+      "Billing_Shortfall_Risk",
+      "PBT_Shortfall_Risk",
+      "Hinderance_Count"
+    ],
+    "summary": {
+      "projects_analysed": 57,
+      "high_risk": 5,
+      "medium_risk": 7,
+      "normal": 45,
+      "average_risk_score": 22.1
+    },
+    "cards": [
+      {
+        "label": "Projects Analysed",
+        "value": 57,
+        "note": "Project-level rows used by the AI model"
+      },
+      {
+        "label": "High Risk Projects",
+        "value": 5,
+        "note": "Projects needing immediate management review"
+      },
+      {
+        "label": "Medium Risk Projects",
+        "value": 7,
+        "note": "Projects on the watchlist"
+      },
+      {
+        "label": "Normal Projects",
+        "value": 45,
+        "note": "Projects without abnormal risk signals"
+      },
+      {
+        "label": "Average Risk Index",
+        "value": 22.1,
+        "note": "0 to 100 score, higher means more abnormal risk"
+      }
+    ],
+    "driver_counts": [
+      {
+        "driver": "Execution Lag",
+        "projects": 12
+      },
+      {
+        "driver": "Procurement Delay",
+        "projects": 11
+      },
+      {
+        "driver": "Design Delay",
+        "projects": 9
+      },
+      {
+        "driver": "Progress Lag",
+        "projects": 9
+      },
+      {
+        "driver": "Critical Issues",
+        "projects": 6
+      },
+      {
+        "driver": "Site Hindrance",
+        "projects": 6
+      },
+      {
+        "driver": "Billing Gap",
+        "projects": 3
+      },
+      {
+        "driver": "PBT Gap",
+        "projects": 2
+      }
+    ],
+    "top_projects": [
+      {
+        "project": "SJVN Khavda",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 100.0,
+        "anomaly_score": 0.148,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load, Billing behind plan",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues",
+          "Billing Gap"
+        ],
+        "progress_difference": -35.3,
+        "issue_count": 11,
+        "design_delay_count": 20,
+        "avg_design_delay": 248.4,
+        "procurement_delay_count": 3,
+        "avg_procurement_delay": 186.0,
+        "execution_gap": -73.3,
+        "execution_delay_count": 20,
+        "billing_achievement": 0.7547,
+        "current_pbt": 0.1413,
+        "pbt_gap": 0.0518,
+        "hinderance_count": 5,
+        "rank": 1
+      },
+      {
+        "project": "Serentica Fatehgarh (300MW)",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 77.9,
+        "anomaly_score": 0.0556,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues",
+          "Site Hindrance"
+        ],
+        "progress_difference": -22.8,
+        "issue_count": 5,
+        "design_delay_count": 15,
+        "avg_design_delay": 505.2,
+        "procurement_delay_count": 19,
+        "avg_procurement_delay": 440.9,
+        "execution_gap": -20.3,
+        "execution_delay_count": 10,
+        "billing_achievement": 2.1255,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 11,
+        "rank": 2
+      },
+      {
+        "project": "MRPL",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 77.5,
+        "anomaly_score": 0.0541,
+        "risk_reason": "Procurement delay, Severe design delay, Execution lag, Progress lag, Low billing achievement",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Billing Gap"
+        ],
+        "progress_difference": -24.1,
+        "issue_count": 0,
+        "design_delay_count": 110,
+        "avg_design_delay": 126.2,
+        "procurement_delay_count": 3,
+        "avg_procurement_delay": 53.7,
+        "execution_gap": -37.5,
+        "execution_delay_count": 12,
+        "billing_achievement": 0.0,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 3
+      },
+      {
+        "project": "SJVN Assam",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 73.6,
+        "anomaly_score": 0.0377,
+        "risk_reason": "Severe procurement delay, Execution lag, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Execution Lag",
+          "Site Hindrance"
+        ],
+        "progress_difference": -4.2,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 2,
+        "avg_procurement_delay": 585.5,
+        "execution_gap": -11.7,
+        "execution_delay_count": 7,
+        "billing_achievement": 0.9799,
+        "current_pbt": 0.055,
+        "pbt_gap": -0.0255,
+        "hinderance_count": 155,
+        "rank": 4
+      },
+      {
+        "project": "Rediance Yalburga (50MW)",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 65.2,
+        "anomaly_score": 0.003,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load, Low billing achievement",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues",
+          "Billing Gap"
+        ],
+        "progress_difference": -21.4,
+        "issue_count": 3,
+        "design_delay_count": 11,
+        "avg_design_delay": 77.6,
+        "procurement_delay_count": 11,
+        "avg_procurement_delay": 161.0,
+        "execution_gap": -29.6,
+        "execution_delay_count": 5,
+        "billing_achievement": 0.579,
+        "current_pbt": 0.4456,
+        "pbt_gap": 0.1984,
+        "hinderance_count": 9,
+        "rank": 5
+      },
+      {
+        "project": "NTPC Barethi 315MW",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 63.7,
+        "anomaly_score": -0.0036,
+        "risk_reason": "Design delay, Execution lag, Progress behind plan, PBT below target, High site hindrance count",
+        "drivers": [
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "PBT Gap",
+          "Site Hindrance"
+        ],
+        "progress_difference": -6.4,
+        "issue_count": 0,
+        "design_delay_count": 7,
+        "avg_design_delay": 14.6,
+        "procurement_delay_count": 2,
+        "avg_procurement_delay": 15.0,
+        "execution_gap": -10.8,
+        "execution_delay_count": 9,
+        "billing_achievement": 0.9879,
+        "current_pbt": -0.9145,
+        "pbt_gap": -0.1997,
+        "hinderance_count": 36,
+        "rank": 6
+      },
+      {
+        "project": "PSS-1 Fategarh -3 (400 KV / 33 KV)",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 63.7,
+        "anomaly_score": -0.0032,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution behind plan, Progress lag, Critical issue load",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues"
+        ],
+        "progress_difference": -13.3,
+        "issue_count": 4,
+        "design_delay_count": 73,
+        "avg_design_delay": 170.3,
+        "procurement_delay_count": 24,
+        "avg_procurement_delay": 577.1,
+        "execution_gap": -6.3,
+        "execution_delay_count": 3,
+        "billing_achievement": 0.9777,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 7
+      },
+      {
+        "project": "IMC Indore",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 63.0,
+        "anomaly_score": -0.0064,
+        "risk_reason": "Severe procurement delay, Execution lag, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Execution Lag",
+          "Site Hindrance"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 3,
+        "avg_procurement_delay": 444.0,
+        "execution_gap": -11.7,
+        "execution_delay_count": 10,
+        "billing_achievement": 1.0214,
+        "current_pbt": 0.098,
+        "pbt_gap": -0.0099,
+        "hinderance_count": 154,
+        "rank": 8
+      }
+    ],
+    "risks": [
+      {
+        "project": "SJVN Khavda",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 100.0,
+        "anomaly_score": 0.148,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load, Billing behind plan",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues",
+          "Billing Gap"
+        ],
+        "progress_difference": -35.3,
+        "issue_count": 11,
+        "design_delay_count": 20,
+        "avg_design_delay": 248.4,
+        "procurement_delay_count": 3,
+        "avg_procurement_delay": 186.0,
+        "execution_gap": -73.3,
+        "execution_delay_count": 20,
+        "billing_achievement": 0.7547,
+        "current_pbt": 0.1413,
+        "pbt_gap": 0.0518,
+        "hinderance_count": 5,
+        "rank": 1
+      },
+      {
+        "project": "Serentica Fatehgarh (300MW)",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 77.9,
+        "anomaly_score": 0.0556,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues",
+          "Site Hindrance"
+        ],
+        "progress_difference": -22.8,
+        "issue_count": 5,
+        "design_delay_count": 15,
+        "avg_design_delay": 505.2,
+        "procurement_delay_count": 19,
+        "avg_procurement_delay": 440.9,
+        "execution_gap": -20.3,
+        "execution_delay_count": 10,
+        "billing_achievement": 2.1255,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 11,
+        "rank": 2
+      },
+      {
+        "project": "MRPL",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 77.5,
+        "anomaly_score": 0.0541,
+        "risk_reason": "Procurement delay, Severe design delay, Execution lag, Progress lag, Low billing achievement",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Billing Gap"
+        ],
+        "progress_difference": -24.1,
+        "issue_count": 0,
+        "design_delay_count": 110,
+        "avg_design_delay": 126.2,
+        "procurement_delay_count": 3,
+        "avg_procurement_delay": 53.7,
+        "execution_gap": -37.5,
+        "execution_delay_count": 12,
+        "billing_achievement": 0.0,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 3
+      },
+      {
+        "project": "SJVN Assam",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 73.6,
+        "anomaly_score": 0.0377,
+        "risk_reason": "Severe procurement delay, Execution lag, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Execution Lag",
+          "Site Hindrance"
+        ],
+        "progress_difference": -4.2,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 2,
+        "avg_procurement_delay": 585.5,
+        "execution_gap": -11.7,
+        "execution_delay_count": 7,
+        "billing_achievement": 0.9799,
+        "current_pbt": 0.055,
+        "pbt_gap": -0.0255,
+        "hinderance_count": 155,
+        "rank": 4
+      },
+      {
+        "project": "Rediance Yalburga (50MW)",
+        "risk_status": "High Risk",
+        "priority": "Immediate Review",
+        "risk_score": 65.2,
+        "anomaly_score": 0.003,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load, Low billing achievement",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues",
+          "Billing Gap"
+        ],
+        "progress_difference": -21.4,
+        "issue_count": 3,
+        "design_delay_count": 11,
+        "avg_design_delay": 77.6,
+        "procurement_delay_count": 11,
+        "avg_procurement_delay": 161.0,
+        "execution_gap": -29.6,
+        "execution_delay_count": 5,
+        "billing_achievement": 0.579,
+        "current_pbt": 0.4456,
+        "pbt_gap": 0.1984,
+        "hinderance_count": 9,
+        "rank": 5
+      },
+      {
+        "project": "NTPC Barethi 315MW",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 63.7,
+        "anomaly_score": -0.0036,
+        "risk_reason": "Design delay, Execution lag, Progress behind plan, PBT below target, High site hindrance count",
+        "drivers": [
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "PBT Gap",
+          "Site Hindrance"
+        ],
+        "progress_difference": -6.4,
+        "issue_count": 0,
+        "design_delay_count": 7,
+        "avg_design_delay": 14.6,
+        "procurement_delay_count": 2,
+        "avg_procurement_delay": 15.0,
+        "execution_gap": -10.8,
+        "execution_delay_count": 9,
+        "billing_achievement": 0.9879,
+        "current_pbt": -0.9145,
+        "pbt_gap": -0.1997,
+        "hinderance_count": 36,
+        "rank": 6
+      },
+      {
+        "project": "PSS-1 Fategarh -3 (400 KV / 33 KV)",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 63.7,
+        "anomaly_score": -0.0032,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution behind plan, Progress lag, Critical issue load",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues"
+        ],
+        "progress_difference": -13.3,
+        "issue_count": 4,
+        "design_delay_count": 73,
+        "avg_design_delay": 170.3,
+        "procurement_delay_count": 24,
+        "avg_procurement_delay": 577.1,
+        "execution_gap": -6.3,
+        "execution_delay_count": 3,
+        "billing_achievement": 0.9777,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 7
+      },
+      {
+        "project": "IMC Indore",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 63.0,
+        "anomaly_score": -0.0064,
+        "risk_reason": "Severe procurement delay, Execution lag, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Execution Lag",
+          "Site Hindrance"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 3,
+        "avg_procurement_delay": 444.0,
+        "execution_gap": -11.7,
+        "execution_delay_count": 10,
+        "billing_achievement": 1.0214,
+        "current_pbt": 0.098,
+        "pbt_gap": -0.0099,
+        "hinderance_count": 154,
+        "rank": 8
+      },
+      {
+        "project": "PSS-2 Fatehgarh -3 (400 KV / 33 KV)",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 62.2,
+        "anomaly_score": -0.0096,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues"
+        ],
+        "progress_difference": -27.7,
+        "issue_count": 2,
+        "design_delay_count": 107,
+        "avg_design_delay": 169.9,
+        "procurement_delay_count": 37,
+        "avg_procurement_delay": 611.4,
+        "execution_gap": -16.7,
+        "execution_delay_count": 3,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 9
+      },
+      {
+        "project": "Jawalgera",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 56.9,
+        "anomaly_score": -0.0319,
+        "risk_reason": "Severe procurement delay, Execution lag, Progress behind plan, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Site Hindrance"
+        ],
+        "progress_difference": -9.1,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 16,
+        "avg_procurement_delay": 482.7,
+        "execution_gap": -24.2,
+        "execution_delay_count": 16,
+        "billing_achievement": 1.0701,
+        "current_pbt": 0.0511,
+        "pbt_gap": 0.0,
+        "hinderance_count": 53,
+        "rank": 10
+      },
+      {
+        "project": "NTPC Bikaner (250MW)",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 55.3,
+        "anomaly_score": -0.0386,
+        "risk_reason": "Procurement delay, Design delay, Execution lag, Progress lag, Critical issue load, Negative current PBT, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag",
+          "Progress Lag",
+          "Critical Issues",
+          "PBT Gap",
+          "Site Hindrance"
+        ],
+        "progress_difference": -12.7,
+        "issue_count": 2,
+        "design_delay_count": 8,
+        "avg_design_delay": 54.6,
+        "procurement_delay_count": 2,
+        "avg_procurement_delay": 31.5,
+        "execution_gap": -33.7,
+        "execution_delay_count": 16,
+        "billing_achievement": 0.9655,
+        "current_pbt": -0.8667,
+        "pbt_gap": 0.0626,
+        "hinderance_count": 12,
+        "rank": 11
+      },
+      {
+        "project": "Serentica Fatehgarh (25.6MW)",
+        "risk_status": "Medium Risk",
+        "priority": "Watchlist",
+        "risk_score": 47.3,
+        "anomaly_score": -0.0718,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution behind plan",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 39,
+        "avg_design_delay": 510.4,
+        "procurement_delay_count": 4,
+        "avg_procurement_delay": 158.8,
+        "execution_gap": -5.9,
+        "execution_delay_count": 1,
+        "billing_achievement": 1.9827,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 12
+      },
+      {
+        "project": "Bluepine - Honnathi,Karnataka (50MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 42.6,
+        "anomaly_score": -0.0913,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution lag",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag"
+        ],
+        "progress_difference": -1.6,
+        "issue_count": 0,
+        "design_delay_count": 1,
+        "avg_design_delay": 358.0,
+        "procurement_delay_count": 10,
+        "avg_procurement_delay": 169.2,
+        "execution_gap": -0.7,
+        "execution_delay_count": 8,
+        "billing_achievement": 1.195,
+        "current_pbt": 0.1777,
+        "pbt_gap": 0.0,
+        "hinderance_count": 1,
+        "rank": 13
+      },
+      {
+        "project": "PSS Fatehgarh",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 42.2,
+        "anomaly_score": -0.0933,
+        "risk_reason": "PBT below target",
+        "drivers": [
+          "PBT Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.229,
+        "pbt_gap": -0.2561,
+        "hinderance_count": 0,
+        "rank": 14
+      },
+      {
+        "project": "BLUEPINE - SADLA",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 41.3,
+        "anomaly_score": -0.0968,
+        "risk_reason": "Critical issue load",
+        "drivers": [
+          "Critical Issues"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 11,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 1.0345,
+        "current_pbt": 0.017,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 15
+      },
+      {
+        "project": "AMP Patnagarh (45MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 40.1,
+        "anomaly_score": -0.1019,
+        "risk_reason": "Severe procurement delay, Execution lag, High site hindrance count",
+        "drivers": [
+          "Procurement Delay",
+          "Execution Lag",
+          "Site Hindrance"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 5,
+        "avg_procurement_delay": 615.6,
+        "execution_gap": 0.0,
+        "execution_delay_count": 15,
+        "billing_achievement": 0.9905,
+        "current_pbt": 0.1762,
+        "pbt_gap": 0.155,
+        "hinderance_count": 23,
+        "rank": 16
+      },
+      {
+        "project": "AMP Kankagiri Phase II",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 33.5,
+        "anomaly_score": -0.1295,
+        "risk_reason": "Low billing achievement",
+        "drivers": [
+          "Billing Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 0.0082,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 1,
+        "rank": 17
+      },
+      {
+        "project": "Bluepine - Bikaner Park",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 27.5,
+        "anomaly_score": -0.1545,
+        "risk_reason": "Low billing achievement",
+        "drivers": [
+          "Billing Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 0.0,
+        "current_pbt": 0.78,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 18
+      },
+      {
+        "project": "Serentica Fatehgarh old",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 27.5,
+        "anomaly_score": -0.1545,
+        "risk_reason": "Low billing achievement",
+        "drivers": [
+          "Billing Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 0.0,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 19
+      },
+      {
+        "project": "Serentica Fatehgarh (58.67MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 25.7,
+        "anomaly_score": -0.1619,
+        "risk_reason": "Severe procurement delay, Severe design delay, Execution behind plan",
+        "drivers": [
+          "Procurement Delay",
+          "Design Delay",
+          "Execution Lag"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 47,
+        "avg_design_delay": 180.4,
+        "procurement_delay_count": 4,
+        "avg_procurement_delay": 158.8,
+        "execution_gap": -5.9,
+        "execution_delay_count": 1,
+        "billing_achievement": 3.263,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 20
+      },
+      {
+        "project": "Rays Green Substation",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 24.2,
+        "anomaly_score": -0.168,
+        "risk_reason": "Severe design delay, Execution lag",
+        "drivers": [
+          "Design Delay",
+          "Execution Lag"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 207,
+        "avg_design_delay": 64.4,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": -20.1,
+        "execution_delay_count": 7,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 21
+      },
+      {
+        "project": "AMPIN - Sindhari, Barmer (50MW/75MWp)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 21.2,
+        "anomaly_score": -0.1807,
+        "risk_reason": "High site hindrance count",
+        "drivers": [
+          "Site Hindrance"
+        ],
+        "progress_difference": -0.3,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": -1.7,
+        "execution_delay_count": 3,
+        "billing_achievement": 1.0032,
+        "current_pbt": 0.1774,
+        "pbt_gap": 0.0,
+        "hinderance_count": 29,
+        "rank": 22
+      },
+      {
+        "project": "AMP Kankagiri Phase I & II",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 17.6,
+        "anomaly_score": -0.1958,
+        "risk_reason": "PBT below target",
+        "drivers": [
+          "PBT Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": -0.0686,
+        "pbt_gap": -0.0895,
+        "hinderance_count": 0,
+        "rank": 23
+      },
+      {
+        "project": "NTPC Barethi (Module)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 14.7,
+        "anomaly_score": -0.2079,
+        "risk_reason": "Low billing achievement",
+        "drivers": [
+          "Billing Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 0.6103,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 24
+      },
+      {
+        "project": "SECI III",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 14.2,
+        "anomaly_score": -0.2099,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": -0.1,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 2.3,
+        "execution_delay_count": 1,
+        "billing_achievement": 1.0353,
+        "current_pbt": 0.0896,
+        "pbt_gap": -0.0296,
+        "hinderance_count": 4,
+        "rank": 25
+      },
+      {
+        "project": "MAHAGENCO - Akola,Maharastra(100MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 13.9,
+        "anomaly_score": -0.2112,
+        "risk_reason": "Critical issue load",
+        "drivers": [
+          "Critical Issues"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 3,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 26
+      },
+      {
+        "project": "MAHAGENCO - Chandrapur,Maharastra(50MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 13.6,
+        "anomaly_score": -0.2124,
+        "risk_reason": "Design delay, Progress behind plan",
+        "drivers": [
+          "Design Delay",
+          "Progress Lag"
+        ],
+        "progress_difference": -6.2,
+        "issue_count": 0,
+        "design_delay_count": 55,
+        "avg_design_delay": -1.3,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 1,
+        "rank": 27
+      },
+      {
+        "project": "MAHAGENCO - Ralegaon,Maharastra(50MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 12.9,
+        "anomaly_score": -0.2151,
+        "risk_reason": "Design delay, Progress behind plan",
+        "drivers": [
+          "Design Delay",
+          "Progress Lag"
+        ],
+        "progress_difference": -6.2,
+        "issue_count": 0,
+        "design_delay_count": 37,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 1,
+        "rank": 28
+      },
+      {
+        "project": "Fatehgarh III (Land)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 10.1,
+        "anomaly_score": -0.2268,
+        "risk_reason": "Billing behind plan",
+        "drivers": [
+          "Billing Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 0.7437,
+        "current_pbt": 0.6253,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 29
+      },
+      {
+        "project": "Serentica Fatehgarh (15.73MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 10.1,
+        "anomaly_score": -0.2268,
+        "risk_reason": "Severe design delay",
+        "drivers": [
+          "Design Delay"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 117,
+        "avg_design_delay": 124.4,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 1.339,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 30
+      },
+      {
+        "project": "Solar Cell Mfg.",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 8.2,
+        "anomaly_score": -0.2347,
+        "risk_reason": "Design delay, Execution lag",
+        "drivers": [
+          "Design Delay",
+          "Execution Lag"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 39,
+        "avg_design_delay": 20.4,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": -3.7,
+        "execution_delay_count": 7,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 31
+      },
+      {
+        "project": "Yanara | Sheo | 201 MW DC",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 6.1,
+        "anomaly_score": -0.2435,
+        "risk_reason": "Severe design delay, Execution lag",
+        "drivers": [
+          "Design Delay",
+          "Execution Lag"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 556,
+        "avg_design_delay": 76.2,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 12,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 32
+      },
+      {
+        "project": "Serentica Fatehgarh (200MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 4.3,
+        "anomaly_score": -0.251,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.1109,
+        "pbt_gap": -0.0133,
+        "hinderance_count": 0,
+        "rank": 33
+      },
+      {
+        "project": "Koppal Serentica (260MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 2.7,
+        "anomaly_score": -0.2579,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 0.9814,
+        "current_pbt": 0.0332,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 34
+      },
+      {
+        "project": "NTPC-Bhadla",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 1.8,
+        "anomaly_score": -0.2616,
+        "risk_reason": "Negative current PBT",
+        "drivers": [
+          "PBT Gap"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 0.9883,
+        "current_pbt": -0.6125,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 35
+      },
+      {
+        "project": "AMP - Fatehgarh C&I",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 1.0283,
+        "current_pbt": 0.1483,
+        "pbt_gap": 0.0174,
+        "hinderance_count": 0,
+        "rank": 36
+      },
+      {
+        "project": "AMP Kankagiri Phase I",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 2.3724,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 37
+      },
+      {
+        "project": "AMP Kantabanji Orissa (60 MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 1.0,
+        "current_pbt": 0.1558,
+        "pbt_gap": 0.0714,
+        "hinderance_count": 0,
+        "rank": 38
+      },
+      {
+        "project": "Assam APCDCL",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 39
+      },
+      {
+        "project": "BLUPINE Bikaner PSS",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 40
+      },
+      {
+        "project": "Bangladesh",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 41
+      },
+      {
+        "project": "Bluepine",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 42
+      },
+      {
+        "project": "Fatehgarh III (Boundary wall & Fencing work)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 43
+      },
+      {
+        "project": "Fatehgarh IV (Land)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 44
+      },
+      {
+        "project": "Jagluru- IPP Project",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "Execution lag",
+        "drivers": [
+          "Execution Lag"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 13,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 45
+      },
+      {
+        "project": "Mau & Gonda",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 1.0117,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 46
+      },
+      {
+        "project": "NTPC 600KW/3000KWH VRFB",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 3.2365,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 47
+      },
+      {
+        "project": "NTPC Barethi 315MW (BOS)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 48
+      },
+      {
+        "project": "NTPC Bikaner (250MW) (BOS)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 49
+      },
+      {
+        "project": "NTPC Bikaner (250MW) (Module)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 1.0001,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 50
+      },
+      {
+        "project": "O&M Bangladesh",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 51
+      },
+      {
+        "project": "O&M Including Bangladesh",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 3.0224,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 52
+      },
+      {
+        "project": "ONGC Tumkuru (300 MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 53
+      },
+      {
+        "project": "Others including Power Sale i.e TRV etc",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 54
+      },
+      {
+        "project": "Radiance - Yelburga Land",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": 1.5049,
+        "current_pbt": 0.0,
+        "pbt_gap": 0.0,
+        "hinderance_count": 0,
+        "rank": 55
+      },
+      {
+        "project": "Rasra",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "Execution lag",
+        "drivers": [
+          "Execution Lag"
+        ],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 13,
+        "billing_achievement": 1.0255,
+        "current_pbt": 0.133,
+        "pbt_gap": 0.0149,
+        "hinderance_count": 0,
+        "rank": 56
+      },
+      {
+        "project": "Serentica Fatehgarh (41.8MW)",
+        "risk_status": "Normal",
+        "priority": "Stable",
+        "risk_score": 0.0,
+        "anomaly_score": -0.2691,
+        "risk_reason": "No dominant abnormal driver",
+        "drivers": [],
+        "progress_difference": 0.0,
+        "issue_count": 0,
+        "design_delay_count": 0,
+        "avg_design_delay": 0.0,
+        "procurement_delay_count": 0,
+        "avg_procurement_delay": 0.0,
+        "execution_gap": 0.0,
+        "execution_delay_count": 0,
+        "billing_achievement": null,
+        "current_pbt": 0.1674,
+        "pbt_gap": 0.0981,
+        "hinderance_count": 0,
+        "rank": 57
+      }
+    ],
+    "insight": "12 projects show elevated AI risk. Execution Lag is the most common driver across flagged projects. The highest-risk project is SJVN Khavda due to Severe procurement delay, Severe design delay, Execution lag, Progress lag, Critical issue load, Billing behind plan."
+  },
   "portfolio": {
     "kpis": {
       "project_count": 57,
@@ -487,53 +2175,53 @@
     },
     "variance_cards": [
       {
-        "label": "Billing Achievement",
+        "label": "FY Billing Achievement",
         "value": 1.0074,
         "format": "percent",
         "status": "good",
-        "note": "Actual billing / planned billing"
+        "note": "Actual billing as a percentage of FY planned billing"
       },
       {
-        "label": "Billing Variance",
+        "label": "Billing Variance vs Plan",
         "value": 33.11,
-        "format": "currency",
+        "format": "currency_delta",
         "status": "good",
-        "note": "Actual minus plan"
+        "note": "Actual billing minus FY planned billing"
       },
       {
-        "label": "Progress Gap",
+        "label": "Project Progress Gap",
         "value": -0.1276,
-        "format": "percent_delta",
+        "format": "percentage_point",
         "status": "bad",
-        "note": "Actual progress minus planned"
+        "note": "Actual progress minus planned progress, in percentage points"
       },
       {
         "label": "Budget Headroom",
         "value": 469.71,
         "format": "currency",
         "status": "good",
-        "note": "Contract value minus current budget"
+        "note": "Contract value minus current budget; positive means room remains"
       },
       {
         "label": "PBT Gap",
         "value": -0.0133,
-        "format": "percent_delta",
+        "format": "percentage_point",
         "status": "bad",
-        "note": "Current PBT minus target PBT"
+        "note": "Current PBT minus target PBT, in percentage points"
       },
       {
-        "label": "Delayed Items",
+        "label": "Delayed Action Items",
         "value": 1786,
         "format": "number",
         "status": "bad",
-        "note": "Design, procurement, execution"
+        "note": "Open design, procurement, and construction action items"
       },
       {
-        "label": "Late Commissioning",
+        "label": "Late Commissioning Projects",
         "value": 10,
         "format": "number",
         "status": "bad",
-        "note": "Internal date after contract"
+        "note": "Projects where internal commissioning is after contract date"
       }
     ],
     "rankings": {
@@ -4168,53 +5856,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0283,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 1.24,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 7.23,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0174,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -4299,53 +5987,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 2.3724,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 56.12,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -4420,53 +6108,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": -6.61,
           "format": "currency",
           "status": "bad",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.0895,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -4554,53 +6242,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.0082,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -55.63,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -4696,53 +6384,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 9.56,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0714,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -4847,53 +6535,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.9905,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -0.31,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 8.61,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.155,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 20,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -5551,53 +7239,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0032,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.24,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.0028,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 13.62,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.1774,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 3,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -6446,53 +8134,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 596.31,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.2111,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -6612,53 +8300,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0345,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 4.47,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 2.33,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.017,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -6845,53 +8533,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -6978,53 +8666,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -7103,53 +8791,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -7235,53 +8923,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.0,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -15.07,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 30.28,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.78,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -7440,53 +9128,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.195,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 18.24,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.0156,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 18.21,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.1777,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 19,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -8271,53 +9959,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 16.03,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -8419,53 +10107,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.7437,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -12.9,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 33.11,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.6253,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -8544,53 +10232,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -8732,53 +10420,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0214,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 5.28,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 24.7,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.0099,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 13,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -9859,53 +11547,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 13,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -10205,53 +11893,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0701,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 6.27,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.0912,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 5.16,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0511,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 32,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -11550,53 +13238,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.9814,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -7.23,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 12.67,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0332,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -11689,53 +13377,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": -353.51,
           "format": "currency",
           "status": "bad",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -11872,53 +13560,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.0617,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 55,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -13057,53 +14745,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.0617,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 37,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -14118,53 +15806,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.0,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -3.8,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.2415,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 125,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -15263,53 +16951,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0117,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 3.37,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 624.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.9158,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -15426,53 +17114,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 3.2365,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 5.39,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -15578,53 +17266,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.6103,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -124.32,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -15731,53 +17419,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.9879,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -4.06,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.064,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": -409.92,
           "format": "currency",
           "status": "bad",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.1997,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 18,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -16839,53 +18527,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -16989,53 +18677,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.9655,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -11.3,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.1266,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": -324.04,
           "format": "currency",
           "status": "bad",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0626,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 26,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -18049,53 +19737,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -18173,53 +19861,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0001,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.03,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -18309,53 +19997,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.9883,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -0.71,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": -37.16,
           "format": "currency",
           "status": "bad",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.6125,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -18441,53 +20129,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -18603,53 +20291,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 3.0224,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 18.08,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -18728,53 +20416,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -18904,53 +20592,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 322.36,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -19037,53 +20725,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 49.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.2561,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -19236,53 +20924,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.9777,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -5.27,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.1328,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 100,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -20735,53 +22423,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.2772,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 147,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -22386,53 +24074,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.5049,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 2.59,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 27.75,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -22531,53 +24219,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0255,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 1.16,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 12.79,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0149,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 13,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -22856,53 +24544,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 214,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -24076,53 +25764,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.579,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -0.89,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.2137,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 12.37,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.1984,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 27,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -25033,53 +26721,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.0353,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 4.07,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.0014,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 10.69,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.0296,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -25723,53 +27411,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.9799,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -6.38,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.0422,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 17.43,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.0255,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 9,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -26893,53 +28581,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.7547,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -64.28,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.3533,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 49.1,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0518,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 43,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -28100,53 +29788,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.339,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 3.19,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 117,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -29008,53 +30696,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 27.79,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": -0.0133,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -29181,53 +30869,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 1.9827,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 8.5,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 44,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -29931,53 +31619,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 2.1255,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 127.94,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": -0.2284,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "bad",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 44,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -31072,53 +32760,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 8.25,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0.0981,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -31247,53 +32935,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 3.263,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 40.62,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 52,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 1,
           "format": "number",
           "status": "bad",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -32109,53 +33797,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0.0,
           "format": "percent",
           "status": "bad",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": -299.93,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "bad",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -32252,53 +33940,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 46,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
@@ -33337,53 +35025,53 @@
       },
       "variance_cards": [
         {
-          "label": "Billing Achievement",
+          "label": "FY Billing Achievement",
           "value": 0,
           "format": "percent",
           "status": "good",
-          "note": "Actual billing / planned billing"
+          "note": "Actual billing as a percentage of FY planned billing"
         },
         {
-          "label": "Billing Variance",
+          "label": "Billing Variance vs Plan",
           "value": 0.0,
-          "format": "currency",
+          "format": "currency_delta",
           "status": "good",
-          "note": "Actual minus plan"
+          "note": "Actual billing minus FY planned billing"
         },
         {
-          "label": "Progress Gap",
+          "label": "Project Progress Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Actual progress minus planned"
+          "note": "Actual progress minus planned progress, in percentage points"
         },
         {
           "label": "Budget Headroom",
           "value": 0.0,
           "format": "currency",
           "status": "good",
-          "note": "Contract value minus current budget"
+          "note": "Contract value minus current budget; positive means room remains"
         },
         {
           "label": "PBT Gap",
           "value": 0,
-          "format": "percent_delta",
+          "format": "percentage_point",
           "status": "good",
-          "note": "Current PBT minus target PBT"
+          "note": "Current PBT minus target PBT, in percentage points"
         },
         {
-          "label": "Delayed Items",
+          "label": "Delayed Action Items",
           "value": 568,
           "format": "number",
           "status": "bad",
-          "note": "Design, procurement, execution"
+          "note": "Open design, procurement, and construction action items"
         },
         {
-          "label": "Late Commissioning",
+          "label": "Late Commissioning Projects",
           "value": 0,
           "format": "number",
           "status": "good",
-          "note": "Internal date after contract"
+          "note": "Projects where internal commissioning is after contract date"
         }
       ],
       "rankings": {
