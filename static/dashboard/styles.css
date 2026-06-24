@@ -1,41 +1,43 @@
+/* LIGHT THEME (Matches the clean vibe of the 2nd Image) */
 :root {
   color-scheme: light;
-  --bg: #f5f8f6;
-  --panel: #fffefd;
-  --ink: #2f3d3a;
-  --muted: #71807b;
-  --line: #dce8e1;
-  --accent: #7aa99a;
-  --accent-2: #557f74;
-  --warn: #d7a06f;
-  --bad: #cf7f7d;
-  --good: #7ea976;
-  --nav: #fbfdfb;
-  --nav-active: #e7f2ed;
-  --brand-deep: #5d867d;
-  --brand-gold: #d6b56d;
-  --skeleton: #e4ece8;
-  --skeleton-hi: #f7faf8;
+  --bg: #f3f4f6;            /* The smooth, light gray canvas background */
+  --panel: #ffffff;         /* Pure white for the tables and cards */
+  --ink: #111827;           /* Near-black text for maximum readability */
+  --muted: #6b7280;         /* Soft gray for table headers and secondary text */
+  --line: #e5e7eb;          /* Very soft gray for borders and dividers */
+  
+  --accent: #2563eb;        /* That punchy, modern blue for buttons and links */
+  --accent-2: #1d4ed8;      /* Slightly darker blue for hover states */
+  
+  /* Status Colors */
+  --warn: #f59e0b;          /* Amber for warnings/pending */
+  --bad: #ef4444;           /* Crisp red for delayed/high risk */
+  --good: #10b981;          /* Clean green for completed/on-track */
+  
+  --nav: #ffffff;           /* Crisp white sidebar */
+  --nav-active: #f3f4f6;    /* Soft gray highlight for the active sidebar tab */
 }
 
+/* DARK THEME (Matches the sleek, deep vibe of the 1st Image) */
 body.dark {
   color-scheme: dark;
-  --bg: #18211f;
-  --panel: #212c29;
-  --ink: #f4f8f5;
-  --muted: #b3c2bb;
-  --line: #33453f;
-  --accent: #9ecdc1;
-  --accent-2: #b7ded5;
-  --warn: #e5bb87;
-  --bad: #efa7a3;
-  --good: #aac99d;
-  --nav: #151d1b;
-  --nav-active: #263d37;
-  --brand-deep: #9ecdc1;
-  --brand-gold: #e4ca86;
-  --skeleton: #273631;
-  --skeleton-hi: #3a4b45;
+  --bg: #111827;            /* Deep, dark background */
+  --panel: #1f2937;         /* Slightly lighter dark slate for the cards */
+  --ink: #f9fafb;           /* Crisp white text */
+  --muted: #9ca3af;         /* Soft, cool gray text */
+  --line: #374151;          /* Subtle dark borders to separate rows */
+  
+  --accent: #8b5cf6;        /* A punchy indigo/purple accent typical of that dark theme */
+  --accent-2: #a78bfa;      /* Lighter purple for hover states */
+  
+  /* Status Colors (Slightly muted for dark mode eye-strain) */
+  --warn: #fbbf24;          
+  --bad: #f87171;           
+  --good: #34d399;          
+  
+  --nav: #111827;           /* Deep dark sidebar */
+  --nav-active: #1f2937;    /* Highlight for the active tab */
 }
 
 * {
@@ -1078,7 +1080,8 @@ body.dark .health-badge.on-track {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2;   /* Legacy WebKit support */
+  line-clamp: 2;           /* Standard property for compatibility */
 }
 
 .delay-area-cards {
