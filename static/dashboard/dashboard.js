@@ -145,6 +145,14 @@ function applyTheme(theme) {
   if (dashboardData) renderDashboard(dashboardData, currentProject);
 }
 
+function applySidebarState(collapsed) {
+  document.body.classList.toggle("sidebar-collapsed", collapsed);
+  localStorage.setItem("dashboard-sidebar-collapsed", collapsed ? "true" : "false");
+  const button = document.getElementById("sidebarToggle");
+  if (button) button.textContent = collapsed ? "Show sidebar" : "Hide sidebar";
+  setTimeout(() => Object.values(charts).forEach((chart) => chart.resize()), 80);
+}
+
 function destroyChart(id) {
   if (charts[id]) {
     charts[id].destroy();
@@ -837,9 +845,13 @@ fetch("/api/dashboard/")
     document.getElementById("themeToggle").addEventListener("click", () => {
       applyTheme(document.body.classList.contains("dark") ? "light" : "dark");
     });
+    document.getElementById("sidebarToggle").addEventListener("click", () => {
+      applySidebarState(!document.body.classList.contains("sidebar-collapsed"));
+    });
     document.getElementById("exportCsv").addEventListener("click", exportCsv);
     document.getElementById("exportExcel").addEventListener("click", exportExcel);
     document.getElementById("exportPdf").addEventListener("click", exportPdf);
   });
 
 applyTheme(localStorage.getItem("dashboard-theme") || "light");
+applySidebarState(localStorage.getItem("dashboard-sidebar-collapsed") === "true");
