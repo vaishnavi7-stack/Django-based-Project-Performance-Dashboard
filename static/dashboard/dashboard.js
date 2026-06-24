@@ -82,6 +82,10 @@ function tableToRows(table) {
 
 function activeExportRows() {
   const activePanel = document.querySelector(".report-page.active");
+  if (activePanel?.dataset.pagePanel === "tables") {
+    const dataTable = activePanel.querySelector(".data-table-panel.active table");
+    if (dataTable) return tableToRows(dataTable);
+  }
   const table = activePanel?.querySelector("table");
   if (table) return tableToRows(table);
   return [
@@ -444,6 +448,15 @@ function setDelayTeam(team) {
     button.classList.toggle("active", button.dataset.team === team);
   });
   renderAttention(currentAttentionRows);
+}
+
+function setDataTable(target) {
+  document.querySelectorAll("#dataTableTabs button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.tableTarget === target);
+  });
+  document.querySelectorAll(".data-table-panel").forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.tablePanel === target);
+  });
 }
 
 function renderMfcRows(rows) {
@@ -817,6 +830,9 @@ fetch("/api/dashboard/")
     });
     document.querySelectorAll("#delayTeamFilter button").forEach((button) => {
       button.addEventListener("click", () => setDelayTeam(button.dataset.team));
+    });
+    document.querySelectorAll("#dataTableTabs button").forEach((button) => {
+      button.addEventListener("click", () => setDataTable(button.dataset.tableTarget));
     });
     document.getElementById("themeToggle").addEventListener("click", () => {
       applyTheme(document.body.classList.contains("dark") ? "light" : "dark");

@@ -930,6 +930,45 @@ body.dark .health-badge.on-track {
   color: var(--accent-2);
 }
 
+.data-table-tabs {
+  position: sticky;
+  top: 88px;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+  padding: 10px;
+}
+
+.data-table-tabs button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.data-table-tabs button.active {
+  border-color: var(--accent);
+  background: var(--nav-active);
+  color: var(--accent-2);
+}
+
+.data-table-panel {
+  display: none;
+}
+
+.data-table-panel.active {
+  display: block;
+}
+
 .ranking-list {
   display: grid;
   gap: 8px;

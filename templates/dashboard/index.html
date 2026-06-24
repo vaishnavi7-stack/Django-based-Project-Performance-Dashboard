@@ -23,7 +23,7 @@
           <button class="nav-item" data-page="ai"><span>02</span>AI Risk</button>
           <button class="nav-item" data-page="delivery"><span>03</span>Delivery</button>
           <button class="nav-item" data-page="risks"><span>04</span>Issues & Hindrances</button>
-          <button class="nav-item" data-page="tables"><span>05</span>Detailed Tables</button>
+          <button class="nav-item" data-page="tables"><span>05</span>Data Tables</button>
         </nav>
       </aside>
 
@@ -265,14 +265,23 @@
             <section class="page-hero">
               <div>
                 <p class="eyebrow">Drilldown data</p>
-                <h2>Detailed Tables</h2>
-                <p class="section-intro">Record-level tables are kept here so the main dashboard stays focused.</p>
+                <h2>Data Tables</h2>
+                <p class="section-intro">Full record-level grids for finance, issues, delays, procurement, AI risk, and site hindrances.</p>
               </div>
             </section>
 
-            <section class="table-section">
+            <section class="data-table-tabs" id="dataTableTabs" aria-label="Data table selector">
+              <button class="active" data-table-target="budget" type="button">Budget Summary Data</button>
+              <button data-table-target="issues" type="button">Issue Register</button>
+              <button data-table-target="delays" type="button">Delay Activity List</button>
+              <button data-table-target="mfc" type="button">MFC Detail List</button>
+              <button data-table-target="ai" type="button">Full AI Risk Table</button>
+              <button data-table-target="hindrance" type="button">Hindrance Records</button>
+            </section>
+
+            <section class="table-section data-table-panel" data-table-panel="ai">
               <div class="panel-heading">
-                <h2>Project Risk Detail</h2>
+                <h2>Full AI Risk Table</h2>
                 <span>AI output with drivers and recommended action</span>
               </div>
               <div class="table-wrap">
@@ -299,7 +308,7 @@
               </div>
             </section>
 
-            <section class="table-section">
+            <section class="table-section data-table-panel" data-table-panel="mfc">
               <div class="panel-heading">
                 <h2>MFC Detail List</h2>
                 <span>PO/MFC plan vs actual dates and delay days</span>
@@ -323,7 +332,7 @@
               </div>
             </section>
 
-            <section class="table-section">
+            <section class="table-section data-table-panel active" data-table-panel="budget">
               <div class="panel-heading">
                 <h2>Budget Summary Data</h2>
                 <span>Contract, current budget, PBT, and variances</span>
@@ -348,7 +357,7 @@
               </div>
             </section>
 
-            <section class="table-section">
+            <section class="table-section data-table-panel" data-table-panel="issues">
               <div class="panel-heading">
                 <h2>Issue Register</h2>
                 <span>Actual issue text, owners, remarks, and status</span>
@@ -370,10 +379,10 @@
               </div>
             </section>
 
-            <section class="table-section">
+            <section class="table-section data-table-panel" data-table-panel="delays">
               <div class="panel-heading">
                 <div>
-                  <h2>Delayed Activities</h2>
+                  <h2>Delay Activity List</h2>
                   <div class="segmented-control" id="delayTeamFilter" aria-label="Delay team filter">
                     <button class="active" data-team="All" type="button">All</button>
                     <button data-team="Design" type="button">Design</button>
@@ -402,7 +411,7 @@
               </div>
             </section>
 
-            <section class="table-section">
+            <section class="table-section data-table-panel" data-table-panel="hindrance">
               <div class="panel-heading">
                 <h2>Hindrance Records</h2>
                 <span>Actual site hindrance entries</span>
