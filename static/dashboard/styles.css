@@ -37,7 +37,7 @@ body.dark {
   --bg: #0b0d17;            /* Near-black deep background */
   --panel: #13152a;         /* Dark navy-purple card surface */
   --ink: #f0f2ff;           /* Bright cool white text */
-  --muted: #7b82a8;         /* Muted blue-gray for secondary text */
+  --muted: #a0b4d6;         /* Bright cool blue — readable on dark, neon-ish */
   --line: #1f2340;          /* Barely visible border between elements */
 
   --accent: #ff9f2f;        /* Vivid orange — pops on dark */
@@ -324,6 +324,35 @@ body.dark .upgrade-btn {
 /* Vivid accent glow on active nav */
 body.dark .nav-item.active {
   box-shadow: inset 0 0 0 1px rgba(255,159,47,0.3);
+}
+
+/* ---- Small/note text — vivid in dark mode ---- */
+body.dark .kpi .note,
+body.dark .kpi .label,
+body.dark .ai-kpi small,
+body.dark .ai-kpi span,
+body.dark .variance-card .note,
+body.dark .source-note,
+body.dark .section-heading span,
+body.dark .list-subtitle,
+body.dark .rank-item small,
+body.dark .action-item small,
+body.dark .delay-area-card small,
+body.dark .delay-area-card b,
+body.dark .delay-area-card span,
+body.dark .refresh-meta,
+body.dark .section-intro,
+body.dark td small,
+body.dark .kpi-card-stats .kpi-meta {
+  color: #a0c4ff;           /* Neon sky blue — pops on dark without being harsh */
+}
+
+body.dark .kpi-card-stats .kpi-trend.up   { color: #00e5a0; }
+body.dark .kpi-card-stats .kpi-trend.down { color: #ff4d6a; }
+
+/* Table muted/secondary cells */
+body.dark td {
+  color: #d8e4f8;           /* Brighter than before so all cell text is readable */
 }
 
 .eyebrow {
