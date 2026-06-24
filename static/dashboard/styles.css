@@ -823,6 +823,24 @@ body.dark .ai-kpi.average {
   grid-column: span 2;
 }
 
+.risk-distribution-panel {
+  min-height: 430px;
+}
+
+.risk-distribution-body {
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+  padding: 8px 0 2px;
+}
+
+#riskDistributionChart {
+  width: min(270px, 100%) !important;
+  height: 270px !important;
+  max-width: 270px;
+  max-height: 270px;
+}
+
 .ai-rank-item {
   grid-template-columns: 34px minmax(0, 1fr) minmax(110px, auto);
   align-items: start;

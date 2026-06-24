@@ -746,8 +746,21 @@ function renderRiskDistribution(ai, project) {
       ],
     },
     options: {
-      maintainAspectRatio: false,
-      plugins: { legend: { position: "bottom" } },
+      aspectRatio: 1,
+      cutout: "62%",
+      maintainAspectRatio: true,
+      layout: { padding: { top: 6, right: 8, bottom: 0, left: 8 } },
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: {
+            boxHeight: 8,
+            boxWidth: 16,
+            padding: 14,
+            usePointStyle: true,
+          },
+        },
+      },
     },
   });
 }
