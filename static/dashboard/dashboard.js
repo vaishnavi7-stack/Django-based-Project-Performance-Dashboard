@@ -3,6 +3,8 @@ let dashboardData = null;
 let currentProject = "__all__";
 let currentAttentionRows = [];
 let currentDelayTeam = "All";
+let currentIssueRows = [];
+let currentIssueCriticality = "All";
 const palette = {
   plan: "#a7b9d6",
   actual: "#9fbe8f",
@@ -42,6 +44,13 @@ const formatDays = (value) =>
 
 const formatRiskScore = (value) =>
   Number(value || 0).toLocaleString("en-IN", { maximumFractionDigits: 1 });
+
+const clampPercent = (value) => Math.max(0, Math.min(100, Number(value || 0)));
+
+const truncateText = (value, maxLength = 118) => {
+  const text = String(value || "");
+  return text.length > maxLength ? `${text.slice(0, maxLength - 3).trim()}...` : text;
+};
 
 const formatByType = (value, type) => {
   if (type === "currency_delta") {
@@ -138,6 +147,15 @@ function exportPdf() {
   window.print();
 }
 
+function toggleExportMenu(open) {
+  const menu = document.getElementById("exportMenu");
+  const button = document.getElementById("exportMenuToggle");
+  if (!menu || !button) return;
+  const nextOpen = open ?? !menu.classList.contains("open");
+  menu.classList.toggle("open", nextOpen);
+  button.setAttribute("aria-expanded", nextOpen ? "true" : "false");
+}
+
 function applyTheme(theme) {
   document.body.classList.toggle("dark", theme === "dark");
   localStorage.setItem("dashboard-theme", theme);
@@ -148,8 +166,13 @@ function applyTheme(theme) {
 function applySidebarState(collapsed) {
   document.body.classList.toggle("sidebar-collapsed", collapsed);
   localStorage.setItem("dashboard-sidebar-collapsed", collapsed ? "true" : "false");
-  const button = document.getElementById("sidebarToggle");
-  if (button) button.textContent = collapsed ? "Show sidebar" : "Hide sidebar";
+  const sidebarButton = document.getElementById("sidebarToggle");
+  const restoreButton = document.getElementById("sidebarRestore");
+  if (sidebarButton) {
+    sidebarButton.textContent = "Hide";
+    sidebarButton.setAttribute("aria-label", "Hide sidebar");
+  }
+  if (restoreButton) restoreButton.hidden = !collapsed;
   setTimeout(() => Object.values(charts).forEach((chart) => chart.resize()), 80);
 }
 
@@ -300,7 +323,19 @@ function renderIssues(data) {
     },
     options: {
       maintainAspectRatio: false,
-      plugins: { legend: { position: "bottom" } },
+      onClick: (event, elements, chart) => {
+        const activeElement =
+          elements[0] || chart.getElementsAtEventForMode(event, "nearest", { intersect: false }, true)[0];
+        if (!activeElement) return;
+        const criticality = data.labels[activeElement.index];
+        activatePage("tables");
+        setDataTable("issues");
+        setIssueCriticality(criticality);
+      },
+      onHover: (event, elements) => {
+        if (event.native?.target) event.native.target.style.cursor = elements.length ? "pointer" : "default";
+      },
+      plugins: { legend: { position: "right", labels: { boxWidth: 12, padding: 14 } } },
     },
   });
 }
@@ -350,9 +385,12 @@ function renderHinderance(data) {
       datasets: [{ label: "Records", data: data.values, backgroundColor: palette.actual }],
     },
     options: {
-      indexAxis: "y",
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 35 } },
+        y: { beginAtZero: true },
+      },
     },
   });
 }
@@ -487,9 +525,42 @@ function renderMfcRows(rows) {
     .join("");
 }
 
-function renderIssueRows(rows) {
+function renderIssueFilter(rows) {
+  const filter = document.getElementById("issueCriticalityFilter");
+  if (!filter) return;
+  const values = ["All", ...new Set(rows.map((row) => row.criticality).filter(Boolean))];
+  if (!values.includes(currentIssueCriticality)) currentIssueCriticality = "All";
+  filter.innerHTML = values
+    .map(
+      (value) => `
+        <button class="${value === currentIssueCriticality ? "active" : ""}" data-criticality="${escapeHtml(value)}" type="button">${escapeHtml(value)}</button>
+      `,
+    )
+    .join("");
+  filter.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => setIssueCriticality(button.dataset.criticality));
+  });
+}
+
+function setIssueCriticality(criticality) {
+  currentIssueCriticality = criticality || "All";
+  document.querySelectorAll("#issueCriticalityFilter button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.criticality === currentIssueCriticality);
+  });
+  renderIssueRows(currentIssueRows, false);
+}
+
+function renderIssueRows(rows, rebuildFilter = true) {
+  currentIssueRows = rows;
   const body = document.getElementById("issueRows");
-  body.innerHTML = rows
+  if (rebuildFilter) renderIssueFilter(rows);
+  const visibleRows =
+    currentIssueCriticality === "All" ? rows : rows.filter((row) => row.criticality === currentIssueCriticality);
+  if (!visibleRows.length) {
+    body.innerHTML = '<tr><td colspan="6">No issue rows for this filter.</td></tr>';
+    return;
+  }
+  body.innerHTML = visibleRows
     .map(
       (row) => `
         <tr>
@@ -546,6 +617,34 @@ function renderHinderanceRows(rows) {
     .join("");
 }
 
+function driverClass(driver) {
+  const text = String(driver || "").toLowerCase();
+  if (text.includes("procurement")) return "procurement";
+  if (text.includes("design")) return "design";
+  if (text.includes("execution")) return "execution";
+  if (text.includes("billing")) return "billing";
+  if (text.includes("pbt") || text.includes("budget")) return "finance";
+  if (text.includes("issue")) return "issue";
+  if (text.includes("hindrance")) return "hindrance";
+  if (text.includes("progress")) return "progress";
+  return "default";
+}
+
+function renderDriverTags(drivers, fallback = "") {
+  const values = (drivers || []).length
+    ? drivers
+    : String(fallback || "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+  if (!values.length) return '<span class="driver-tag default">No dominant driver</span>';
+  return `
+    <div class="driver-tags">
+      ${values.map((driver) => `<span class="driver-tag ${driverClass(driver)}">${escapeHtml(driver)}</span>`).join("")}
+    </div>
+  `;
+}
+
 function riskStatusClass(status) {
   if (status === "High Risk") return "high";
   if (status === "Medium Risk") return "medium";
@@ -576,19 +675,26 @@ function renderAiCards(rows) {
     ? rows.reduce((sum, row) => sum + Number(row.risk_score || 0), 0) / rows.length
     : 0;
   const cards = [
-    ["Projects Analysed", rows.length, "Project rows in current selection"],
-    ["High Risk Projects", high, "Immediate review candidates"],
-    ["Medium Risk Projects", medium, "Watchlist projects"],
-    ["Normal Projects", normal, "No abnormal risk signal"],
-    ["Average Risk Index", formatRiskScore(average), "0 to 100, higher means riskier"],
+    { label: "Projects Analysed", value: rows.length, note: "Project rows in current selection", tone: "neutral" },
+    { label: "High Risk Projects", value: high, note: "Immediate review candidates", tone: "high" },
+    { label: "Medium Risk Projects", value: medium, note: "Watchlist projects", tone: "medium" },
+    { label: "Normal Projects", value: normal, note: "No abnormal risk signal", tone: "normal" },
+    {
+      label: "Average Risk Index",
+      value: formatRiskScore(average),
+      note: "0 to 100, higher means riskier",
+      tone: "average",
+      meter: clampPercent(average),
+    },
   ];
   grid.innerHTML = cards
     .map(
-      ([label, value, note]) => `
-        <article class="ai-kpi">
-          <span>${escapeHtml(label)}</span>
-          <strong>${escapeHtml(value)}</strong>
-          <small>${escapeHtml(note)}</small>
+      (card) => `
+        <article class="ai-kpi ${card.tone}">
+          <span>${escapeHtml(card.label)}</span>
+          <strong>${escapeHtml(card.value)}</strong>
+          ${card.meter !== undefined ? `<div class="risk-meter" aria-hidden="true"><i style="width:${card.meter}%;"></i></div>` : ""}
+          <small>${escapeHtml(card.note)}</small>
         </article>
       `,
     )
@@ -610,7 +716,8 @@ function renderAiTopRisk(rows) {
           <span class="rank-number">${escapeHtml(row.rank)}</span>
           <div>
             <strong>${escapeHtml(row.project)}</strong>
-            <small>${escapeHtml(row.risk_reason)}</small>
+            ${renderDriverTags(row.drivers, row.risk_reason)}
+            <small class="muted-reason">${escapeHtml(row.risk_reason)}</small>
           </div>
           <div class="ai-rank-metric">
             <span class="risk-status ${riskStatusClass(row.risk_status)}">${escapeHtml(row.risk_status)}</span>
@@ -687,9 +794,10 @@ function renderActionList(id, rows) {
         <div class="action-item">
           <div>
             <strong>${escapeHtml(row.project)}</strong>
-            <small>${escapeHtml(row.risk_reason)}</small>
+            <small>Risk index ${escapeHtml(formatRiskScore(row.risk_score))}</small>
           </div>
-          <p>${escapeHtml(row.recommended_action)}</p>
+          ${renderDriverTags(row.drivers, row.risk_reason)}
+          <p title="${escapeHtml(row.recommended_action)}">${escapeHtml(truncateText(row.recommended_action))}</p>
           <span class="health-badge ${healthStatusClass(row.health_status)}">${escapeHtml(row.health_status)}</span>
         </div>
       `,
@@ -767,16 +875,24 @@ function renderDelayAreaCards(rows) {
       const teamRows = rows.filter((row) => row.team === team);
       const maxDelay = teamRows.reduce((max, row) => Math.max(max, Number(row.delay_days || 0)), 0);
       const aged = teamRows.filter((row) => Number(row.delay_days || 0) >= 60).length;
+      const severity = maxDelay >= 180 || aged >= 10 ? "critical" : maxDelay >= 30 || aged > 0 ? "warning" : "stable";
       return `
-        <article class="delay-area-card">
+        <button class="delay-area-card ${severity}" data-team="${escapeHtml(team)}" type="button">
           <span>${escapeHtml(team)}</span>
           <strong>${teamRows.length}</strong>
           <small>${escapeHtml(formatDays(maxDelay))} max delay</small>
           <b>${aged} aged 60+ days</b>
-        </article>
+        </button>
       `;
     })
     .join("");
+  grid.querySelectorAll(".delay-area-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      activatePage("tables");
+      setDataTable("delays");
+      setDelayTeam(card.dataset.team);
+    });
+  });
 }
 
 function populateProjects(projects) {
@@ -848,9 +964,28 @@ fetch("/api/dashboard/")
     document.getElementById("sidebarToggle").addEventListener("click", () => {
       applySidebarState(!document.body.classList.contains("sidebar-collapsed"));
     });
-    document.getElementById("exportCsv").addEventListener("click", exportCsv);
-    document.getElementById("exportExcel").addEventListener("click", exportExcel);
-    document.getElementById("exportPdf").addEventListener("click", exportPdf);
+    document.getElementById("sidebarRestore").addEventListener("click", () => {
+      applySidebarState(false);
+    });
+    document.getElementById("exportMenuToggle").addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleExportMenu();
+    });
+    document.getElementById("exportCsv").addEventListener("click", () => {
+      exportCsv();
+      toggleExportMenu(false);
+    });
+    document.getElementById("exportExcel").addEventListener("click", () => {
+      exportExcel();
+      toggleExportMenu(false);
+    });
+    document.getElementById("exportPdf").addEventListener("click", () => {
+      exportPdf();
+      toggleExportMenu(false);
+    });
+    document.addEventListener("click", (event) => {
+      if (!document.getElementById("exportMenu")?.contains(event.target)) toggleExportMenu(false);
+    });
   });
 
 applyTheme(localStorage.getItem("dashboard-theme") || "light");

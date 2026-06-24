@@ -17,6 +17,7 @@
             <strong>Project Dashboard</strong>
             <small>Rays Power Infra</small>
           </div>
+          <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Hide sidebar">Hide</button>
         </div>
         <nav aria-label="Dashboard pages">
           <button class="nav-item active" data-page="overview"><span>01</span>Overview</button>
@@ -42,11 +43,15 @@
               </select>
             </div>
             <div class="action-row">
-              <button class="action-button" id="sidebarToggle" type="button">Hide sidebar</button>
               <button class="action-button" id="themeToggle" type="button">Dark mode</button>
-              <button class="action-button" id="exportCsv" type="button">Export CSV</button>
-              <button class="action-button" id="exportExcel" type="button">Export Excel</button>
-              <button class="action-button" id="exportPdf" type="button">Export PDF</button>
+              <div class="export-menu" id="exportMenu">
+                <button class="action-button export-toggle" id="exportMenuToggle" type="button" aria-expanded="false">Export</button>
+                <div class="export-options" id="exportOptions" aria-label="Export options">
+                  <button id="exportCsv" type="button">CSV</button>
+                  <button id="exportExcel" type="button">Excel</button>
+                  <button id="exportPdf" type="button">PDF</button>
+                </div>
+              </div>
             </div>
           </div>
         </header>
@@ -115,13 +120,28 @@
                 <h2>AI Risk Command Center</h2>
                 <p class="section-intro">Isolation Forest flags abnormal project patterns and translates them into review priorities.</p>
               </div>
-              <div class="ai-model-pill" id="aiModelPill">Model loading</div>
+              <div class="ai-hero-tools">
+                <div class="ai-model-pill" id="aiModelPill">Model loading</div>
+                <details class="model-disclosure">
+                  <summary>Risk engine inputs</summary>
+                  <ul class="model-inputs">
+                    <li>Progress lag</li>
+                    <li>Critical issue count</li>
+                    <li>Design delay</li>
+                    <li>Procurement delay</li>
+                    <li>Execution lag</li>
+                    <li>Billing shortfall</li>
+                    <li>PBT shortfall</li>
+                    <li>Site hindrance load</li>
+                  </ul>
+                </details>
+              </div>
             </section>
 
             <section class="ai-kpi-grid" id="aiKpiGrid"></section>
 
             <section class="dashboard-grid ai-grid">
-              <article class="panel wide">
+              <article class="panel wide ai-top-risk-panel">
                 <div class="panel-heading">
                   <h2>Top At-Risk Projects</h2>
                   <span>Ranked by AI risk index</span>
@@ -149,28 +169,12 @@
                 </div>
                 <p class="ai-insight" id="aiInsightBox"></p>
               </article>
-              <article class="panel wide">
+              <article class="panel wide ai-actions-panel">
                 <div class="panel-heading">
                   <h2>Recommended Actions</h2>
                   <span>Next steps for highest-risk projects</span>
                 </div>
                 <div class="action-list" id="aiActionList"></div>
-              </article>
-              <article class="panel model-box">
-                <div class="panel-heading">
-                  <h2>Risk Engine Inputs</h2>
-                  <span>Signals considered</span>
-                </div>
-                <ul class="model-inputs">
-                  <li>Progress lag</li>
-                  <li>Critical issue count</li>
-                  <li>Design delay</li>
-                  <li>Procurement delay</li>
-                  <li>Execution lag</li>
-                  <li>Billing shortfall</li>
-                  <li>PBT shortfall</li>
-                  <li>Site hindrance load</li>
-                </ul>
               </article>
             </section>
           </section>
@@ -238,14 +242,14 @@
             </section>
 
             <section class="dashboard-grid">
-              <article class="panel">
+              <article class="panel chart-panel">
                 <div class="panel-heading">
                   <h2>Critical Issues Overview</h2>
                   <span>By criticality</span>
                 </div>
                 <canvas id="issuesChart"></canvas>
               </article>
-              <article class="panel">
+              <article class="panel chart-panel">
                 <div class="panel-heading">
                   <h2>Hindrance Mix</h2>
                   <span>Count by cause</span>
@@ -360,7 +364,10 @@
 
             <section class="table-section data-table-panel" data-table-panel="issues">
               <div class="panel-heading">
-                <h2>Issue Register</h2>
+                <div>
+                  <h2>Issue Register</h2>
+                  <div class="segmented-control" id="issueCriticalityFilter" aria-label="Issue criticality filter"></div>
+                </div>
                 <span>Actual issue text, owners, remarks, and status</span>
               </div>
               <div class="table-wrap compact">
@@ -439,6 +446,7 @@
         </main>
       </div>
     </div>
+    <button class="sidebar-restore" id="sidebarRestore" type="button" aria-label="Show sidebar">Show sidebar</button>
 
     <script src="{% static 'dashboard/dashboard.js' %}"></script>
   </body>
