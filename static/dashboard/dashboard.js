@@ -14,6 +14,63 @@ const palette = {
   soft: "#edf5f2",
 };
 
+// ── Theme-aware chart colours ─────────────────────────────────────────────────
+function chartTheme() {
+  const dark = document.body.classList.contains("dark");
+  return {
+    labelColor:   dark ? "#a0c4ff" : "#718096",   // axis labels / tick text
+    gridColor:    dark ? "rgba(160,196,255,0.08)" : "rgba(0,0,0,0.06)",
+    legendColor:  dark ? "#a0c4ff" : "#4a5568",
+    tooltipBg:    dark ? "#13152a" : "#ffffff",
+    tooltipTitle: dark ? "#f0f2ff" : "#1a202c",
+    tooltipBody:  dark ? "#a0c4ff" : "#718096",
+    tooltipBorder:dark ? "#1f2340" : "#e2e8f0",
+  };
+}
+
+function applyChartDefaults() {
+  const t = chartTheme();
+  Chart.defaults.color       = t.labelColor;
+  Chart.defaults.borderColor = t.gridColor;
+}
+
+// Shared scale options injected into every chart
+function themeScales(extraX = {}, extraY = {}) {
+  const t = chartTheme();
+  return {
+    x: {
+      ticks: { color: t.labelColor, ...extraX.ticks },
+      grid:  { color: t.gridColor,  ...extraX.grid  },
+      ...extraX,
+    },
+    y: {
+      ticks: { color: t.labelColor, ...extraY.ticks },
+      grid:  { color: t.gridColor,  ...extraY.grid  },
+      ...extraY,
+    },
+  };
+}
+
+function themePlugins(extra = {}) {
+  const t = chartTheme();
+  return {
+    legend: {
+      labels: { color: t.legendColor, ...extra.legend?.labels },
+      ...extra.legend,
+    },
+    tooltip: {
+      backgroundColor: t.tooltipBg,
+      titleColor:      t.tooltipTitle,
+      bodyColor:       t.tooltipBody,
+      borderColor:     t.tooltipBorder,
+      borderWidth:     1,
+      ...extra.tooltip,
+    },
+    ...extra,
+  };
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 const escapeHtml = (value) =>
   String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -160,6 +217,7 @@ function applyTheme(theme) {
   document.body.classList.toggle("dark", theme === "dark");
   localStorage.setItem("dashboard-theme", theme);
   document.getElementById("themeToggle").textContent = theme === "dark" ? "Light mode" : "Dark mode";
+  applyChartDefaults();
   if (dashboardData) renderDashboard(dashboardData, currentProject);
 }
 
@@ -262,8 +320,8 @@ function renderBilling(data) {
     options: {
       maintainAspectRatio: false,
       interaction: { intersect: false, mode: "index" },
-      plugins: { legend: { position: "bottom" } },
-      scales: { y: { ticks: { callback: (value) => `${value} Cr` } } },
+      plugins: themePlugins({ legend: { position: "bottom" } }),
+      scales: themeScales({}, { ticks: { callback: (value) => `${value} Cr` } }),
     },
   });
 }
@@ -335,7 +393,7 @@ function renderIssues(data) {
       onHover: (event, elements) => {
         if (event.native?.target) event.native.target.style.cursor = elements.length ? "pointer" : "default";
       },
-      plugins: { legend: { position: "right", labels: { boxWidth: 12, padding: 14 } } },
+      plugins: themePlugins({ legend: { position: "right", labels: { boxWidth: 12, padding: 14 } } }),
     },
   });
 }
@@ -353,8 +411,8 @@ function renderBudget(data) {
     },
     options: {
       maintainAspectRatio: false,
-      plugins: { legend: { position: "bottom" } },
-      scales: { y: { ticks: { callback: (value) => `${value} Cr` } } },
+      plugins: themePlugins({ legend: { position: "bottom" } }),
+      scales: themeScales({}, { ticks: { callback: (value) => `${value} Cr` } }),
     },
   });
 }
@@ -372,7 +430,8 @@ function renderDelays(data) {
     },
     options: {
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
+      plugins: themePlugins({ legend: { display: false } }),
+      scales: themeScales(),
     },
   });
 }
@@ -386,11 +445,11 @@ function renderHinderance(data) {
     },
     options: {
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 35 } },
-        y: { beginAtZero: true },
-      },
+      plugins: themePlugins({ legend: { display: false } }),
+      scales: themeScales(
+        { ticks: { autoSkip: false, maxRotation: 45, minRotation: 35 } },
+        { beginAtZero: true },
+      ),
     },
   });
 }
@@ -750,17 +809,12 @@ function renderRiskDistribution(ai, project) {
       cutout: "62%",
       maintainAspectRatio: true,
       layout: { padding: { top: 6, right: 8, bottom: 0, left: 8 } },
-      plugins: {
+      plugins: themePlugins({
         legend: {
           position: "bottom",
-          labels: {
-            boxHeight: 8,
-            boxWidth: 16,
-            padding: 14,
-            usePointStyle: true,
-          },
+          labels: { boxHeight: 8, boxWidth: 16, padding: 14, usePointStyle: true },
         },
-      },
+      }),
     },
   });
 }
