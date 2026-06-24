@@ -31,30 +31,30 @@
   --skeleton-hi: rgba(255,255,255,0.6);
 }
 
-/* DARK THEME */
+/* DARK THEME — High contrast, vivid */
 body.dark {
   color-scheme: dark;
-  --bg: #111827;
-  --panel: #1f2937;
-  --ink: #f9fafb;
-  --muted: #9ca3af;
-  --line: #374151;
+  --bg: #0b0d17;            /* Near-black deep background */
+  --panel: #13152a;         /* Dark navy-purple card surface */
+  --ink: #f0f2ff;           /* Bright cool white text */
+  --muted: #7b82a8;         /* Muted blue-gray for secondary text */
+  --line: #1f2340;          /* Barely visible border between elements */
 
-  --accent: #f7931e;
-  --accent-2: #ffaa44;
-  --accent-light: rgba(247,147,30,0.15);
+  --accent: #ff9f2f;        /* Vivid orange — pops on dark */
+  --accent-2: #ffb84d;      /* Lighter orange for hover */
+  --accent-light: rgba(255,159,47,0.18);
 
-  --warn: #fbbf24;
-  --bad: #f87171;
-  --good: #34d399;
+  --warn: #f5c518;          /* Vivid amber */
+  --bad: #ff4d6a;           /* Hot red-pink */
+  --good: #00e5a0;          /* Neon mint green */
 
-  --nav: #111827;
-  --nav-text: #9ca3af;
-  --nav-active: #f7931e;
+  --nav: #0d0f1e;           /* Deepest dark for sidebar */
+  --nav-text: #8892b0;      /* Muted slate-blue nav text */
+  --nav-active: #ff9f2f;    /* Orange active item */
   --nav-active-text: #ffffff;
 
-  --skeleton: #374151;
-  --skeleton-hi: rgba(255,255,255,0.08);
+  --skeleton: #1a1d36;
+  --skeleton-hi: rgba(255,255,255,0.05);
 }
 
 * {
@@ -242,7 +242,88 @@ body.sidebar-collapsed .sidebar-restore {
 }
 
 body.dark .topbar {
-  background: var(--panel);
+  background: #0d0f1e;
+  border-bottom: 1px solid #1f2340;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+/* Dark mode — panels glow slightly on the border */
+body.dark .panel,
+body.dark .table-section {
+  background: #13152a;
+  border: 1px solid #1f2340;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+
+body.dark .panel:hover {
+  border-color: rgba(255,159,47,0.25);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.45);
+}
+
+body.dark .kpi {
+  background: #13152a;
+  border: 1px solid #1f2340;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+body.dark .kpi:hover {
+  border-color: rgba(255,159,47,0.3);
+}
+
+/* Table rows — stronger contrast stripe */
+body.dark td {
+  border-bottom-color: #1a1d36;
+}
+
+body.dark tr:hover td {
+  background: rgba(255,159,47,0.05);
+}
+
+/* Status chip dark overrides — more vivid */
+body.dark .trend-badge.good {
+  background: rgba(0,229,160,0.15);
+  color: #00e5a0;
+}
+
+body.dark .trend-badge.bad {
+  background: rgba(255,77,106,0.15);
+  color: #ff4d6a;
+}
+
+body.dark .status-chip.good,
+body.dark .health-badge.on-track,
+body.dark .risk-status.normal {
+  background: rgba(0,229,160,0.12);
+  color: #00e5a0;
+}
+
+body.dark .status-chip.bad,
+body.dark .health-badge.critical,
+body.dark .risk-status.high {
+  background: rgba(255,77,106,0.12);
+  color: #ff4d6a;
+}
+
+body.dark .health-badge.at-risk,
+body.dark .risk-status.medium {
+  background: rgba(245,197,24,0.12);
+  color: #f5c518;
+}
+
+/* Rank number badge */
+body.dark .rank-number {
+  background: rgba(255,159,47,0.15);
+  color: #ff9f2f;
+}
+
+/* Sidebar bottom section in dark mode */
+body.dark .upgrade-btn {
+  box-shadow: 0 4px 18px rgba(255,159,47,0.3);
+}
+
+/* Vivid accent glow on active nav */
+body.dark .nav-item.active {
+  box-shadow: inset 0 0 0 1px rgba(255,159,47,0.3);
 }
 
 .eyebrow {
