@@ -1,43 +1,60 @@
-/* LIGHT THEME (Matches the clean vibe of the 2nd Image) */
+/* LIGHT THEME — Volt Dashboard style: dark navy sidebar + warm orange accent */
 :root {
   color-scheme: light;
-  --bg: #f3f4f6;            /* The smooth, light gray canvas background */
-  --panel: #ffffff;         /* Pure white for the tables and cards */
-  --ink: #111827;           /* Near-black text for maximum readability */
-  --muted: #6b7280;         /* Soft gray for table headers and secondary text */
-  --line: #e5e7eb;          /* Very soft gray for borders and dividers */
-  
-  --accent: #2563eb;        /* That punchy, modern blue for buttons and links */
-  --accent-2: #1d4ed8;      /* Slightly darker blue for hover states */
-  
+  --bg: #f4f5f7;            /* Light gray canvas — matches Volt's main content area */
+  --panel: #ffffff;         /* Pure white cards */
+  --ink: #2d3748;           /* Dark slate text */
+  --muted: #718096;         /* Soft gray for secondary text */
+  --line: #e2e8f0;          /* Light border/divider */
+
+  --accent: #f7931e;        /* Volt's warm orange — used for buttons, highlights, chart */
+  --accent-2: #e07b10;      /* Darker orange for hover states */
+  --accent-light: #fff3e0;  /* Pale orange tint for card backgrounds / badges */
+
   /* Status Colors */
-  --warn: #f59e0b;          /* Amber for warnings/pending */
-  --bad: #ef4444;           /* Crisp red for delayed/high risk */
-  --good: #10b981;          /* Clean green for completed/on-track */
-  
-  --nav: #ffffff;           /* Crisp white sidebar */
-  --nav-active: #f3f4f6;    /* Soft gray highlight for the active sidebar tab */
+  --warn: #f59e0b;          /* Amber */
+  --bad: #ef4444;           /* Red */
+  --good: #10b981;          /* Green */
+
+  /* Sidebar — deep navy like Volt */
+  --nav: #1e2a3b;           /* Dark navy sidebar background */
+  --nav-text: #cdd6e5;      /* Light blue-gray sidebar text */
+  --nav-active: #f7931e;    /* Orange highlight for active nav item */
+  --nav-active-text: #ffffff;
+
+  /* Brand colors kept for gradient bar */
+  --brand-deep: #1e2a3b;
+  --brand-gold: #f7931e;
+
+  /* Skeleton shimmer */
+  --skeleton: #e2e8f0;
+  --skeleton-hi: rgba(255,255,255,0.6);
 }
 
-/* DARK THEME (Matches the sleek, deep vibe of the 1st Image) */
+/* DARK THEME */
 body.dark {
   color-scheme: dark;
-  --bg: #111827;            /* Deep, dark background */
-  --panel: #1f2937;         /* Slightly lighter dark slate for the cards */
-  --ink: #f9fafb;           /* Crisp white text */
-  --muted: #9ca3af;         /* Soft, cool gray text */
-  --line: #374151;          /* Subtle dark borders to separate rows */
-  
-  --accent: #8b5cf6;        /* A punchy indigo/purple accent typical of that dark theme */
-  --accent-2: #a78bfa;      /* Lighter purple for hover states */
-  
-  /* Status Colors (Slightly muted for dark mode eye-strain) */
-  --warn: #fbbf24;          
-  --bad: #f87171;           
-  --good: #34d399;          
-  
-  --nav: #111827;           /* Deep dark sidebar */
-  --nav-active: #1f2937;    /* Highlight for the active tab */
+  --bg: #111827;
+  --panel: #1f2937;
+  --ink: #f9fafb;
+  --muted: #9ca3af;
+  --line: #374151;
+
+  --accent: #f7931e;
+  --accent-2: #ffaa44;
+  --accent-light: rgba(247,147,30,0.15);
+
+  --warn: #fbbf24;
+  --bad: #f87171;
+  --good: #34d399;
+
+  --nav: #111827;
+  --nav-text: #9ca3af;
+  --nav-active: #f7931e;
+  --nav-active-text: #ffffff;
+
+  --skeleton: #374151;
+  --skeleton-hi: rgba(255,255,255,0.08);
 }
 
 * {
@@ -71,9 +88,10 @@ body.sidebar-collapsed .side-nav {
   position: sticky;
   top: 0;
   height: 100vh;
-  border-right: 1px solid var(--line);
+  border-right: none;
   background: var(--nav);
   overflow-y: auto;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.12);
 }
 
 .side-nav::before {
@@ -90,7 +108,7 @@ body.sidebar-collapsed .side-nav {
   align-items: center;
   min-height: 88px;
   padding: 18px 18px 16px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .brand-icon {
@@ -112,19 +130,20 @@ body.sidebar-collapsed .side-nav {
 
 .brand-mark strong {
   font-size: 16px;
+  color: #ffffff;
 }
 
 .brand-mark small {
   margin-top: 2px;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
 }
 
 .sidebar-toggle {
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 999px;
-  background: var(--nav-active);
-  color: var(--accent-2);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
   padding: 6px 9px;
   font: inherit;
   font-size: 11px;
@@ -134,6 +153,7 @@ body.sidebar-collapsed .side-nav {
 
 .sidebar-toggle:hover {
   border-color: var(--accent);
+  color: var(--accent);
 }
 
 .sidebar-restore {
@@ -159,7 +179,7 @@ body.sidebar-collapsed .sidebar-restore {
 }
 
 .side-nav nav {
-  padding: 26px 8px 18px 0;
+  padding: 16px 8px 18px 0;
 }
 
 .nav-item {
@@ -171,29 +191,34 @@ body.sidebar-collapsed .sidebar-restore {
   border: 0;
   border-radius: 0 24px 24px 0;
   background: transparent;
-  color: var(--ink);
+  color: var(--nav-text);
   padding: 0 16px 0 24px;
   text-align: left;
   font: inherit;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .nav-item span {
-  color: var(--muted);
+  color: rgba(255,255,255,0.3);
   font-size: 11px;
   font-weight: 800;
 }
 
-.nav-item:hover,
+.nav-item:hover {
+  background: rgba(255,255,255,0.07);
+  color: #ffffff;
+}
+
 .nav-item.active {
   background: var(--nav-active);
-  color: var(--accent-2);
+  color: var(--nav-active-text);
 }
 
 .nav-item.active span {
-  color: var(--accent-2);
+  color: rgba(255,255,255,0.8);
 }
 
 .report-area {
@@ -208,15 +233,16 @@ body.sidebar-collapsed .sidebar-restore {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 88px;
-  padding: 18px 28px;
+  min-height: 72px;
+  padding: 14px 28px;
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 254, 253, 0.94);
+  background: var(--panel);
   backdrop-filter: blur(10px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 body.dark .topbar {
-  background: rgba(33, 44, 41, 0.94);
+  background: var(--panel);
 }
 
 .eyebrow {
@@ -320,20 +346,34 @@ body.dark select {
 }
 
 .action-button {
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--panel);
-  color: var(--ink);
-  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 9px 16px;
   font: inherit;
-  font-size: 12px;
-  font-weight: 800;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .action-button:hover {
+  background: var(--accent-2);
+  transform: translateY(-1px);
+}
+
+.action-button.secondary {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.action-button.secondary:hover {
   border-color: var(--accent);
-  color: var(--accent-2);
+  color: var(--accent);
+  background: var(--accent-light);
+  transform: translateY(-1px);
 }
 
 .export-menu {
@@ -522,10 +562,16 @@ body.loading .report-page {
 
 .kpi {
   min-height: 92px;
-  border: 1px solid var(--line);
-  border-radius: 2px;
+  border: none;
+  border-radius: 12px;
   background: var(--panel);
-  padding: 12px 12px 10px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.kpi:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .kpi.context-card {
@@ -1175,13 +1221,16 @@ body.dark .delay-area-card.stable {
 
 .panel,
 .table-section {
-  border: 1px solid var(--line);
-  /* Change this from 2px to 12px for the modern rounded look */
-  border-radius: 12px; 
+  border: none;
+  border-radius: 12px;
   background: var(--panel);
-  padding: 16px;
-  /* Adding this makes them 'pop' off the background slightly */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s ease;
+}
+
+.panel:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .panel.wide {
@@ -1500,15 +1549,17 @@ td {
 }
 
 th {
-  background: #eaf2ee;
-  color: #4a5b55;
-  font-size: 12px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 body.dark th {
-  background: #2a3a35;
-  color: var(--ink);
+  background: rgba(255,255,255,0.04);
+  color: var(--muted);
 }
 
 td {
@@ -1667,6 +1718,324 @@ td {
   .panel.wide {
     grid-column: span 1;
   }
+}
+
+
+/* ============================================================
+   VOLT DASHBOARD OVERRIDES
+   Matches the POC: dark navy sidebar, orange accent, 
+   white rounded cards, light gray background
+   ============================================================ */
+
+/* Brand icon — orange lightning bolt vibe */
+.brand-icon {
+  background: var(--accent);
+}
+
+/* Sales chart card — warm orange tinted background like in POC */
+.sales-chart-card,
+.chart-panel.highlighted {
+  background: linear-gradient(135deg, #fff8ee 0%, #fff3e0 100%);
+  border: none;
+  box-shadow: 0 2px 16px rgba(247,147,30,0.12);
+}
+
+/* "New Task" primary button */
+.btn-primary,
+button.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 10px 18px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(247,147,30,0.35);
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover,
+button.primary:hover {
+  background: var(--accent-2);
+  box-shadow: 0 6px 18px rgba(247,147,30,0.45);
+  transform: translateY(-1px);
+}
+
+/* "Upgrade to Pro" bottom-of-sidebar button */
+.upgrade-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: calc(100% - 32px);
+  margin: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(247,147,30,0.4);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.upgrade-btn:hover {
+  background: var(--accent-2);
+  transform: translateY(-1px);
+}
+
+/* KPI icon boxes — colored squares like in POC */
+.kpi-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.kpi-icon.customers { background: #e8edf7; color: #4a6fa5; }
+.kpi-icon.revenue   { background: #fff3e0; color: var(--accent); }
+.kpi-icon.bounce    { background: #ede8f7; color: #7c5cbf; }
+.kpi-icon.orders    { background: #e8f5e9; color: #43a047; }
+
+/* Dashboard grid KPI cards — horizontal layout with icon + stats */
+.kpi-card-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kpi-card-stats strong {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.kpi-card-stats .kpi-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.kpi-card-stats .kpi-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.kpi-card-stats .kpi-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.kpi-card-stats .kpi-trend.up   { color: var(--good); }
+.kpi-card-stats .kpi-trend.down { color: var(--bad); }
+
+/* Month/Week toggle pill — like the orange "Month" button in POC */
+.period-toggle {
+  display: inline-flex;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 3px;
+  overflow: hidden;
+}
+
+.period-toggle button {
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.period-toggle button.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* "See all" secondary link-button */
+.see-all-btn {
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: var(--ink);
+  color: #ffffff;
+  padding: 7px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.see-all-btn:hover {
+  background: #3d4f66;
+}
+
+/* Topbar search box */
+.topbar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  padding: 8px 14px;
+  min-width: 220px;
+}
+
+.topbar-search input {
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+}
+
+.topbar-search input::placeholder { color: var(--muted); }
+
+/* User avatar pill */
+.user-avatar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.user-avatar img,
+.user-avatar .avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.user-avatar .user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Notification bell */
+.notif-bell {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.notif-bell .badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bad);
+  border: 2px solid var(--panel);
+}
+
+/* Settings button (dark pill in POC) */
+.settings-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #ffffff;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Pro badge on nav items */
+.nav-pro-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Sales chart area tint (orange wash) */
+.sales-chart-wrapper {
+  background: linear-gradient(180deg, rgba(247,147,30,0.08) 0%, rgba(247,147,30,0.03) 100%);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Total orders small card */
+.total-orders-card {
+  border: none;
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.total-orders-card .orders-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.total-orders-card .orders-change {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--good);
+  margin-top: 6px;
+}
+
+/* Accent eyebrow line — use orange instead of brand-gold where brand-gold undefined */
+.eyebrow::before {
+  background: var(--accent);
 }
 
 @media print {
