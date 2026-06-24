@@ -19,14 +19,11 @@
           </div>
         </div>
         <nav aria-label="Dashboard pages">
-          <button class="nav-item active" data-page="financial"><span>01</span>Financial Progress</button>
-          <button class="nav-item" data-page="ai"><span>02</span>AI Project Intelligence</button>
-          <button class="nav-item" data-page="progress"><span>03</span>Project Progress</button>
-          <button class="nav-item" data-page="mfc"><span>04</span>MFC Delay</button>
-          <button class="nav-item" data-page="budget"><span>05</span>Project Wise Finance</button>
-          <button class="nav-item" data-page="issues"><span>06</span>Critical Issues</button>
-          <button class="nav-item" data-page="attention"><span>07</span>Delay Activity List</button>
-          <button class="nav-item" data-page="hinderance"><span>08</span>Hinderance Report</button>
+          <button class="nav-item active" data-page="overview"><span>01</span>Overview</button>
+          <button class="nav-item" data-page="ai"><span>02</span>AI Risk</button>
+          <button class="nav-item" data-page="delivery"><span>03</span>Delivery</button>
+          <button class="nav-item" data-page="risks"><span>04</span>Issues & Hindrances</button>
+          <button class="nav-item" data-page="tables"><span>05</span>Detailed Tables</button>
         </nav>
       </aside>
 
@@ -34,10 +31,10 @@
         <header class="topbar">
           <div>
             <p class="eyebrow">Rays Power Infra report</p>
-            <h1>Project Dashboard Rays Power Infra</h1>
+            <h1>Executive Project Performance Dashboard</h1>
           </div>
           <div class="topbar-actions">
-            <div class="refresh-meta" id="refreshMeta">Last refresh: loading</div>
+            <div class="refresh-meta" id="refreshMeta">Last refresh: {{ last_updated }}</div>
             <div class="toolbar">
               <label for="projectFilter">Project</label>
               <select id="projectFilter">
@@ -66,26 +63,23 @@
 
           <p class="source-note" id="sourceNote"></p>
 
-          <section class="report-page active" data-page-panel="financial">
-            <section class="financial-hero">
-              <h2>FY 2026-27 Executive Snapshot</h2>
-              <p class="section-intro">A quick management view of billing, progress, budget, profitability, and schedule risk.</p>
-              <div class="variance-grid" id="varianceCards"></div>
+          <section class="report-page active" data-page-panel="overview">
+            <section class="page-hero">
+              <div>
+                <p class="eyebrow">Executive overview</p>
+                <h2>FY 2026-27 Portfolio Snapshot</h2>
+                <p class="section-intro">The top portfolio signals for finance, delivery, risk, and operating attention.</p>
+              </div>
             </section>
 
-            <section class="supporting-metrics">
-              <div class="section-heading">
-                <h2>Supporting Financial Context</h2>
-                <span>Base figures used to interpret the executive snapshot</span>
-              </div>
-              <div class="kpi-grid" id="kpiGrid"></div>
-            </section>
+            <section class="kpi-grid executive-kpi-grid" id="kpiGrid"></section>
+            <section class="variance-grid" id="varianceCards"></section>
 
             <section class="dashboard-grid">
               <article class="panel wide">
                 <div class="panel-heading">
-                  <h2>Project wise Billing Till Date (In Cr)</h2>
-                  <span>Plan vs actual</span>
+                  <h2>Project-wise Billing to Date</h2>
+                  <span>Plan vs actual billing</span>
                 </div>
                 <canvas id="billingTrend"></canvas>
               </article>
@@ -96,19 +90,19 @@
                 </div>
                 <div class="ranking-list" id="billingGapRanking"></div>
               </article>
-              <article class="panel wide">
-                <div class="panel-heading">
-                  <h2>Budget Summary</h2>
-                  <span>Contract value, current budget, and billing</span>
-                </div>
-                <canvas id="budgetChart"></canvas>
-              </article>
               <article class="panel">
                 <div class="panel-heading">
                   <h2>Budget Overrun Watch</h2>
                   <span>Highest current budget overruns</span>
                 </div>
                 <div class="ranking-list" id="budgetOverrunRanking"></div>
+              </article>
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Top 5 Immediate Actions</h2>
+                  <span>AI-prioritized management focus</span>
+                </div>
+                <div class="action-list" id="overviewActionList"></div>
               </article>
             </section>
           </section>
@@ -117,8 +111,8 @@
             <section class="ai-hero">
               <div>
                 <p class="eyebrow">AI risk detection</p>
-                <h2>AI Project Intelligence</h2>
-                <p class="section-intro">Isolation Forest flags projects with unusual progress, billing, delay, issue, PBT, and hindrance patterns.</p>
+                <h2>AI Risk Command Center</h2>
+                <p class="section-intro">Isolation Forest flags abnormal project patterns and translates them into review priorities.</p>
               </div>
               <div class="ai-model-pill" id="aiModelPill">Model loading</div>
             </section>
@@ -135,53 +129,64 @@
               </article>
               <article class="panel">
                 <div class="panel-heading">
+                  <h2>Risk Severity Distribution</h2>
+                  <span>Portfolio health split</span>
+                </div>
+                <canvas id="riskDistributionChart"></canvas>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
                   <h2>Portfolio Risk Drivers</h2>
-                  <span>Most common reasons among flagged projects</span>
+                  <span>Most common drivers</span>
                 </div>
                 <div class="driver-list" id="aiDriverList"></div>
               </article>
               <article class="panel wide ai-insight-panel">
                 <div class="panel-heading">
-                  <h2>AI Insight</h2>
-                  <span>Management summary</span>
+                  <h2>AI Management Insight</h2>
+                  <span>Decision summary</span>
                 </div>
                 <p class="ai-insight" id="aiInsightBox"></p>
               </article>
-            </section>
-
-            <section class="table-section">
-              <div class="panel-heading">
-                <h2>Full AI Risk Table</h2>
-                <span>Project-level model output with explainable drivers</span>
-              </div>
-              <div class="table-wrap">
-                <table class="ai-risk-table">
-                  <thead>
-                    <tr>
-                      <th>Rank</th>
-                      <th>Project</th>
-                      <th>Risk Status</th>
-                      <th>Priority</th>
-                      <th>Risk Index</th>
-                      <th>Risk Reason</th>
-                      <th>Progress Gap</th>
-                      <th>Issues</th>
-                      <th>Procurement Delay</th>
-                      <th>Billing Achievement</th>
-                      <th>Current PBT</th>
-                    </tr>
-                  </thead>
-                  <tbody id="aiRiskRows"></tbody>
-                </table>
-              </div>
+              <article class="panel wide">
+                <div class="panel-heading">
+                  <h2>Recommended Actions</h2>
+                  <span>Next steps for highest-risk projects</span>
+                </div>
+                <div class="action-list" id="aiActionList"></div>
+              </article>
+              <article class="panel model-box">
+                <div class="panel-heading">
+                  <h2>Risk Engine Inputs</h2>
+                  <span>Signals considered</span>
+                </div>
+                <ul class="model-inputs">
+                  <li>Progress lag</li>
+                  <li>Critical issue count</li>
+                  <li>Design delay</li>
+                  <li>Procurement delay</li>
+                  <li>Execution lag</li>
+                  <li>Billing shortfall</li>
+                  <li>PBT shortfall</li>
+                  <li>Site hindrance load</li>
+                </ul>
+              </article>
             </section>
           </section>
 
-          <section class="report-page" data-page-panel="progress">
+          <section class="report-page" data-page-panel="delivery">
+            <section class="page-hero">
+              <div>
+                <p class="eyebrow">Execution and procurement</p>
+                <h2>Project Delivery Health</h2>
+                <p class="section-intro">Progress, commissioning, and procurement signals grouped into one delivery view.</p>
+              </div>
+            </section>
+
             <section class="dashboard-grid">
               <article class="panel wide">
                 <div class="panel-heading">
-                  <h2>Project Progress</h2>
+                  <h2>Delivery Progress</h2>
                   <span>Completed, overdue, and pending by project</span>
                 </div>
                 <div class="progress-legend" aria-label="Project progress legend">
@@ -193,10 +198,24 @@
               </article>
               <article class="panel">
                 <div class="panel-heading">
-                  <h2>Lowest Progress</h2>
+                  <h2>Lowest Progress Projects</h2>
                   <span>Actual progress ranking</span>
                 </div>
                 <div class="ranking-list" id="progressRanking"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Procurement / MFC Status</h2>
+                  <span>PO/MFC status mix</span>
+                </div>
+                <canvas id="delayChart"></canvas>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Top Procurement Delays</h2>
+                  <span>PO/MFC overdue or delayed items</span>
+                </div>
+                <div class="ranking-list" id="delayRanking"></div>
               </article>
               <article class="panel">
                 <div class="panel-heading">
@@ -208,23 +227,78 @@
             </section>
           </section>
 
-          <section class="report-page" data-page-panel="mfc">
+          <section class="report-page" data-page-panel="risks">
+            <section class="page-hero">
+              <div>
+                <p class="eyebrow">Operational risks</p>
+                <h2>Issues & Hindrances</h2>
+                <p class="section-intro">Issue severity, site hindrance causes, and delayed action workload by team.</p>
+              </div>
+            </section>
+
             <section class="dashboard-grid">
               <article class="panel">
                 <div class="panel-heading">
-                  <h2>MFC Delay</h2>
-                  <span>Procurement PO/MFC status mix</span>
+                  <h2>Critical Issues Overview</h2>
+                  <span>By criticality</span>
                 </div>
-                <canvas id="delayChart"></canvas>
+                <canvas id="issuesChart"></canvas>
+              </article>
+              <article class="panel">
+                <div class="panel-heading">
+                  <h2>Hindrance Mix</h2>
+                  <span>Count by cause</span>
+                </div>
+                <canvas id="hinderanceChart"></canvas>
               </article>
               <article class="panel wide">
                 <div class="panel-heading">
-                  <h2>Top Procurement Delays</h2>
-                  <span>PO/MFC overdue or delayed items</span>
+                  <h2>Delayed Activities</h2>
+                  <span>Open workload by team</span>
                 </div>
-                <div class="ranking-list" id="delayRanking"></div>
+                <div class="delay-area-cards" id="delayAreaCards"></div>
               </article>
             </section>
+          </section>
+
+          <section class="report-page" data-page-panel="tables">
+            <section class="page-hero">
+              <div>
+                <p class="eyebrow">Drilldown data</p>
+                <h2>Detailed Tables</h2>
+                <p class="section-intro">Record-level tables are kept here so the main dashboard stays focused.</p>
+              </div>
+            </section>
+
+            <section class="table-section">
+              <div class="panel-heading">
+                <h2>Project Risk Detail</h2>
+                <span>AI output with drivers and recommended action</span>
+              </div>
+              <div class="table-wrap">
+                <table class="ai-risk-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Project</th>
+                      <th>Health</th>
+                      <th>Risk Status</th>
+                      <th>Priority</th>
+                      <th>Risk Index</th>
+                      <th>Risk Reason</th>
+                      <th>Recommended Action</th>
+                      <th>Progress Gap</th>
+                      <th>Issues</th>
+                      <th>Procurement Delay</th>
+                      <th>Billing Achievement</th>
+                      <th>Current PBT</th>
+                    </tr>
+                  </thead>
+                  <tbody id="aiRiskRows"></tbody>
+                </table>
+              </div>
+            </section>
+
             <section class="table-section">
               <div class="panel-heading">
                 <h2>MFC Detail List</h2>
@@ -248,9 +322,7 @@
                 </table>
               </div>
             </section>
-          </section>
 
-          <section class="report-page" data-page-panel="budget">
             <section class="table-section">
               <div class="panel-heading">
                 <h2>Budget Summary Data</h2>
@@ -275,46 +347,33 @@
                 </table>
               </div>
             </section>
-          </section>
 
-          <section class="report-page" data-page-panel="issues">
-            <section class="dashboard-grid">
-              <article class="panel">
-                <div class="panel-heading">
-                  <h2>Critical Issues</h2>
-                  <span>By criticality</span>
-                </div>
-                <canvas id="issuesChart"></canvas>
-              </article>
-              <article class="panel wide">
-                <div class="panel-heading">
-                  <h2>Issue Register</h2>
-                  <span>Actual issue text, owners, remarks, and status</span>
-                </div>
-                <div class="table-wrap compact">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Project</th>
-                        <th>Criticality</th>
-                        <th>Issue</th>
-                        <th>Responsibility</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody id="issueRows"></tbody>
-                  </table>
-                </div>
-              </article>
+            <section class="table-section">
+              <div class="panel-heading">
+                <h2>Issue Register</h2>
+                <span>Actual issue text, owners, remarks, and status</span>
+              </div>
+              <div class="table-wrap compact">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Project</th>
+                      <th>Criticality</th>
+                      <th>Issue</th>
+                      <th>Responsibility</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="issueRows"></tbody>
+                </table>
+              </div>
             </section>
-          </section>
 
-          <section class="report-page" data-page-panel="attention">
             <section class="table-section">
               <div class="panel-heading">
                 <div>
-                  <h2>Delay Activity List</h2>
+                  <h2>Delayed Activities</h2>
                   <div class="segmented-control" id="delayTeamFilter" aria-label="Delay team filter">
                     <button class="active" data-team="All" type="button">All</button>
                     <button data-team="Design" type="button">Design</button>
@@ -342,40 +401,29 @@
                 </table>
               </div>
             </section>
-          </section>
 
-          <section class="report-page" data-page-panel="hinderance">
-            <section class="dashboard-grid">
-              <article class="panel">
-                <div class="panel-heading">
-                  <h2>Hinderance Mix</h2>
-                  <span>Count by cause</span>
-                </div>
-                <canvas id="hinderanceChart"></canvas>
-              </article>
-              <article class="panel wide">
-                <div class="panel-heading">
-                  <h2>Hinderance Records</h2>
-                  <span>Actual site hindrance entries</span>
-                </div>
-                <div class="table-wrap compact">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Project</th>
-                        <th>Block</th>
-                        <th>Hinderance</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Duration</th>
-                        <th>Remarks</th>
-                      </tr>
-                    </thead>
-                    <tbody id="hinderanceRows"></tbody>
-                  </table>
-                </div>
-              </article>
+            <section class="table-section">
+              <div class="panel-heading">
+                <h2>Hindrance Records</h2>
+                <span>Actual site hindrance entries</span>
+              </div>
+              <div class="table-wrap compact">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Project</th>
+                      <th>Block</th>
+                      <th>Hindrance</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>Duration</th>
+                      <th>Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody id="hinderanceRows"></tbody>
+                </table>
+              </div>
             </section>
           </section>
         </main>

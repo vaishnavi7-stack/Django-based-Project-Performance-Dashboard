@@ -156,14 +156,17 @@ function makeChart(id, config) {
 
 function renderKpis(kpis) {
   const grid = document.getElementById("kpiGrid");
+  const rows = filteredAiRows(dashboardData?.ai, currentProject);
+  const atRisk = rows.filter((row) => row.risk_status !== "Normal").length;
   const items = [
-    ["Order Book Value", formatCr(kpis.order_book || kpis.contract_value), "Total order book value in the source workbook"],
-    ["FY Planned Billing", formatCr(kpis.plan_billing), "Planned billing for FY 2026-27"],
-    ["Actual Billing Till Date", formatCr(kpis.actual_billing), "Billing recorded till date"],
-    ["Planned Billing Till Date", formatCr(kpis.plan_td), "Planned billing expected till date"],
-    ["Billing Projection", formatCr(kpis.billing_projection), "Projected billing from the workbook"],
+    ["Total Projects", kpis.project_count, "Projects in the current selection"],
+    ["Total Contract Value", formatCr(kpis.contract_value || kpis.order_book), "Portfolio contract value"],
+    ["Billing Achievement", formatPct(kpis.billing_achievement), "Actual billing against planned billing"],
+    ["Average Progress", formatPct(kpis.avg_actual_progress), "Average actual progress across overall rows"],
+    ["At-Risk Projects", atRisk, "AI high and medium risk projects"],
+    ["Budget Overruns", kpis.budget_overrun_projects, "Projects where current budget exceeds contract value"],
     ["Open Critical Issues", kpis.open_issues, "Open items in the critical issue register"],
-    ["Average Actual Progress", formatPct(kpis.avg_actual_progress), "Average actual progress across overall project rows"],
+    ["Avg Procurement Delay", formatDays(kpis.avg_procurement_delay), "Average delay days in procurement actions"],
   ];
 
   grid.innerHTML = items
@@ -528,10 +531,18 @@ function riskStatusClass(status) {
   return "normal";
 }
 
+function healthStatusClass(status) {
+  return String(status || "On Track").toLowerCase().replace(/\s+/g, "-");
+}
+
 function filteredAiRows(ai, project) {
   const rows = ai?.risks || [];
   if (project === "__all__") return rows;
   return rows.filter((row) => row.project === project);
+}
+
+function aiRowsForCurrentProject(ai, project) {
+  return filteredAiRows(ai, project).sort((a, b) => Number(b.risk_score || 0) - Number(a.risk_score || 0));
 }
 
 function renderAiCards(rows) {
@@ -590,6 +601,29 @@ function renderAiTopRisk(rows) {
     .join("");
 }
 
+function renderRiskDistribution(ai, project) {
+  const rows = filteredAiRows(ai, project);
+  const labels = ["Critical", "At Risk", "Watch", "On Track"];
+  const values = labels.map((label) => rows.filter((row) => row.health_status === label).length);
+  makeChart("riskDistributionChart", {
+    type: "doughnut",
+    data: {
+      labels,
+      datasets: [
+        {
+          data: values,
+          backgroundColor: [palette.bad, "#e6bf91", palette.plan, palette.actual],
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom" } },
+    },
+  });
+}
+
 function renderAiDrivers(ai, rows, project) {
   const list = document.getElementById("aiDriverList");
   if (!list) return;
@@ -618,6 +652,30 @@ function renderAiDrivers(ai, rows, project) {
     .join("");
 }
 
+function renderActionList(id, rows) {
+  const list = document.getElementById(id);
+  if (!list) return;
+  const topRows = [...rows].sort((a, b) => Number(b.risk_score || 0) - Number(a.risk_score || 0)).slice(0, 5);
+  if (!topRows.length) {
+    list.innerHTML = '<div class="empty-state">No actions for this selection.</div>';
+    return;
+  }
+  list.innerHTML = topRows
+    .map(
+      (row) => `
+        <div class="action-item">
+          <div>
+            <strong>${escapeHtml(row.project)}</strong>
+            <small>${escapeHtml(row.risk_reason)}</small>
+          </div>
+          <p>${escapeHtml(row.recommended_action)}</p>
+          <span class="health-badge ${healthStatusClass(row.health_status)}">${escapeHtml(row.health_status)}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
 function renderAiInsight(ai, rows, project) {
   const box = document.getElementById("aiInsightBox");
   if (!box) return;
@@ -637,7 +695,7 @@ function renderAiRiskRows(rows) {
   const body = document.getElementById("aiRiskRows");
   if (!body) return;
   if (!rows.length) {
-    body.innerHTML = '<tr><td colspan="11">No AI risk rows for this selection.</td></tr>';
+    body.innerHTML = '<tr><td colspan="13">No AI risk rows for this selection.</td></tr>';
     return;
   }
   body.innerHTML = rows
@@ -646,10 +704,12 @@ function renderAiRiskRows(rows) {
         <tr>
           <td>${escapeHtml(row.rank)}</td>
           <td>${escapeHtml(row.project)}</td>
+          <td><span class="health-badge ${healthStatusClass(row.health_status)}">${escapeHtml(row.health_status)}</span></td>
           <td><span class="risk-status ${riskStatusClass(row.risk_status)}">${escapeHtml(row.risk_status)}</span></td>
           <td>${escapeHtml(row.priority)}</td>
           <td><strong>${escapeHtml(formatRiskScore(row.risk_score))}</strong></td>
           <td>${escapeHtml(row.risk_reason)}</td>
+          <td>${escapeHtml(row.recommended_action)}</td>
           <td class="${row.progress_difference < 0 ? "bad-text" : ""}">${escapeHtml(formatPp(row.progress_difference))}</td>
           <td>${escapeHtml(row.issue_count)}</td>
           <td>${escapeHtml(formatDays(row.avg_procurement_delay))}</td>
@@ -662,16 +722,40 @@ function renderAiRiskRows(rows) {
 }
 
 function renderAI(ai, project) {
-  const rows = filteredAiRows(ai, project);
+  const rows = aiRowsForCurrentProject(ai, project);
   const modelPill = document.getElementById("aiModelPill");
   if (modelPill) {
     modelPill.textContent = `${ai?.model || "AI model"} | ${(ai?.features_used || []).length} risk signals`;
   }
   renderAiCards(rows);
   renderAiTopRisk(rows);
+  renderRiskDistribution(ai, project);
   renderAiDrivers(ai, rows, project);
   renderAiInsight(ai, rows, project);
+  renderActionList("overviewActionList", rows);
+  renderActionList("aiActionList", rows);
   renderAiRiskRows(rows);
+}
+
+function renderDelayAreaCards(rows) {
+  const grid = document.getElementById("delayAreaCards");
+  if (!grid) return;
+  const teams = ["Design", "Procurement", "Construction"];
+  grid.innerHTML = teams
+    .map((team) => {
+      const teamRows = rows.filter((row) => row.team === team);
+      const maxDelay = teamRows.reduce((max, row) => Math.max(max, Number(row.delay_days || 0)), 0);
+      const aged = teamRows.filter((row) => Number(row.delay_days || 0) >= 60).length;
+      return `
+        <article class="delay-area-card">
+          <span>${escapeHtml(team)}</span>
+          <strong>${teamRows.length}</strong>
+          <small>${escapeHtml(formatDays(maxDelay))} max delay</small>
+          <b>${aged} aged 60+ days</b>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 function populateProjects(projects) {
@@ -701,6 +785,7 @@ function renderDashboard(data, project = "__all__") {
   renderRankings(view.rankings, view.mfc_top_delays);
   renderCommissioning(view.commissioning);
   renderAttention(view.attention);
+  renderDelayAreaCards(view.attention);
   renderMfcRows(view.mfc_details);
   renderIssueRows(view.critical_issue_details);
   renderBudgetRows(view.budget_details);

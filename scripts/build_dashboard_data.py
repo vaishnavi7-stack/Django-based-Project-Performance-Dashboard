@@ -574,17 +574,24 @@ def attention_rows(design, procurement, execution, project=None):
     return rows
 
 
-def kpis(projects, budget, billing, issues, progress, project=None):
+def kpis(projects, budget, billing, issues, progress, procurement, project=None):
     project_names = [project] if project else projects
     bdf = project_filter(budget, "Project Name", project)
     bill_df = project_filter(billing, "Project Name", project)
     issue_df = project_filter(issues, "Project Name", project)
     progress_df = project_filter(progress, "Project Name", project)
+    procurement_df = project_filter(procurement, "Project Name", project)
     overall = progress_df["Type of work"].astype(str).str.contains(
         r"over\s*all", case=False, na=False, regex=True
     )
     actual_progress = progress_df.loc[overall, "Cumulative Actual Till Date (%)"]
     open_issues = issue_df["Status"].astype(str).str.contains("open", case=False, na=False).sum()
+    budget_overruns = 0
+    if not bdf.empty:
+        budget_overruns = int((numeric_series(bdf, "Current Budget") > numeric_series(bdf, "Contract value")).sum())
+    avg_procurement_delay = (
+        as_number(numeric_series(procurement_df, "Due Since (Days)").mean()) if not procurement_df.empty else 0
+    )
 
     return {
         "project_count": len(project_names),
@@ -604,6 +611,11 @@ def kpis(projects, budget, billing, issues, progress, project=None):
         "actual_billing": round(as_number(bill_df["Actual Billing"].sum()), 2),
         "open_issues": int(open_issues),
         "avg_actual_progress": round(as_number(actual_progress.mean()), 4),
+        "billing_achievement": pct(as_number(bill_df["Actual Billing"].sum()) / as_number(bill_df["Plan Billing"].sum()))
+        if "Plan Billing" in bill_df.columns and as_number(bill_df["Plan Billing"].sum())
+        else 0,
+        "budget_overrun_projects": budget_overruns,
+        "avg_procurement_delay": round(avg_procurement_delay, 1),
     }
 
 
@@ -683,6 +695,34 @@ def risk_reasons(row):
         add("High site hindrance count", "Site Hindrance")
 
     return reasons, drivers
+
+
+def recommended_action(drivers, row):
+    if "Procurement Delay" in drivers:
+        return "Escalate delayed procurement packages and confirm owner-wise closure dates."
+    if "Billing Gap" in drivers:
+        return "Review billing achievement against physical progress and unblock pending invoices."
+    if "Progress Lag" in drivers or "Execution Lag" in drivers:
+        return "Run a delivery recovery review focused on activities behind plan."
+    if "Critical Issues" in drivers:
+        return "Close high-priority critical issues with named owners and target dates."
+    if "PBT Gap" in drivers:
+        return "Review cost assumptions, budget variance, and PBT recovery actions."
+    if "Site Hindrance" in drivers:
+        return "Resolve recurring site hindrances and track unblock dates."
+    if row["risk_status"] != "Normal":
+        return "Review the combined project risk pattern with the project team."
+    return "Continue routine monitoring."
+
+
+def health_status(risk_status, risk_score):
+    if risk_score >= 80:
+        return "Critical"
+    if risk_status == "High Risk":
+        return "At Risk"
+    if risk_status == "Medium Risk":
+        return "Watch"
+    return "On Track"
 
 
 def ai_project_intelligence(projects, sheets):
@@ -875,14 +915,21 @@ def ai_project_intelligence(projects, sheets):
             reasons = ["Abnormal combined project pattern"]
             drivers = ["Portfolio Anomaly"]
         reason_text = ", ".join(reasons) if reasons else "No dominant abnormal driver"
+        base_row = {
+            "risk_status": status,
+        }
+        row_with_status = pd.concat([row, pd.Series(base_row)])
+        health = health_status(status, score)
         rows.append(
             {
                 "project": clean(row["Project Name"]),
                 "risk_status": status,
                 "priority": priority,
+                "health_status": health,
                 "risk_score": score,
                 "anomaly_score": round(float(raw_risk[index]), 4),
                 "risk_reason": reason_text,
+                "recommended_action": recommended_action(drivers, row_with_status),
                 "drivers": drivers,
                 "progress_difference": round(float(row["Progress_Difference"]), 1),
                 "issue_count": int(row["Issue_Count"]),
@@ -908,6 +955,10 @@ def ai_project_intelligence(projects, sheets):
     high = sum(1 for row in rows if row["risk_status"] == "High Risk")
     medium = sum(1 for row in rows if row["risk_status"] == "Medium Risk")
     normal = sum(1 for row in rows if row["risk_status"] == "Normal")
+    health_distribution = [
+        {"status": status, "projects": sum(1 for row in rows if row["health_status"] == status)}
+        for status in ["Critical", "At Risk", "Watch", "On Track"]
+    ]
     flagged = [row for row in rows if row["risk_status"] != "Normal"]
     driver_counter = Counter(driver for row in flagged for driver in row["drivers"])
     driver_counts = [
@@ -946,6 +997,7 @@ def ai_project_intelligence(projects, sheets):
             },
         ],
         "driver_counts": driver_counts,
+        "health_distribution": health_distribution,
         "top_projects": rows[:8],
         "risks": rows,
         "insight": insight,
@@ -960,6 +1012,7 @@ def build_view(projects, sheets, project=None):
             sheets["Project Billing"],
             sheets["Critical Issues"],
             sheets["Project Progress"],
+            sheets["Procurement Delay and Action Pl"],
             project,
         ),
         "billing_trend": billing_trend(sheets["Month-wise Billing"], project),
